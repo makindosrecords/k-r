@@ -237,7 +237,7 @@ const testimonials = [
     <!-- Track viewport -->
     <div class="h-gallery-wrap" style="padding:0 60px;">
       <div class="h-gallery-track" id="gallery-track">
-        {gallery.map((item) => (
+        {gallery.map((item, i) => (
           <div 
             class="gallery-card"
             data-image={item.image}
@@ -249,7 +249,8 @@ const testimonials = [
             <img
               src={item.image}
               alt={item.title}
-              loading="lazy"
+              loading={i <= 3 ? 'eager' : 'lazy'}
+              decoding="async"
               draggable="false"
               width={item.w}
               height={item.h}
@@ -423,6 +424,14 @@ const testimonials = [
     let currentCard = 0;
     let targetScroll = 0;
     let rafId = 0;
+    let isProgrammatic = false;
+
+    // Mouse drag state
+    let isDown = false;
+    let startX = 0;
+    let scrollLeftStart = 0;
+    let hasMoved = false;
+    let dragDistance = 0;
 
     // Build dot indicators
     cards.forEach((_, i) => {
@@ -451,8 +460,23 @@ const testimonials = [
       });
     }
 
-    function lerp(current: number, target: number, factor: number) {
-      return current + (target - current) * factor;
+    function syncCurrentFromScroll() {
+      const wrapCenter = wrap.scrollLeft + wrap.clientWidth / 2;
+      let minDiff = Infinity;
+      let closest = 0;
+      for (let i = 0; i < total; i++) {
+        const c = cards[i];
+        const cardCenter = c.offsetLeft + c.offsetWidth / 2;
+        const diff = Math.abs(cardCenter - wrapCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closest = i;
+        }
+      }
+      if (closest !== currentCard) {
+        currentCard = closest;
+        updateUI();
+      }
     }
 
     function easeOutCubic(t: number): number {
@@ -461,7 +485,7 @@ const testimonials = [
 
     let startScroll = 0;
     let animStartTime = 0;
-    const ANIM_DURATION = 550; // ms for silky ease
+    const ANIM_DURATION = 420;
 
     function smoothScroll(timestamp: number) {
       if (!animStartTime) animStartTime = timestamp;
@@ -475,6 +499,8 @@ const testimonials = [
         rafId = requestAnimationFrame(smoothScroll);
       } else {
         wrap.scrollLeft = targetScroll;
+        isProgrammatic = false;
+        syncCurrentFromScroll();
       }
     }
 
@@ -489,6 +515,7 @@ const testimonials = [
       
       startScroll = wrap.scrollLeft;
       animStartTime = 0;
+      isProgrammatic = true;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(smoothScroll);
       updateUI();
@@ -504,18 +531,46 @@ const testimonials = [
       if (e.key === 'ArrowRight') goTo(currentCard + 1);
     });
 
-    // Mouse wheel on gallery scroll with cooldown for distinct card glide
-    let wheelCooldown = false;
-    wrap.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      if (wheelCooldown) return;
-      if (Math.abs(e.deltaY) > 15 || Math.abs(e.deltaX) > 15) {
-        wheelCooldown = true;
-        const dir = (e.deltaY > 0 || e.deltaX > 0) ? 1 : -1;
-        goTo(currentCard + dir);
-        setTimeout(() => { wheelCooldown = false; }, 320);
+    // Native scroll listener for manual touch/trackpad/drag scroll
+    wrap.addEventListener('scroll', () => {
+      if (!isProgrammatic) {
+        syncCurrentFromScroll();
       }
-    }, { passive: false });
+    }, { passive: true });
+
+    // Smooth Mouse Drag Interaction
+    wrap.addEventListener('mousedown', (e) => {
+      isDown = true;
+      hasMoved = false;
+      dragDistance = 0;
+      wrap.classList.add('is-dragging');
+      startX = e.pageX - wrap.offsetLeft;
+      scrollLeftStart = wrap.scrollLeft;
+      cancelAnimationFrame(rafId);
+      isProgrammatic = false;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      wrap.classList.remove('is-dragging');
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      if (!isDown) return;
+      isDown = false;
+      wrap.classList.remove('is-dragging');
+    });
+
+    wrap.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - wrap.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      dragDistance = Math.abs(x - startX);
+      if (dragDistance > 5) hasMoved = true;
+      wrap.scrollLeft = scrollLeftStart - walk;
+    });
 
     // Touch swipe
     let swipeStartX = 0;
@@ -538,6 +593,12 @@ const testimonials = [
         btn.style.color = '#11100F';
         btn.style.borderColor = 'rgba(163,128,44,0.35)';
       });
+    });
+
+    // Pre-decode initial card images
+    cards.forEach(c => {
+      const img = c.querySelector('img');
+      if (img && img.decode) img.decode().catch(() => {});
     });
 
     // Init
@@ -627,6 +688,10 @@ const testimonials = [
 
     cards.forEach((card, i) => {
       card.addEventListener('click', (e) => {
+        if (hasMoved && dragDistance > 8) {
+          e.preventDefault();
+          return;
+        }
         e.preventDefault();
         openLb(i);
       });

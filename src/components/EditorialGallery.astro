@@ -80,7 +80,8 @@ const first = items[0] || { location: 'Central Florida', title: '' };
               <img
                 src={item.image}
                 alt={item.title}
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading="eager"
+                decoding="async"
                 class="eg-img-inner"
                 id={`eg-img-${sectionId}-${i}`}
               />
@@ -230,6 +231,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     height: 100%; align-items: center;
     gap: 28px;
     will-change: transform;
+    transform: translateZ(0);
   }
 
   /* ── Slides ── */
@@ -487,6 +489,8 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   var slides = Array.from(track.querySelectorAll('.eg-slide-item'));
   var curX = 0, targetX = 0, rafId = null, lastIdx = -1, lbIdx = 0, scrolled = false;
   var activeBuf = 'a';
+  var slideOffsets = [];
+  var maxOffset = 0;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -496,19 +500,27 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     return { isMob: isMob, cW: cW };
   }
 
-  function getSlideOffset(idx) {
+  function recalculateOffsets() {
     var cW = carousel.offsetWidth || window.innerWidth;
-    var slide = slides[idx];
-    if (!slide) return 0;
-    return slide.offsetLeft - (cW - slide.offsetWidth) / 2;
+    slideOffsets = [];
+    for (var i = 0; i < count; i++) {
+      var slide = slides[i];
+      if (slide) {
+        var offset = slide.offsetLeft - (cW - slide.offsetWidth) / 2;
+        slideOffsets.push(offset);
+      } else {
+        slideOffsets.push(0);
+      }
+    }
+    maxOffset = slideOffsets[count - 1] || 0;
   }
 
   function getClosestSlideIdx(x) {
+    if (!slideOffsets.length) recalculateOffsets();
     var minDiff = Infinity;
     var closestIdx = 0;
     for (var i = 0; i < count; i++) {
-      var offset = getSlideOffset(i);
-      var diff = Math.abs(offset - x);
+      var diff = Math.abs(slideOffsets[i] - x);
       if (diff < minDiff) {
         minDiff = diff;
         closestIdx = i;
@@ -523,23 +535,40 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     var m = metrics();
     var dir = m.isMob ? 'column' : 'row';
 
+    if (!slideOffsets.length) recalculateOffsets();
+
     if (r.top >= 0) {
       panel.style.cssText = 'position:absolute;top:0;bottom:;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
-      track.style.transform = 'translateX(' + (-getSlideOffset(0)) + 'px)';
+      track.style.transform = 'translate3d(' + (-slideOffsets[0]) + 'px, 0, 0)';
       bar.style.width = '0%';
       setActive(0); return;
     }
     if (r.bottom <= wh) {
       panel.style.cssText = 'position:absolute;top:;bottom:0;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
-      track.style.transform = 'translateX(' + (-getSlideOffset(count - 1)) + 'px)';
+      track.style.transform = 'translate3d(' + (-maxOffset) + 'px, 0, 0)';
       bar.style.width = '100%';
       setActive(count - 1); return;
     }
 
     panel.style.cssText = 'position:fixed;top:0;bottom:;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
     var p = Math.max(0, Math.min(1, -r.top / tot));
-    var maxOffset = getSlideOffset(count - 1);
-    targetX = p * maxOffset;
+    
+    // Equal scroll pacing per slide regardless of landscape/portrait image dimensions
+    if (count > 1) {
+      var slideProgress = p * (count - 1);
+      var base = Math.floor(slideProgress);
+      var frac = slideProgress - base;
+      if (base >= count - 1) {
+        targetX = slideOffsets[count - 1] || 0;
+      } else {
+        var startOffset = slideOffsets[base] || 0;
+        var endOffset = slideOffsets[base + 1] !== undefined ? slideOffsets[base + 1] : startOffset;
+        targetX = startOffset + frac * (endOffset - startOffset);
+      }
+    } else {
+      targetX = 0;
+    }
+
     bar.style.width = (p * 100) + '%';
     if (p > 0.02 && !scrolled) { scrolled = true; if (hint) hint.classList.add('hidden'); }
     if (!rafId) animate();
@@ -565,18 +594,18 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   }
 
   function animate() {
-    curX = lerp(curX, targetX, 0.085);
-    track.style.transform = 'translateX(' + (-curX) + 'px)';
+    curX = lerp(curX, targetX, 0.12);
+    track.style.transform = 'translate3d(' + (-curX) + 'px, 0, 0)';
     
     var activeIdx = getClosestSlideIdx(curX);
     if (activeIdx !== lastIdx) {
       setActive(activeIdx);
     }
 
-    if (Math.abs(curX - targetX) > 0.4) {
+    if (Math.abs(curX - targetX) > 0.3) {
       rafId = requestAnimationFrame(animate);
     } else {
-      track.style.transform = 'translateX(' + (-targetX) + 'px)';
+      track.style.transform = 'translate3d(' + (-targetX) + 'px, 0, 0)';
       curX = targetX;
       var finalIdx = getClosestSlideIdx(targetX);
       if (finalIdx !== lastIdx) setActive(finalIdx);
@@ -655,7 +684,25 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     if (dialog) { dialog.style.display = 'none'; try { dialog.close(); } catch(e) {} document.body.style.overflow = ''; }
   }
 
-  slides.forEach(function(s, i) { s.addEventListener('click', function() { openLb(i, 0); }); });
+  slides.forEach(function(s, i) {
+    s.addEventListener('click', function() { openLb(i, 0); });
+    var img = s.querySelector('img');
+    if (img) {
+      if (!img.complete) {
+        img.addEventListener('load', function() {
+          recalculateOffsets();
+          update();
+        });
+      }
+      if (img.decode) {
+        img.decode().then(function() {
+          recalculateOffsets();
+          update();
+        }).catch(function() {});
+      }
+    }
+  });
+
   if (lbClose) lbClose.addEventListener('click', closeLb);
   if (lbPrev) lbPrev.addEventListener('click', function(e) { e.stopPropagation(); openLb(lbIdx - 1, -1); });
   if (lbNext) lbNext.addEventListener('click', function(e) { e.stopPropagation(); openLb(lbIdx + 1, 1); });
@@ -685,8 +732,14 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     if (titleEl) titleEl.classList.add('visible');
   }, 400);
 
+  function handleResize() {
+    recalculateOffsets();
+    update();
+  }
+
+  recalculateOffsets();
   window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('resize', handleResize, { passive: true });
   update();
 })();
 </script>

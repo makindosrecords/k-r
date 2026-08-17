@@ -208,6 +208,12 @@ body {
   padding: 20px 60px 40px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.h-gallery-wrap.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .h-gallery-wrap::-webkit-scrollbar {
