@@ -57,7 +57,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
           <span class="eg-count-sep"> / </span>
           <span class="eg-count-total">{String(count).padStart(2, '0')}</span>
         </div>
-        <a href="/contact" class="eg-sidebar-cta">Commission a Session</a>
+        <a href="/contact" class="eg-sidebar-cta">Book a Session</a>
       </div>
 
     </div>
@@ -122,7 +122,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
         <h3 class="eg-lb-title" id={`eg-lb-title-${sectionId}`}></h3>
         <p class="eg-lb-loc" id={`eg-lb-loc-${sectionId}`}></p>
       </div>
-      <a href="/contact" class="eg-lb-cta">Commission Kimberly &amp; Rick</a>
+      <a href="/contact" class="eg-lb-cta">Book Kimberly &amp; Rick</a>
     </div>
   </dialog>
 
@@ -241,14 +241,17 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.32;
-    transform: scale(0.96);
+    opacity: 0.85;
+    transform: scale(0.97);
     background: transparent;
     border: none;
     border-radius: 0;
-    transition: opacity 0.65s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
   }
-  .eg-slide-item.active { opacity: 1; transform: scale(1); }
+  .eg-slide-item.active {
+    opacity: 1;
+    transform: scale(1);
+  }
 
   .eg-slide-inner {
     height: 100%;
@@ -500,6 +503,20 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     return slide.offsetLeft - (cW - slide.offsetWidth) / 2;
   }
 
+  function getClosestSlideIdx(x) {
+    var minDiff = Infinity;
+    var closestIdx = 0;
+    for (var i = 0; i < count; i++) {
+      var offset = getSlideOffset(i);
+      var diff = Math.abs(offset - x);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    }
+    return closestIdx;
+  }
+
   function update() {
     var r = outer.getBoundingClientRect();
     var h = outer.offsetHeight, wh = window.innerHeight, tot = h - wh;
@@ -525,8 +542,6 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     targetX = p * maxOffset;
     bar.style.width = (p * 100) + '%';
     if (p > 0.02 && !scrolled) { scrolled = true; if (hint) hint.classList.add('hidden'); }
-    var ai = Math.min(count - 1, Math.round(p * (count - 1)));
-    if (ai !== lastIdx) setActive(ai);
     if (!rafId) animate();
   }
 
@@ -552,11 +567,20 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   function animate() {
     curX = lerp(curX, targetX, 0.085);
     track.style.transform = 'translateX(' + (-curX) + 'px)';
+    
+    var activeIdx = getClosestSlideIdx(curX);
+    if (activeIdx !== lastIdx) {
+      setActive(activeIdx);
+    }
+
     if (Math.abs(curX - targetX) > 0.4) {
       rafId = requestAnimationFrame(animate);
     } else {
       track.style.transform = 'translateX(' + (-targetX) + 'px)';
-      curX = targetX; rafId = null;
+      curX = targetX;
+      var finalIdx = getClosestSlideIdx(targetX);
+      if (finalIdx !== lastIdx) setActive(finalIdx);
+      rafId = null;
     }
   }
 

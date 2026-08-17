@@ -279,39 +279,52 @@ const testimonials = [
     <div class="about-text-col">
 
       <div class="reveal-right">
-        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
-          <span class="gold-line"></span>Our Philosophy
+        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
+          <span class="gold-line"></span>Meet Kimberly &amp; Rick
         </span>
       </div>
 
-      <h2 class="reveal-right" style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,5vw,76px);font-weight:300;color:#11100F;line-height:1.08;transition-delay:0.1s;">
-        "Light fades<br/>in seconds.<br/><em style="font-style:italic;background:linear-gradient(135deg,#B89635 0%,#8A6D30 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Art is forever."</em>
+      <h2 class="reveal-right" style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.5vw,68px);font-weight:300;color:#11100F;line-height:1.1;transition-delay:0.1s;">
+        Capturing Love, Laughter &amp;<br/><em style="font-style:italic;background:linear-gradient(135deg,#B89635 0%,#8A6D30 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Everything In Between</em>
       </h2>
 
-      <div class="stagger-children reveal-right" style="transition-delay:0.2s;">
-        <p style="font-size:18px;line-height:1.8;color:#3D3934;font-weight:400;">
-          Welcome to K&R Photography. We are a husband and wife duo with over 20 years experience that specialize in capturing the essence of your most precious moments. With a keen eye for detail and a passion for photography, we aim to create timeless memories that you will cherish forever.
+      <div class="stagger-children reveal-right" style="transition-delay:0.2s;display:flex;flex-direction:column;gap:18px;">
+        <p style="font-size:17.5px;line-height:1.8;color:#2E2A25;font-weight:400;">
+          Welcome to K&amp;R Photography, where we’re all about capturing the good stuff—like love, laughter, and maybe a few happy tears! We’re Kimberly and Rick, your favorite husband and wife photography duo specializing in weddings and portraits across Central Florida.
         </p>
+        <p style="font-size:16.5px;line-height:1.8;color:#5C5650;font-weight:400;">
+          As a team, we know how to keep things fun and relaxed so you can focus on what really matters—like not tripping down the aisle! With our unique blend of photojournalistic flair and fine art style, we promise to snap those candid moments and epic poses that truly reflect your personalities.
+        </p>
+
+        <!-- Kimberly's Personal Note -->
+        <div style="background:rgba(255,255,255,0.7);border-left:2px solid #A3802C;padding:20px 24px;border-radius:0 6px 6px 0;margin-top:6px;box-shadow:0 6px 20px rgba(26,24,22,0.03);">
+          <div style="font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:8px;">
+            A Note From Kimberly
+          </div>
+          <p style="font-size:15px;line-height:1.75;color:#4A443E;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:19px;margin:0;">
+            “I stumbled upon my love for photography back in the darkroom days of middle school—yes, I was the kid who thought developing film was the coolest thing ever! With over 25 years of experience, I’ve captured everything from jaw-dropping weddings to family portraits. Just over 12 years ago, I met the love of my life, Rick, who encouraged me to chase my dreams. Little did he know I’d get him in on it too! Now we get to create magic together every single day.”
+          </p>
+        </div>
       </div>
 
       <!-- Studio Credentials -->
-      <div class="reveal-right stagger-children" style="transition-delay:0.3s;display:grid;grid-template-columns:1fr 1fr;gap:28px;border-top:1px solid rgba(184,150,53,0.25);padding-top:36px;">
+      <div class="reveal-right stagger-children" style="transition-delay:0.3s;display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid rgba(184,150,53,0.25);padding-top:30px;">
         {[
-          { label: 'Years of Mastery', value: '20+' },
+          { label: 'Years Behind The Lens', value: '25+' },
           { label: '5-Star Google Reviews', value: '380+' },
-          { label: 'Commissions Delivered', value: '1,200+' },
-          { label: 'Real Estate Turnaround', value: '24hr' },
+          { label: 'Weddings & Sessions', value: '1,200+' },
+          { label: 'Lead Photographers', value: '2 Always' },
         ].map(c => (
           <div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;color:#A3802C;line-height:1;">{c.value}</div>
-            <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#3D3934;margin-top:8px;">{c.label}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;color:#A3802C;line-height:1;">{c.value}</div>
+            <div style="font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#3D3934;margin-top:6px;">{c.label}</div>
           </div>
         ))}
       </div>
 
-      <div class="reveal-right" style="transition-delay:0.4s;">
+      <div class="reveal-right" style="transition-delay:0.4s;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
         <a href="/contact" class="cta-btn" style="display:inline-flex;align-items:center;gap:10px;">
-          Commission Your Session
+          Let’s Create Magic Together
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -362,9 +375,9 @@ const testimonials = [
 
     <div style="position:relative;z-index:2;text-align:center;max-width:760px;padding:40px;" class="reveal">
       <span style="font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;display:block;margin-bottom:24px;">Your Story Deserves a Master</span>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,84px);font-weight:300;color:#11100F;line-height:1;margin-bottom:36px;">Begin Your Commission</h2>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,84px);font-weight:300;color:#11100F;line-height:1;margin-bottom:36px;">Let’s Capture Your Story</h2>
       <p style="font-size:17px;color:#3D3934;line-height:1.8;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;font-weight:400;">Ready to create something timeless? Kimberly & Rick personally respond to every inquiry within 24 hours.</p>
-      <a href="/contact" class="cta-btn" style="font-size:13.5px;padding:16px 36px;">Commission Kimberly & Rick</a>
+      <a href="/contact" class="cta-btn" style="font-size:13.5px;padding:16px 36px;">Book Kimberly & Rick</a>
     </div>
   </section>
 
