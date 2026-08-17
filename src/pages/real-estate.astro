@@ -46,6 +46,68 @@ const galleryItems = [
     sectionId="realestate"
   />
 
+  <!-- ─── CINEMATIC PROPERTY FILMS & WALKTHROUGHS ─── -->
+  <section style="background:var(--black-soft);padding:110px 60px;border-top:1px solid rgba(184,150,53,0.18);border-bottom:1px solid rgba(184,150,53,0.18);">
+    <div style="max-width:1440px;margin:0 auto;">
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
+          <span class="gold-line"></span>Motion &amp; Video Production
+        </span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#11100F;margin-top:12px;line-height:0.95;">
+          Cinematic Property Films
+        </h2>
+        <p style="font-size:16.5px;color:#5C5650;max-width:580px;margin:16px auto 0;font-family:'Inter',sans-serif;line-height:1.75;">
+          High-definition walkthroughs, aerial drone cinematography, and social media reels designed to captivate luxury buyers.
+        </p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:40px;" class="video-grid">
+        {[
+          {
+            id: 'zF1YlSvQtAc',
+            title: 'Luxury Waterfront Estate Showcase',
+            meta: 'Aerial & Interior 4K Walkthrough',
+            thumb: 'https://img.youtube.com/vi/zF1YlSvQtAc/maxresdefault.jpg'
+          },
+          {
+            id: 'g_5gGrDqjFI',
+            title: 'Modern Architecture & Living Tour',
+            meta: 'Flambient Cinema & Drone Flow',
+            thumb: 'https://img.youtube.com/vi/g_5gGrDqjFI/maxresdefault.jpg'
+          }
+        ].map((video) => (
+          <div 
+            class="film-preview-card" 
+            data-video-id={video.id} 
+            data-video-title={video.title}
+            role="button"
+            tabindex="0"
+            aria-label={`Play ${video.title}`}
+          >
+            <div class="film-thumb-wrap">
+              <img 
+                src={video.thumb} 
+                alt={video.title} 
+                loading="lazy" 
+                class="film-poster-img"
+              />
+              <div class="film-overlay"></div>
+              <div class="film-play-btn">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style="transform:translateX(2px);">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="film-caption">
+              <span class="film-meta">{video.meta}</span>
+              <h3 class="film-title">{video.title}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ─── WHY AGENTS CHOOSE US ─── -->
   <section style="background:var(--black);padding:120px 60px;">
     <div style="max-width:1100px;margin:0 auto;">
@@ -80,15 +142,268 @@ const galleryItems = [
     <a href="/contact" class="cta-btn">Book Real Estate Shoot</a>
   </section>
 
+  <!-- ─── PURE CINEMATIC VIDEO POPOUT ─── -->
+  <div id="video-modal" class="video-modal" aria-hidden="true">
+    <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+    <button class="video-modal-close" id="video-modal-close" aria-label="Close video">✕</button>
+    <div class="video-modal-dialog">
+      <div class="video-modal-player-wrap">
+        <iframe
+          id="video-modal-iframe"
+          src=""
+          title="Video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
 </Layout>
 
 <style>
   .feat-tile:hover { border-color: rgba(201,168,76,0.4) !important; transform: translateY(-4px); }
-  @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr !important; } }
+  
+  /* ── Film Preview Card ── */
+  .film-preview-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #FAF8F5;
+    border: 1px solid rgba(184, 150, 53, 0.22);
+    box-shadow: 0 12px 36px rgba(26, 24, 22, 0.05);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .film-preview-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(26, 24, 22, 0.12);
+    border-color: rgba(184, 150, 53, 0.5);
+  }
+
+  .film-thumb-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #11100F;
+  }
+  .film-poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .film-preview-card:hover .film-poster-img {
+    transform: scale(1.05);
+  }
+
+  .film-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17,16,15,0.1) 0%, rgba(17,16,15,0.45) 100%);
+    transition: background 0.4s ease;
+  }
+  .film-preview-card:hover .film-overlay {
+    background: linear-gradient(180deg, rgba(17,16,15,0.15) 0%, rgba(17,16,15,0.6) 100%);
+  }
+
+  .film-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(250, 248, 245, 0.95);
+    border: 1px solid rgba(184, 150, 53, 0.5);
+    color: #11100F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, color 0.3s ease;
+    z-index: 2;
+  }
+  .film-preview-card:hover .film-play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: #A3802C;
+    color: #FAF8F5;
+    border-color: #A3802C;
+  }
+
+  .film-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #FAF8F5;
+    background: rgba(17, 16, 15, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    z-index: 2;
+  }
+
+  .film-caption {
+    padding: 22px 28px 24px;
+    background: #FAF8F5;
+  }
+  .film-meta {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #A3802C;
+    font-weight: 700;
+  }
+  .film-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: #11100F;
+    margin-top: 4px;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+  }
+  .film-preview-card:hover .film-title {
+    color: #A3802C;
+  }
+
+  /* ── Video Modal ── */
+  .video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+  .video-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+  .video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 4, 3, 0.96);
+    backdrop-filter: blur(12px);
+  }
+  .video-modal-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(184, 150, 53, 0.4);
+    color: #FAF8F5;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .video-modal-close:hover {
+    background: #A3802C;
+    border-color: #A3802C;
+    transform: rotate(90deg) scale(1.08);
+  }
+  .video-modal-dialog {
+    position: relative;
+    z-index: 2;
+    width: 96vw;
+    max-width: 1600px;
+    background: transparent;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.95);
+    transform: scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .video-modal.open .video-modal-dialog {
+    transform: scale(1);
+  }
+  .video-modal-player-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+  }
+  .video-modal-player-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (max-width: 900px) { 
+    .feat-grid { grid-template-columns: 1fr 1fr !important; }
+    .video-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+  }
   @media (max-width: 600px) { .feat-grid { grid-template-columns: 1fr !important; } }
 </style>
 
 <script>
+  // Modal Player Controller
+  const modal = document.getElementById('video-modal');
+  const iframe = document.getElementById('video-modal-iframe') as HTMLIFrameElement;
+  const titleEl = document.getElementById('video-modal-title');
+  const closeBtn = document.getElementById('video-modal-close');
+  const backdrop = document.getElementById('video-modal-backdrop');
+
+  function openVideo(id: string, title: string) {
+    if (!modal || !iframe) return;
+    if (titleEl) titleEl.textContent = title;
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideo() {
+    if (!modal || !iframe) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.film-preview-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-video-id') || '';
+      const title = card.getAttribute('data-video-title') || '';
+      if (id) openVideo(id, title);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeVideo);
+  backdrop?.addEventListener('click', closeVideo);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('open')) {
+      closeVideo();
+    }
+  });
+
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-right, .stagger-children, .img-wipe').forEach(el => obs.observe(el));
 </script>
