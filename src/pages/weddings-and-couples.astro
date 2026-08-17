@@ -40,7 +40,7 @@ const galleryItems = [
         <div class="hero-divider"></div>
         <div class="hero-stat"><strong>Full</strong>Day Coverage</div>
         <div class="hero-divider"></div>
-        <div style="margin-left:auto;"><a href="/contact" class="cta-btn">Check Availability</a></div>
+        <div style="margin-left:auto;"><a href="/contact?service=Weddings+%26+Couples" class="cta-btn">Check Availability</a></div>
       </div>
     </div>
   </section>
@@ -108,29 +108,6 @@ const galleryItems = [
               <span class="film-meta">{video.meta}</span>
               <h3 class="film-title">{video.title}</h3>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FAQ ─── -->
-  <section style="background:var(--black);padding:100px 60px;">
-    <div style="max-width:900px;margin:0 auto;">
-      <div style="margin-bottom:60px;" class="reveal">
-        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Investment & Details</span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#11100F;margin-top:12px;">Frequently Asked Questions</h2>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:24px;">
-        {[
-          { q: 'Why do you always shoot with two lead photographers?', a: 'Kimberly and Rick bring two distinct artistic eyes simultaneously. Rick captures wide, environmental portraits and architectural detail while Kimberly captures intimate candid emotion and expressions. Nothing is missed.' },
-          { q: 'What is your turnaround time for wedding galleries?', a: 'You receive a curated sneak peek gallery within 48 hours of your wedding day. Full high-resolution color-graded galleries with print delivery rights are delivered within 4 to 6 weeks.' },
-          { q: 'Do you travel outside of Central Florida?', a: 'Yes! While we are based in Orlando and frequently serve Cocoa Beach and Daytona Beach, we travel worldwide for weddings and portrait sessions.' },
-        ].map(item => (
-          <div style="padding:32px;background:var(--surface);border:1px solid rgba(184,150,53,0.2);box-shadow:0 10px 30px rgba(26,24,22,0.04);border-radius:12px;">
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#11100F;margin-bottom:12px;">{item.q}</h3>
-            <p style="font-size:16px;line-height:1.8;color:#3D3934;font-weight:400;">{item.a}</p>
           </div>
         ))}
       </div>

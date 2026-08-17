@@ -14,10 +14,10 @@ import Layout from '../layouts/Layout.astro';
     <!-- Gold orb -->
     <div style="position:absolute;top:30%;right:20%;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.1) 0%,transparent 70%);border-radius:50%;animation:pulseGold 8s ease-in-out infinite;pointer-events:none;"></div>
     <div style="position:relative;z-index:2;max-width:700px;">
-      <div class="hero-eyebrow">Direct Studio Inquiry · Kimberly & Rick Respond Within 24 Hours</div>
+      <div class="hero-eyebrow">Direct Studio Inquiry · Personal 24-Hour Response</div>
       <h1 class="hero-title" style="font-size:clamp(52px,7vw,100px);">
-        <span class="line"><span>Book</span></span>
-        <span class="line"><span><em>Your Session</em></span></span>
+        <span class="line"><span>Reserve</span></span>
+        <span class="line"><span><em>Your Date</em></span></span>
       </h1>
     </div>
   </section>
@@ -93,21 +93,16 @@ import Layout from '../layouts/Layout.astro';
               <label for="serviceType" class="field-label">Service Type <span style="color:var(--gold);">*</span></label>
               <select id="serviceType" name="serviceType" required class="field-input field-select">
                 <option value="" disabled selected>Select Service</option>
-                <option value="Weddings & Couples">Weddings & Couples</option>
+                <option value="Weddings & Couples">Weddings & Couples Photography</option>
+                <option value="Wedding Videography">Wedding Videography</option>
                 <option value="Family & Portraits">Family & Lifestyle Portraits</option>
                 <option value="Real Estate Photography">Real Estate & Architectural</option>
                 <option value="Commercial & Event">Commercial & Corporate Event</option>
               </select>
             </div>
             <div class="field-wrap">
-              <label for="targetArea" class="field-label">Location / Area <span style="color:var(--gold);">*</span></label>
-              <select id="targetArea" name="targetArea" required class="field-input field-select">
-                <option value="" disabled selected>Select Area</option>
-                <option value="Orlando & Surrounding Areas">Orlando & Surrounding Areas</option>
-                <option value="Daytona Beach & Volusia">Daytona Beach & Volusia County</option>
-                <option value="Cocoa Beach & Space Coast">Cocoa Beach & Space Coast</option>
-                <option value="Other Central Florida">Other Central Florida</option>
-              </select>
+              <label for="targetArea" class="field-label">Shoot Location / Venue <span style="color:var(--gold);">*</span></label>
+              <input type="text" id="targetArea" name="targetArea" required placeholder="e.g. Bella Collina, Orlando or Cocoa Beach" class="field-input" />
             </div>
           </div>
 
@@ -140,7 +135,7 @@ import Layout from '../layouts/Layout.astro';
   }
   .field-label {
     font-family: 'Cinzel', serif;
-    font-size: 14.5px;
+    font-size: 13.5px;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -152,15 +147,34 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 10px;
     color: #11100F;
     padding: 14px 18px;
-    font-size: 16px;
+    font-size: 15.5px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     transition: border-color 0.3s, background 0.3s;
     width: 100%;
+    box-sizing: border-box;
     outline: none;
-    -webkit-appearance: none;
+    height: 52px;
+    line-height: normal;
   }
-  .field-select { background-color: #FFFFFF; cursor: pointer; color: #1A1816; }
-  .field-input::placeholder { color: #7A7470; }
+  textarea.field-input {
+    height: auto;
+    min-height: 130px;
+  }
+  .field-select {
+    background-color: #FAF8F5;
+    cursor: pointer;
+    color: #1A1816;
+    height: 52px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3802C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 16px;
+    padding-right: 46px;
+  }
+  .field-input::placeholder { color: #8C847E; }
   .field-input:focus {
     border-color: #B89635;
     background: #FFFFFF;
@@ -168,11 +182,43 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (max-width: 900px) {
     .contact-layout { grid-template-columns: 1fr !important; }
-    .form-row-2 { grid-template-columns: 1fr !important; }
+    .form-row-2 { grid-template-columns: 1fr !important; gap: 20px !important; }
+    .reveal { padding: 40px 24px !important; }
   }
 </style>
 
 <script>
+  function autoSelectService() {
+    const params = new URLSearchParams(window.location.search);
+    const requestedService = (params.get('service') || '').trim().toLowerCase();
+    const serviceSelect = document.getElementById('serviceType') as HTMLSelectElement | null;
+    
+    if (requestedService && serviceSelect) {
+      // Direct exact or partial keyword matching
+      for (let i = 0; i < serviceSelect.options.length; i++) {
+        const optVal = serviceSelect.options[i].value.toLowerCase();
+        const optText = serviceSelect.options[i].text.toLowerCase();
+        
+        if (
+          optVal === requestedService ||
+          optText === requestedService ||
+          (requestedService.includes('video') && (optVal.includes('video') || optText.includes('video'))) ||
+          (requestedService.includes('wedding') && !requestedService.includes('video') && optVal.includes('wedding')) ||
+          (requestedService.includes('portrait') && (optVal.includes('portrait') || optVal.includes('family'))) ||
+          (requestedService.includes('estate') && optVal.includes('estate')) ||
+          (requestedService.includes('commercial') && optVal.includes('commercial'))
+        ) {
+          serviceSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
+  // Run on initial load and navigation
+  autoSelectService();
+  window.addEventListener('DOMContentLoaded', autoSelectService);
+
   const bookingForm = document.getElementById('booking-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
   const statusDiv = document.getElementById('form-status') as HTMLDivElement | null;

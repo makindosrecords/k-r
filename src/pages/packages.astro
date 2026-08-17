@@ -193,7 +193,7 @@ const packages = [
             </div>
 
             <div style="margin-top:36px;">
-              <a href="/contact" class="cta-btn" style="display:block;text-align:center;width:100%;box-sizing:border-box;">
+              <a href={`/contact?service=${encodeURIComponent(pkg.id === 'portraits' ? 'Family & Portraits' : pkg.id === 'real-estate' ? 'Real Estate Photography' : pkg.id === 'weddings-video' ? 'Wedding Videography' : 'Weddings & Couples')}`} class="cta-btn" style="display:block;text-align:center;width:100%;box-sizing:border-box;">
                 {pkg.ctaText}
               </a>
             </div>
@@ -217,6 +217,30 @@ const packages = [
         </a>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section style="background:var(--surface);padding:100px 60px;border-top:1px solid rgba(184,150,53,0.15);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="margin-bottom:60px;text-align:center;" class="reveal">
+        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Investment & Details</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,56px);font-weight:300;color:#11100F;margin-top:12px;">Frequently Asked Questions</h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        {[
+          { q: 'Why do you always shoot with two lead photographers?', a: 'Kimberly & Rick bring two distinct artistic eyes simultaneously. Rick captures wide, environmental portraits and architectural detail while Kimberly captures intimate candid emotion and expressions. Nothing is missed.' },
+          { q: 'What is your turnaround time for galleries?', a: 'You receive a curated sneak peek gallery within 24 to 48 hours. Full high-resolution color-graded galleries with print delivery rights are delivered within 2 weeks for portraits/real estate, and 4 weeks for full wedding collections.' },
+          { q: 'Do you travel outside of Central Florida?', a: 'Yes! While we are based in Orlando and frequently serve Cocoa Beach, Daytona Beach, and Tampa, we travel worldwide for weddings and portrait commissions.' },
+          { q: 'Are print rights and high-resolution files included?', a: 'Yes, full digital download rights are included with every package. You own full rights to download, print, and share your images without watermark restrictions.' },
+        ].map(item => (
+          <div style="padding:32px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.2);box-shadow:0 10px 30px rgba(26,24,22,0.04);border-radius:12px;">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#11100F;margin-bottom:12px;">{item.q}</h3>
+            <p style="font-size:16px;line-height:1.8;color:#3D3934;font-weight:400;">{item.a}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

@@ -165,7 +165,7 @@
       const regionBtns = document.querySelectorAll('.est-region-btn');
       const addons = document.querySelectorAll('.est-addon');
       const totalDisplay = document.getElementById('est-total-display');
-      const summaryText = document.getElementById('est-summary-text');
+      const bookBtn = document.getElementById('est-book-btn') as HTMLAnchorElement | null;
 
       let currentBase = 1800;
       let currentService = 'Weddings & Couples';
@@ -181,6 +181,9 @@
 
         if (totalDisplay) totalDisplay.textContent = `$${total.toLocaleString()}`;
         if (summaryText) summaryText.textContent = `${currentService} • ${currentRegion}`;
+        if (bookBtn) {
+          bookBtn.href = `/contact?service=${encodeURIComponent(currentService)}`;
+        }
       }
 
       serviceBtns.forEach(btn => {
