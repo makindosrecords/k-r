@@ -1,0 +1,230 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const packages = [
+  {
+    id: 'portraits',
+    badge: 'FAMILY & LIFESTYLE',
+    name: 'Portrait & Lifestyle Sessions',
+    price: '$300',
+    unit: '/ 1 Hour Session',
+    popular: false,
+    description: 'Golden hour family, maternity, couples, senior, and individual portrait sessions with full image ownership.',
+    features: [
+      '60–70 Fully Edited High-Res Photos',
+      '5–10 Sneak Peeks within 24 Hours',
+      'Professional Color Grading & Editing',
+      'High-Resolution Digital Download Link',
+      'Full Ownership & Print Rights Included',
+      'Standard 2-Week Album Turnaround',
+      'Available 24-Hour Express Turnaround',
+    ],
+    ctaText: 'Book Portrait Session',
+  },
+  {
+    id: 'weddings-photo',
+    badge: 'STUDIO FAVORITE · 2 PHOTOGRAPHERS',
+    name: 'Wedding Photography',
+    price: '$300',
+    unit: '/ Per Hour',
+    popular: true,
+    description: 'Complete wedding coverage by two lead photographers — Kimberly & Rick capturing simultaneous perspectives.',
+    features: [
+      'Two Lead Photographers Included (Kimberly & Rick)',
+      '75–100 Fully Edited Photos Per Hour',
+      '5–10 Sneak Peeks within 24 Hours',
+      'Professional Color Grading & Editing',
+      'High-Resolution Digital Download Link',
+      'Full Ownership & Print Rights Included',
+      'Standard 4-Week Album Turnaround',
+      'Available 1-Week Express Turnaround Option',
+    ],
+    ctaText: 'Reserve Your Date',
+  },
+  {
+    id: 'weddings-video',
+    badge: 'CINEMATIC FILM',
+    name: 'Wedding Videography',
+    price: '$300',
+    unit: '/ Per Hour',
+    popular: false,
+    description: '4K cinematic wedding story video capturing vow audio, music scoring, and authentic ceremony emotion.',
+    features: [
+      '4K Cinematic Story Video',
+      'Average 15–20 Min Film (6-Hour Wedding)',
+      'Professional Audio & Color Grading',
+      'High-Resolution Digital Download Link',
+      'Standard 4-Week Turnaround Time',
+    ],
+    ctaText: 'Book Wedding Film',
+  },
+  {
+    id: 'real-estate',
+    badge: 'B2B ARCHITECTURAL',
+    name: 'Real Estate Media',
+    price: '$200',
+    unit: 'Starting Price *',
+    popular: false,
+    description: 'HDR flambient interior & exterior photography for top-producing agents. High-impact MLS-ready media.',
+    features: [
+      'Full Interior, Exterior & Amenities Coverage',
+      'HDR Flambient Photo Editing Process',
+      'MLS-Ready & High-Res Archival Digital Download',
+      'Standard 72-Hour Turnaround Time',
+    ],
+    addonsTitle: 'Optional Media Add-ons:',
+    addons: [
+      'Licensed Aerial Drone Media',
+      'Cinematic Walkthrough Video Reel',
+      '24-Hour Express Turnaround Option',
+    ],
+    note: '* Pricing subject to change based on property square footage.',
+    ctaText: 'Book Property Shoot',
+  },
+];
+---
+
+<Layout
+  title="Packages & Pricing | K&R Photography"
+  description="Transparent pricing for fine art wedding photography, portraits, videography, and real estate media by Kimberly & Rick. Servicing Central Florida."
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('/weddings/k1%20(4)_result.webp');"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Investment & Pricing · Transparent Packages</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Simple, Transparent</span></span>
+        <span class="line"><span>Studio <em>Investment</em></span></span>
+      </h1>
+      <div class="hero-meta">
+        <div class="hero-stat"><strong>Full</strong>Image Rights</div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><strong>24hr</strong>Sneak Peeks</div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><strong>2</strong>Lead Artists</div>
+        <div style="margin-left:auto;"><a href="/contact" class="cta-btn">Check Availability</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PACKAGES GRID ─── -->
+  <section style="background:var(--black);padding:120px 60px;">
+    <div style="max-width:1240px;margin:0 auto;">
+
+      <div class="reveal" style="text-align:center;margin-bottom:80px;">
+        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
+          <span class="gold-line"></span>Studio Investment
+        </span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#11100F;margin-top:12px;line-height:0.95;">
+          Packages & Coverage Options
+        </h2>
+        <p style="font-size:16px;color:#3D3934;margin-top:16px;font-weight:400;max-width:560px;margin-left:auto;margin-right:auto;">
+          No hidden fees or print lock-ins. All packages include full digital download links with rights to keep, print, and share your photos forever.
+        </p>
+      </div>
+
+      <!-- Pricing Cards Grid -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;" class="pkg-grid">
+        {packages.map(pkg => (
+          <div style={`position:relative;background:#FFFFFF;border:${pkg.popular ? '2px solid #A3802C' : '1px solid rgba(184,150,53,0.25)'};border-radius:20px;padding:48px 40px;box-shadow:0 15px 45px rgba(26,24,22,0.06);display:flex;flex-direction:column;justify-content:space-between;`} class="pkg-card">
+            
+            {pkg.popular && (
+              <div style="position:absolute;top:-16px;right:32px;background:#A3802C;color:#FAF8F5;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:0.18em;padding:6px 16px;border-radius:100px;text-transform:uppercase;">
+                STUDIO CHOICE
+              </div>
+            )}
+
+            <div>
+              <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#A3802C;margin-bottom:12px;">
+                {pkg.badge}
+              </div>
+
+              <h3 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:#11100F;margin-bottom:16px;">
+                {pkg.name}
+              </h3>
+
+              <!-- Price Box -->
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(184,150,53,0.18);">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:500;color:#11100F;line-height:1;">
+                  {pkg.price}
+                </span>
+                <span style="font-family:'Cinzel',serif;font-size:14.5px;font-weight:600;color:#3D3934;">
+                  {pkg.unit}
+                </span>
+              </div>
+
+              <p style="font-size:16px;line-height:1.75;color:#3D3934;margin-bottom:28px;font-weight:400;">
+                {pkg.description}
+              </p>
+
+              <!-- Feature List -->
+              <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+                {pkg.features.map(f => (
+                  <div style="display:flex;align-items:flex-start;gap:12px;">
+                    <span style="color:#A3802C;font-size:16px;font-weight:700;line-height:1.4;">✓</span>
+                    <span style="font-size:15.5px;color:#11100F;font-weight:500;line-height:1.4;">{f}</span>
+                  </div>
+                ))}
+              </div>
+
+              {pkg.addons && (
+                <div style="margin-top:20px;padding-top:20px;border-top:1px dashed rgba(184,150,53,0.3);">
+                  <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.16em;color:#A3802C;margin-bottom:10px;">
+                    {pkg.addonsTitle}
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    {pkg.addons.map(a => (
+                      <div style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:#3D3934;font-weight:500;">
+                        <span style="color:#A3802C;">+</span> {a}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {pkg.note && (
+                <div style="margin-top:16px;font-size:13.5px;color:#3D3934;font-style:italic;">
+                  {pkg.note}
+                </div>
+              )}
+            </div>
+
+            <div style="margin-top:36px;">
+              <a href="/contact" class="cta-btn" style="display:block;text-align:center;width:100%;box-sizing:border-box;">
+                {pkg.ctaText}
+              </a>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+      <!-- Studio Policy Banner -->
+      <div style="margin-top:60px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.3);border-radius:16px;padding:32px 40px;box-shadow:0 10px 30px rgba(26,24,22,0.04);display:flex;align-items:center;justify-content:space-between;gap:32px;" class="policy-banner">
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:6px;">
+            STUDIO POLICY & RETAINER NOTICE
+          </div>
+          <p style="font-size:15px;color:#3D3934;font-weight:500;margin:0;">
+            * Deposits & retainers are non-refundable. Real Estate pricing is subject to change based on property square footage.
+          </p>
+        </div>
+        <a href="/contact" class="cta-btn" style="flex-shrink:0;">
+          Have Questions? Contact Us
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  @media (max-width: 900px) {
+    .pkg-grid { grid-template-columns: 1fr !important; }
+    .policy-banner { flex-direction: column !important; text-align: center !important; }
+  }
+</style>

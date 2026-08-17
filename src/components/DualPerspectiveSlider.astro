@@ -1,0 +1,152 @@
+---
+interface Props {
+  kimberlyImage?: string;
+  rickImage?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  kimberlyImage = "/weddings/KIM_5922_result.webp",
+  rickImage = "/weddings/KIM_2100_result.webp",
+  title = "Two Photographers, One Unrepeatable Second",
+  subtitle = "Interactive Dual-Angle Viewfinder • Drag the slider to reveal the simultaneous dual perspectives"
+} = Astro.props;
+---
+
+<section class="py-24 bg-brand-950 text-white relative overflow-hidden border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card-dark text-[11px] uppercase tracking-[0.25em] text-amber-300 font-semibold border border-amber-400/30">
+        <span>The K&R Husband & Wife Advantage</span>
+      </div>
+      <h2 class="font-editorial text-4xl sm:text-6xl text-white font-light">
+        {title}
+      </h2>
+      <p class="text-brand-300 text-base font-sans leading-relaxed">
+        Single photographers miss crucial angles. With Rick & Kimberly, every kiss, glance, and listing room is captured simultaneously from two distinct artistic lenses.
+      </p>
+    </div>
+
+    <!-- Dual Viewfinder Interactive Container -->
+    <div class="max-w-5xl mx-auto relative rounded-3xl overflow-hidden glass-card-dark border border-amber-400/30 shadow-2xl">
+      
+      <!-- Interactive Comparison Slider Container -->
+      <div id="dual-slider-container" class="relative h-[65vh] w-full overflow-hidden select-none cursor-ew-resize">
+        
+        <!-- Background Layer (Rick's Angle - Architectural/Wide) -->
+        <img 
+          src={rickImage} 
+          alt="Rick's Angle - Technical & Wide Perspective" 
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div class="absolute top-6 right-6 bg-brand-950/80 text-amber-300 text-xs font-medium uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md border border-amber-400/30">
+          📷 Rick's Perspective: Wide & Environmental
+        </div>
+
+        <!-- Foreground Clipped Layer (Kimberly's Angle - Emotional/Close-up) -->
+        <div 
+          id="dual-slider-clip" 
+          class="absolute inset-0 w-full h-full overflow-hidden"
+          style="width: 50%;"
+        >
+          <img 
+            src={kimberlyImage} 
+            alt="Kimberly's Angle - Emotional & Candid Detail" 
+            class="absolute inset-0 w-full h-full object-cover max-w-none"
+            style="width: 100%; height: 100%;"
+          />
+          <div class="absolute top-6 left-6 bg-brand-950/80 text-amber-300 text-xs font-medium uppercase tracking-widest px-4 py-2 rounded-full backdrop-blur-md border border-amber-400/30">
+            📷 Kimberly's Perspective: Intimate & Candid
+          </div>
+        </div>
+
+        <!-- Drag Divider Bar -->
+        <div 
+          id="dual-slider-bar" 
+          class="absolute top-0 bottom-0 w-1 bg-amber-400 shadow-2xl cursor-ew-resize flex items-center justify-center"
+          style="left: 50%;"
+        >
+          <div class="w-10 h-10 rounded-full bg-amber-400 text-brand-950 flex items-center justify-center shadow-2xl font-bold text-xs border-2 border-white">
+            ↔
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Explanatory Strip -->
+      <div class="p-6 bg-black/60 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-300 border-t border-white/10">
+        <div class="flex items-center space-x-3">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span>Both angles captured simultaneously at 1/2000s shutter speed</span>
+        </div>
+        <div class="text-amber-300 font-semibold uppercase tracking-widest">
+          Drag slider left or right to compare perspectives
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  (function initDualSlider() {
+    function setup() {
+      const container = document.getElementById('dual-slider-container');
+      const clip = document.getElementById('dual-slider-clip');
+      const bar = document.getElementById('dual-slider-bar');
+
+      if (!container || !clip || !bar) return;
+
+      let isDragging = false;
+
+      function updatePosition(clientX) {
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        if (x < 0) x = 0;
+        if (x > rect.width) x = rect.width;
+
+        const percentage = (x / rect.width) * 100;
+        clip.style.width = `${percentage}%`;
+        bar.style.left = `${percentage}%`;
+      }
+
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updatePosition(e.clientX);
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        updatePosition(e.clientX);
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      // Touch screen support
+      container.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        if (e.touches[0]) updatePosition(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        if (e.touches[0]) updatePosition(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+  })();
+</script>

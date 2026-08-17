@@ -1,0 +1,192 @@
+---
+/**
+ * ProjectShowcase.astro
+ * Luxury editorial single-project horizontal snap-slider + NEXT PROJECT footer.
+ * Usage: <ProjectShowcase projectTitle="..." slides={[...]} nextProject={...} />
+ */
+
+interface Slide {
+  number: string;       // e.g. "01"
+  title: string;        // e.g. "The Arrival"
+  subtitle: string;     // e.g. "COMO ARCHIVE"
+  location: string;     // e.g. "LAKE COMO, ITALY"
+  image: string;
+  badge?: string;
+}
+
+interface NextProject {
+  title: string;        // e.g. "Modern Waterfront Estate"
+  category: string;     // e.g. "LUXURY REAL ESTATE ARCHIVE"
+  image: string;
+  href: string;
+}
+
+interface Props {
+  projectTitle?: string;
+  projectCategory?: string;
+  projectLocation?: string;
+  slides: Slide[];
+  nextProject: NextProject;
+  backHref?: string;
+}
+
+const {
+  projectTitle = 'Untitled Project',
+  projectCategory = 'COMMISSION',
+  projectLocation = 'CENTRAL FLORIDA',
+  slides,
+  nextProject,
+  backHref = '/',
+} = Astro.props;
+---
+
+<div class="bg-white text-neutral-900 font-sans antialiased">
+
+  <!-- ── Fixed Viewport Edge Frame ── -->
+
+  <!-- Back — fixed left -->
+  <a
+    href={backHref}
+    class="fixed top-6 left-6 z-50 inline-flex items-center gap-2 text-[10px] tracking-[0.22em] uppercase font-semibold text-neutral-900 bg-white/90 backdrop-blur-sm border border-neutral-200 px-3.5 py-1.5 rounded-full shadow-sm hover:bg-neutral-100 transition-colors"
+  >
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back
+  </a>
+
+  <!-- K&R PHOTOGRAPHY — fixed top center -->
+  <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
+    <span class="text-[10px] tracking-[0.25em] uppercase font-semibold text-neutral-900 bg-white/90 backdrop-blur-sm border border-neutral-200 px-4 py-1.5 rounded-full shadow-sm">
+      K&R PHOTOGRAPHY
+    </span>
+  </div>
+
+  <!-- Menu — fixed right -->
+  <a
+    href="/contact"
+    class="fixed top-6 right-6 z-50 text-[10px] tracking-[0.22em] uppercase font-semibold text-neutral-900 bg-white/90 backdrop-blur-sm border border-neutral-200 px-4 py-1.5 rounded-full shadow-sm hover:bg-neutral-100 transition-colors"
+  >
+    Menu
+  </a>
+
+  <!-- ── Project Title Header ── -->
+  <header class="pt-32 pb-12 px-6 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <span class="text-[10px] tracking-[0.28em] uppercase text-neutral-400 font-medium block mb-3">
+      {projectCategory} &mdash; {projectLocation}
+    </span>
+    <h1 class="font-serif text-5xl md:text-7xl lg:text-[7rem] font-light text-neutral-900 leading-none tracking-tight">
+      {projectTitle}
+    </h1>
+  </header>
+
+  <!-- ── Horizontal Snap-Slider ── -->
+  <section class="w-full mb-28">
+
+    <!-- Scroll container -->
+    <div
+      id="showcase-slider"
+      class="flex overflow-x-auto snap-x snap-mandatory gap-6 md:gap-10 px-6 md:px-16 lg:px-24 pb-6"
+      style="scrollbar-width:none; -webkit-overflow-scrolling:touch;"
+    >
+      {slides.map((slide) => (
+        <div class="snap-center shrink-0 w-[88vw] md:w-[60vw] lg:w-[48vw] flex flex-col group">
+
+          <!-- Photo -->
+          <div class="relative w-full aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200/70">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+            />
+
+            <!-- Counter — bottom left -->
+            <div class="absolute bottom-4 left-4 z-10">
+              <span class="font-mono text-[11px] tracking-widest text-neutral-900 bg-white/90 backdrop-blur-sm border border-neutral-200/80 px-2.5 py-1 leading-none">
+                {slide.number}
+              </span>
+            </div>
+
+            <!-- Badge — top right (optional) -->
+            {slide.badge && (
+              <div class="absolute top-4 right-4 z-10">
+                <span class="text-[9px] tracking-[0.2em] uppercase font-semibold text-neutral-900 bg-white/95 backdrop-blur-sm border border-neutral-300/80 px-3 py-1.5 rounded-full shadow-sm">
+                  {slide.badge}
+                </span>
+              </div>
+            )}
+          </div>
+
+          <!-- Metadata -->
+          <div class="mt-4 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[10px] tracking-[0.22em] uppercase text-neutral-400 font-medium mb-0.5">
+                {slide.location}
+              </p>
+              <h3 class="font-serif text-2xl md:text-3xl font-light text-neutral-900">
+                {slide.title}
+              </h3>
+            </div>
+            <span class="font-mono text-[9px] tracking-[0.18em] uppercase text-neutral-300 mt-1 shrink-0">
+              {slide.subtitle}
+            </span>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="flex items-center justify-between px-6 md:px-16 lg:px-24 mt-3">
+      <span class="font-cinzel text-[12.5px] tracking-[0.18em] uppercase text-neutral-300">← Drag to explore</span>
+      <span class="font-mono text-[12px] tracking-widest text-neutral-300">{slides.length.toString().padStart(2, '0')} frames</span>
+    </div>
+  </section>
+
+  <!-- ── NEXT PROJECT — Full-bleed Transition Footer ── -->
+  <footer class="relative overflow-hidden bg-neutral-950 min-h-[60vh] flex items-center">
+
+    <!-- Background image with hover preview -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src={nextProject.image}
+        alt={nextProject.title}
+        class="w-full h-full object-cover opacity-20 scale-105 hover:scale-100 hover:opacity-35 transition-all duration-1000 ease-out"
+      />
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-neutral-950/20" />
+    </div>
+
+    <!-- Content -->
+    <a
+      href={nextProject.href}
+      class="group relative z-10 w-full block py-24 md:py-36 px-6 md:px-16 lg:px-24 text-center"
+    >
+      <span class="text-[10px] md:text-xs tracking-[0.3em] uppercase text-amber-400 font-semibold block mb-5">
+        {nextProject.category} &mdash; Next Project
+      </span>
+
+      <h2 class="font-serif text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-light text-white leading-none tracking-tight group-hover:tracking-wide transition-all duration-700">
+        {nextProject.title}
+      </h2>
+
+      <div class="mt-10 inline-flex items-center gap-3 text-xs tracking-[0.25em] uppercase text-white border-b border-amber-400/50 pb-0.5 group-hover:border-amber-400 transition-colors duration-300">
+        <span>Explore Collection</span>
+        <svg
+          width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+          class="transform group-hover:translate-x-2 transition-transform duration-300"
+        >
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+  </footer>
+
+</div>
+
+<!-- Hide WebKit slider scrollbar -->
+<style>
+  #showcase-slider::-webkit-scrollbar { display: none; }
+</style>

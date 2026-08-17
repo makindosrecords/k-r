@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EditorialGallery from '../components/EditorialGallery.astro';
+
+const galleryItems = [
+  { number: '01', title: 'Golden Hour Family',          location: 'CENTRAL FLORIDA', type: 'portrait' as const, image: '/family/KIM_8902_result.webp', badge: '380+ 5-STAR REVIEWS' },
+  { number: '02', title: 'Garden Walkway Family',       location: 'CENTRAL FLORIDA', type: 'tall'     as const, image: '/family/KIM_6504_result.webp' },
+  { number: '03', title: 'Generations Under the Live Oak', location: 'CENTRAL FLORIDA', type: 'wide' as const, image: '/family/KIM_0075_result.webp', badge: 'EDITORIAL SELECTION' },
+  { number: '04', title: 'Family Embrace',              location: 'CENTRAL FLORIDA', type: 'tall'     as const, image: '/family/KIM_7258_result.webp' },
+  { number: '05', title: 'Fountain Courtyard Family',   location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_1484_result.webp' },
+  { number: '06', title: 'Coastal Family Session',      location: 'CENTRAL FLORIDA', type: 'square'   as const, image: '/family/KIM_7250-2_result.webp' },
+  { number: '07', title: 'Lush Garden Family Joy',      location: 'CENTRAL FLORIDA', type: 'tall'     as const, image: '/family/KIM_8221_result.webp' },
+  { number: '08', title: 'Sand Dunes Family Session',   location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_3497_result.webp' },
+  { number: '09', title: 'Golden Hour Joy',             location: 'CENTRAL FLORIDA', type: 'square'   as const, image: '/family/KIM_7294_result.webp' },
+  { number: '10', title: 'Sunset Family Portrait',      location: 'CENTRAL FLORIDA', type: 'tall'     as const, image: '/family/KIM_7349_result.webp' },
+  { number: '11', title: 'Estate Portrait Ensemble',    location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_8822_result.webp' },
+  { number: '12', title: 'Courtyard Family Gathering',  location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_8718_result.webp' },
+  { number: '13', title: 'Family Beach Walk',           location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_7268_result.webp' },
+  { number: '14', title: 'Oceanfront Family',           location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/family/KIM_8930_result.webp' },
+];
+---
+
+<Layout
+  title="Family & Portrait Photography | K&R Photography"
+  description="Golden hour family, maternity, portrait and lifestyle photography across Central Florida. Book a session with Kimberly & Rick — 380+ 5-star reviews."
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('/family/KIM_7294_result.webp');"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Family & Portraits · Golden Hour Sessions · Central Florida</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Every Family</span></span>
+        <span class="line"><span>Has a <em>Beautiful Story</em></span></span>
+      </h1>
+      <div class="hero-meta">
+        <div class="hero-stat"><strong>Beach</strong>Sessions</div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><strong>Studio</strong>Available</div>
+        <div class="hero-divider"></div>
+        <div style="margin-left:auto;"><a href="/contact" class="cta-btn">Book a Session</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EDITORIAL GALLERY ─── -->
+  <EditorialGallery
+    tagline="PORTRAITS, FAMILY & LIFESTYLE"
+    items={galleryItems}
+    sectionId="portraits"
+  />
+
+  <!-- ─── SESSION TYPES ─── -->
+  <section style="background:var(--black);padding:120px 60px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="reveal" style="text-align:center;margin-bottom:80px;">
+        <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);"><span class="gold-line"></span>Session Types</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,64px);font-weight:300;color:#1A1816;margin-top:12px;line-height:0.95;">Every Chapter of Life</h2>
+      </div>
+      <div class="stagger-children reveal sessions-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+        {[
+          { title: 'Family Sessions', desc: 'Golden hour beach & lifestyle imagery for families of all sizes.', icon: '🌅' },
+          { title: 'Maternity', desc: 'Elegant maternity sessions at stunning Central Florida locations.', icon: '✨' },
+          { title: 'Newborn', desc: 'Tender lifestyle newborn sessions in your own home, within 2 weeks of birth.', icon: '🌸' },
+          { title: 'Portraits', desc: 'Individual and professional portrait sessions for actors, athletes, and executives.', icon: '◎' },
+          { title: 'Senior Portraits', desc: 'Cinematic senior portraits that capture personality and milestone energy.', icon: '🎓' },
+          { title: 'Headshots', desc: 'Clean, confident business headshots — studio or on-location.', icon: '→' },
+        ].map(s => (
+          <div style="background:var(--surface);padding:44px 36px;border:1px solid rgba(184,150,53,0.18);box-shadow:0 10px 30px rgba(26,24,22,0.03);transition:border-color 0.4s,transform 0.4s;" class="session-tile">
+            <div style="font-size:28px;margin-bottom:20px;">{s.icon}</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#1A1816;margin-bottom:12px;">{s.title}</h3>
+            <p style="font-size:12px;line-height:1.8;color:var(--muted);">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section style="background:var(--black-soft);border-top:1px solid rgba(184,150,53,0.18);padding:120px 60px;text-align:center;" class="reveal">
+    <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:20px;"><span class="gold-line"></span>Reserve Your Session</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#1A1816;margin-bottom:24px;">Your Family.<br/><em style="font-style:italic;">Our Finest Art.</em></h2>
+    <a href="/contact" class="cta-btn">Book a Portrait Session</a>
+  </section>
+
+</Layout>
+
+<style>
+  .session-tile:hover { border-color: rgba(201,168,76,0.4) !important; transform: translateY(-4px); }
+  @media (max-width: 900px) { .sessions-grid { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 600px) { .sessions-grid { grid-template-columns: 1fr !important; } }
+</style>
+
+<script>
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-right, .stagger-children').forEach(el => obs.observe(el));
+</script>

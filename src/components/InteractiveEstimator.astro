@@ -1,0 +1,226 @@
+---
+---
+
+<section class="py-24 bg-brand-950 text-white relative overflow-hidden border-t border-white/10">
+  
+  <div class="glow-orb w-[500px] h-[500px] bg-amber-500/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse-glow"></div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card-dark text-[11px] uppercase tracking-[0.2em] text-amber-300 font-semibold border border-amber-400/30">
+        <span>Transparent Luxury Pricing</span>
+      </div>
+      <h2 class="font-editorial text-4xl sm:text-6xl text-white font-light">
+        Instant Investment Estimator
+      </h2>
+      <p class="text-brand-300 text-sm font-sans">
+        Customize your experience and see an immediate estimated breakdown with zero hidden fees.
+      </p>
+    </div>
+
+    <!-- Estimator Card -->
+    <div class="glass-card-dark p-8 sm:p-12 rounded-3xl border border-amber-400/30 shadow-2xl space-y-10">
+      
+      <!-- Step 1: Select Service -->
+      <div class="space-y-4">
+        <label class="block text-xs uppercase tracking-widest text-amber-300 font-semibold">
+          1. Select Photography Service
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <button 
+            type="button" 
+            class="est-service-btn p-5 rounded-2xl border text-left transition-all duration-300 border-amber-400 bg-amber-400/15 text-white"
+            data-base="1800"
+            data-service="Weddings & Couples"
+          >
+            <div class="text-xs uppercase tracking-widest text-amber-300 font-semibold mb-1">Consumer</div>
+            <div class="font-editorial text-xl font-bold">Weddings & Couples</div>
+            <div class="text-xs text-brand-300 mt-2">Full day duo coverage & digital gallery</div>
+          </button>
+
+          <button 
+            type="button" 
+            class="est-service-btn p-5 rounded-2xl border border-white/10 text-left transition-all duration-300 hover:border-amber-400/50 text-brand-300"
+            data-base="650"
+            data-service="Family Beach Session"
+          >
+            <div class="text-xs uppercase tracking-widest text-amber-300 font-semibold mb-1">Consumer</div>
+            <div class="font-editorial text-xl font-bold text-white">Family & Portraits</div>
+            <div class="text-xs text-brand-300 mt-2">Sunset golden hour session</div>
+          </button>
+
+          <button 
+            type="button" 
+            class="est-service-btn p-5 rounded-2xl border border-white/10 text-left transition-all duration-300 hover:border-amber-400/50 text-brand-300"
+            data-base="450"
+            data-service="Real Estate Photography"
+          >
+            <div class="text-xs uppercase tracking-widest text-amber-300 font-semibold mb-1">Commercial</div>
+            <div class="font-editorial text-xl font-bold text-white">B2B Real Estate Media</div>
+            <div class="text-xs text-brand-300 mt-2">HDR interior, exterior & 24hr delivery</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Location Region -->
+      <div class="space-y-4">
+        <label class="block text-xs uppercase tracking-widest text-amber-300 font-semibold">
+          2. Target Central Florida Region
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <button 
+            type="button" 
+            class="est-region-btn p-4 rounded-xl border text-center text-xs font-semibold uppercase tracking-widest transition-all duration-300 border-amber-400 bg-amber-400/15 text-white"
+            data-travel="0"
+            data-region="Orlando & Winter Park"
+          >
+            Orlando & Winter Park
+          </button>
+
+          <button 
+            type="button" 
+            class="est-region-btn p-4 rounded-xl border border-white/10 text-center text-xs font-semibold uppercase tracking-widest text-brand-300 hover:border-amber-400/50 transition-all duration-300"
+            data-travel="0"
+            data-region="Daytona Beach & Volusia"
+          >
+            Daytona Beach & Volusia
+          </button>
+
+          <button 
+            type="button" 
+            class="est-region-btn p-4 rounded-xl border border-white/10 text-center text-xs font-semibold uppercase tracking-widest text-brand-300 hover:border-amber-400/50 transition-all duration-300"
+            data-travel="0"
+            data-region="Cocoa Beach & Space Coast"
+          >
+            Cocoa Beach & Space Coast
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Add-on Enhancements -->
+      <div class="space-y-4">
+        <label class="block text-xs uppercase tracking-widest text-amber-300 font-semibold">
+          3. Optional Enhancements
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <label class="flex items-center space-x-3 p-4 rounded-xl glass-card-dark border border-white/10 cursor-pointer hover:border-amber-400/40">
+            <input type="checkbox" id="addon-drone" class="est-addon rounded accent-amber-400" data-price="250" />
+            <div>
+              <div class="font-semibold text-white">Aerial Drone Photos</div>
+              <div class="text-amber-300">+$250</div>
+            </div>
+          </label>
+
+          <label class="flex items-center space-x-3 p-4 rounded-xl glass-card-dark border border-white/10 cursor-pointer hover:border-amber-400/40">
+            <input type="checkbox" id="addon-twilight" class="est-addon rounded accent-amber-400" data-price="200" />
+            <div>
+              <div class="font-semibold text-white">Sunset Twilight Upgrade</div>
+              <div class="text-amber-300">+$200</div>
+            </div>
+          </label>
+
+          <label class="flex items-center space-x-3 p-4 rounded-xl glass-card-dark border border-white/10 cursor-pointer hover:border-amber-400/40">
+            <input type="checkbox" id="addon-album" class="est-addon rounded accent-amber-400" data-price="350" />
+            <div>
+              <div class="font-semibold text-white">Hardcover Heirloom Album</div>
+              <div class="text-amber-300">+$350</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Estimator Summary Output -->
+      <div class="p-8 rounded-2xl bg-black/60 border border-amber-400/30 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <div class="text-xs uppercase tracking-widest text-brand-400 font-medium">Estimated Investment</div>
+          <div id="est-total-display" class="font-editorial text-4xl sm:text-5xl font-bold text-gold-gradient mt-1">
+            $1,800
+          </div>
+          <div id="est-summary-text" class="text-xs text-brand-300 mt-1">
+            Weddings & Couples • Orlando & Winter Park
+          </div>
+        </div>
+
+        <div>
+          <a 
+            id="est-book-btn"
+            href="/contact" 
+            class="inline-flex items-center justify-center px-8 py-4 text-xs font-semibold uppercase tracking-widest text-brand-950 bg-amber-400 hover:bg-amber-300 rounded-full shadow-lg hover-glow-gold transition-all"
+          >
+            Lock In Your Date With Kimberly & Rick
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  (function initEstimator() {
+    function setup() {
+      const serviceBtns = document.querySelectorAll('.est-service-btn');
+      const regionBtns = document.querySelectorAll('.est-region-btn');
+      const addons = document.querySelectorAll('.est-addon');
+      const totalDisplay = document.getElementById('est-total-display');
+      const summaryText = document.getElementById('est-summary-text');
+
+      let currentBase = 1800;
+      let currentService = 'Weddings & Couples';
+      let currentRegion = 'Orlando & Winter Park';
+
+      function recalculate() {
+        let total = currentBase;
+        addons.forEach(ad => {
+          if (ad.checked) {
+            total += parseInt(ad.getAttribute('data-price') || '0', 10);
+          }
+        });
+
+        if (totalDisplay) totalDisplay.textContent = `$${total.toLocaleString()}`;
+        if (summaryText) summaryText.textContent = `${currentService} • ${currentRegion}`;
+      }
+
+      serviceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          serviceBtns.forEach(b => {
+            b.classList.remove('border-amber-400', 'bg-amber-400/15', 'text-white');
+            b.classList.add('border-white/10', 'text-brand-300');
+          });
+          btn.classList.add('border-amber-400', 'bg-amber-400/15', 'text-white');
+          btn.classList.remove('border-white/10', 'text-brand-300');
+
+          currentBase = parseInt(btn.getAttribute('data-base') || '1800', 10);
+          currentService = btn.getAttribute('data-service') || 'Weddings & Couples';
+          recalculate();
+        });
+      });
+
+      regionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          regionBtns.forEach(b => {
+            b.classList.remove('border-amber-400', 'bg-amber-400/15', 'text-white');
+            b.classList.add('border-white/10', 'text-brand-300');
+          });
+          btn.classList.add('border-amber-400', 'bg-amber-400/15', 'text-white');
+          btn.classList.remove('border-white/10', 'text-brand-300');
+
+          currentRegion = btn.getAttribute('data-region') || 'Orlando & Winter Park';
+          recalculate();
+        });
+      });
+
+      addons.forEach(ad => {
+        ad.addEventListener('change', recalculate);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+  })();
+</script>

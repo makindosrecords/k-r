@@ -1,0 +1,214 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "K&R Photography | Weddings, Portraits & Real Estate | Central Florida",
+  description = "Central Florida's premier husband-and-wife photography studio. 20+ years experience. 380+ 5-star Google reviews. Weddings, family portraits & real estate across Central Florida."
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site || 'https://kandrpix.com')} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <!-- Logo -->
+    <a href="/" style="text-decoration:none; display:flex; flex-direction:column; gap:4px;">
+      <span style="font-family:'Cinzel',serif; font-size:38px; font-weight:700; letter-spacing:0.28em; color:#11100F; text-transform:uppercase; line-height:1;">K&R</span>
+      <span style="font-family:'Cinzel',serif; font-size:13px; font-weight:700; letter-spacing:0.38em; color:#A3802C; text-transform:uppercase;">PHOTOGRAPHY</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav style="display:flex; align-items:center; gap:44px;" class="hide-mobile">
+      <div style="position:relative; padding-bottom: 12px; margin-bottom: -12px;" class="nav-dropdown-wrap">
+        <span class="nav-link" style="cursor:pointer;">
+          Weddings & Portraits
+          <svg style="display:inline;margin-left:6px;vertical-align:middle;transition:transform 0.3s ease;" class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+        <div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border:1px solid rgba(184,150,53,0.25);box-shadow:0 15px 45px rgba(26,24,22,0.08);border-radius:12px;padding:14px;width:260px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.3s ease, transform 0.3s ease;">
+          <a href="/weddings-and-couples" style="display:block;padding:12px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#11100F;">Weddings & Couples</div>
+          </a>
+          <a href="/family-and-portraits" style="display:block;padding:12px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#11100F;">Family & Portraits</div>
+          </a>
+        </div>
+      </div>
+      <a href="/real-estate" class="nav-link">Real Estate</a>
+      <a href="/packages" class="nav-link">Packages</a>
+      <a href="/portfolio" class="nav-link">Portfolio</a>
+    </nav>
+
+    <!-- CTA -->
+    <a href="/contact" class="cta-btn hide-mobile">Inquire</a>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-toggle" style="display:none;background:none;border:none;cursor:pointer;padding:10px;z-index:1002;position:relative;" class="show-mobile" aria-label="Toggle Navigation">
+      <svg id="icon-menu" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#11100F" stroke-width="2.2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="icon-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FAF8F5" stroke-width="2.2" style="display:none;"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-drawer" style="position:fixed;inset:0;background:rgba(12,10,8,0.97);backdrop-filter:blur(24px);z-index:1000;display:none;flex-direction:column;justify-content:space-between;align-items:center;padding:110px 28px 48px;overflow-y:auto;">
+    <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:#A3802C;text-transform:uppercase;font-weight:600;">KIMBERLY & RICK · EST. 2004</div>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;text-align:center;margin:auto 0;">
+      <a href="/weddings-and-couples" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Weddings & Couples</a>
+      <a href="/family-and-portraits" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Family & Portraits</a>
+      <a href="/real-estate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Real Estate Media</a>
+      <a href="/packages" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Packages & Pricing</a>
+      <a href="/portfolio" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Portfolio Archive</a>
+      <a href="/contact" style="margin-top:12px;width:100%;max-width:280px;text-align:center;" class="cta-btn">Inquire & Reserve Date</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#A3802C;font-family:'Cinzel',serif;letter-spacing:0.15em;">
+      <span>Central Florida · Orlando · Daytona · Cocoa</span>
+      <span style="color:#FAF8F5;font-weight:500;">kimberly@kandrpix.com</span>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:#F4F0EA;border-top:1px solid rgba(184,150,53,0.2);padding:80px 60px 48px;">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;" class="footer-grid">
+        <div style="grid-column:span 2;" class="footer-brand">
+          <div style="font-family:'Cinzel',serif;font-size:34px;letter-spacing:0.32em;color:#11100F;margin-bottom:6px;font-weight:700;">K&R PHOTOGRAPHY</div>
+          <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.35em;color:#A3802C;margin-bottom:20px;font-weight:600;">KIMBERLY & RICK • EST. 2004</div>
+          <p style="font-size:15px;line-height:1.75;color:#3D3934;max-width:340px;font-weight:400;">A husband-and-wife photography studio serving weddings, portraits, and luxury real estate across Central Florida for over 20 years.</p>
+          <div style="display:inline-flex;align-items:center;gap:14px;margin-top:24px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.3);padding:16px 22px;border-radius:12px;box-shadow:0 8px 25px rgba(26,24,22,0.04);">
+            <span style="color:#A3802C;font-size:16px;">★★★★★</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#11100F;">380+ 5-Star Google Reviews</div>
+              <div style="font-size:12px;color:#3D3934;margin-top:2px;font-weight:500;">Verified Client Reviews</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;margin-bottom:20px;font-weight:600;">Services</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <a href="/weddings-and-couples" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;transition:color 0.3s;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Weddings & Couples</a>
+            <a href="/family-and-portraits" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;transition:color 0.3s;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Family & Portraits</a>
+            <a href="/real-estate" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;transition:color 0.3s;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Real Estate Media</a>
+            <a href="/packages" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;transition:color 0.3s;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Pricing & Packages</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;margin-bottom:20px;font-weight:600;">Studio</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <a href="/contact" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Book a Session</a>
+            <a href="https://instagram.com/kandrpix" target="_blank" rel="noopener" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">Instagram @kandrpix</a>
+            <a href="mailto:kimberly@kandrpix.com" style="font-size:15px;color:#3D3934;text-decoration:none;font-weight:500;" onmouseover="this.style.color='#11100F'" onmouseout="this.style.color='#3D3934'">kimberly@kandrpix.com</a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(184,150,53,0.18);padding-top:28px;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:13px;color:#3D3934;font-weight:500;">© {new Date().getFullYear()} K&R Photography · kandrpix.com</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+<style>
+  .hide-mobile { display: flex; }
+  .show-mobile { display: none !important; }
+  @media (max-width: 900px) {
+    .hide-mobile { display: none !important; }
+    .show-mobile { display: flex !important; }
+    #mobile-toggle { display: flex !important; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; }
+    .footer-brand { grid-column: span 2 !important; }
+    footer { padding: 50px 24px 36px !important; }
+  }
+  .nav-dropdown-wrap:hover .nav-dropdown {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    transform: translateY(0) !important;
+  }
+  .nav-dropdown-wrap:hover .nav-caret {
+    transform: rotate(180deg);
+  }
+  .nav-dropdown a:hover { background: rgba(201,168,76,0.08); }
+</style>
+
+<script>
+  // ─── HEADER SCROLL ───
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (header) {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }
+  }, { passive: true });
+
+  // ─── MOBILE MENU ───
+  const toggle = document.getElementById('mobile-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const iconMenu = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  let drawerOpen = false;
+
+  toggle?.addEventListener('click', () => {
+    drawerOpen = !drawerOpen;
+    if (drawer) drawer.style.display = drawerOpen ? 'flex' : 'none';
+    if (iconMenu) iconMenu.style.display = drawerOpen ? 'none' : 'block';
+    if (iconClose) iconClose.style.display = drawerOpen ? 'block' : 'none';
+    document.body.style.overflow = drawerOpen ? 'hidden' : '';
+  });
+
+  drawer?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      drawerOpen = false;
+      if (drawer) drawer.style.display = 'none';
+      if (iconMenu) iconMenu.style.display = 'block';
+      if (iconClose) iconClose.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ─── SCROLL REVEAL ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .img-wipe, .word-reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // ─── HERO BG LOAD ANIMATION ───
+  document.querySelectorAll('.hero-bg').forEach(el => {
+    const img = new Image();
+    const src = (el as HTMLElement).style.backgroundImage.replace(/url\(["']?(.*?)["']?\)/, '$1');
+    img.onload = () => el.classList.add('loaded');
+    img.src = src;
+  });
+</script>

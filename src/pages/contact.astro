@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Inquire & Book | K&R Photography | Orlando, Daytona, Cocoa Beach"
+  description="Book your wedding, portrait session, or real estate photography with Kimberly & Rick. Central Florida's trusted duo with 380+ 5-star Google reviews."
+>
+
+  <!-- ─── HERO ─── -->
+  <section style="position:relative;min-height:60vh;display:flex;align-items:flex-end;padding:80px 60px;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:url('/weddings/KIM_2618_result.webp');background-size:cover;background-position:center;opacity:0.25;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,1) 0%,rgba(5,4,3,0.5) 60%,rgba(5,4,3,0.8) 100%);"></div>
+    <!-- Gold orb -->
+    <div style="position:absolute;top:30%;right:20%;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.1) 0%,transparent 70%);border-radius:50%;animation:pulseGold 8s ease-in-out infinite;pointer-events:none;"></div>
+    <div style="position:relative;z-index:2;max-width:700px;">
+      <div class="hero-eyebrow">Direct Studio Inquiry · Kimberly & Rick Respond Within 24 Hours</div>
+      <h1 class="hero-title" style="font-size:clamp(52px,7vw,100px);">
+        <span class="line"><span>Commission</span></span>
+        <span class="line"><span><em>Your Session</em></span></span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT BODY ─── -->
+  <section style="background:#FAF8F5;padding:0 60px 120px;">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start;padding-top:80px;" class="contact-layout">
+
+      <!-- Left sidebar -->
+      <div style="display:flex;flex-direction:column;gap:48px;position:sticky;top:100px;" class="reveal-left">
+
+        <!-- Left: Studio Details -->
+        <div class="reveal" style="display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
+          <div>
+            <span style="font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);">
+              <span class="gold-line"></span>Reserve Your Date
+            </span>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,84px);font-weight:300;color:#1A1816;margin-top:16px;line-height:0.95;">
+              Begin Your<br/><em style="font-style:italic;">Commission</em>
+            </h1>
+            <p style="font-size:14px;line-height:1.8;color:var(--muted);margin-top:28px;max-width:440px;">
+              Kimberly & Rick personally respond to every inquiry within 24 hours. Fill out the details below to receive our investment guide & availability.
+            </p>
+          </div>
+
+          <!-- Direct Info -->
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            {[
+              { label: 'Studio Direct', value: 'kimberly@kandrpix.com', href: 'mailto:kimberly@kandrpix.com' },
+              { label: 'Instagram', value: '@kandrpix', href: 'https://instagram.com/kandrpix' },
+              { label: 'Serving', value: 'Central Florida & Destination', href: null },
+            ].map(c => (
+              <div style="border-top:1px solid rgba(184,150,53,0.2);padding-top:16px;">
+                <div style="font-family:'Cinzel',serif;font-size:14.5px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:6px;">{c.label}</div>
+                {c.href ? (
+                  <a href={c.href} style="font-size:16px;color:#11100F;font-weight:500;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#A3802C'" onmouseout="this.style.color='#11100F'">{c.value}</a>
+                ) : (
+                  <div style="font-size:16px;color:#11100F;font-weight:500;">{c.value}</div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <!-- Trust badge -->
+          <div style="background:#FFFFFF;border:1px solid rgba(184,150,53,0.25);box-shadow:0 8px 25px rgba(26,24,22,0.04);border-radius:16px;padding:24px;">
+            <div style="color:#A3802C;font-size:16px;margin-bottom:10px;">★★★★★</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#11100F;margin-bottom:4px;">380+ Verified Reviews</div>
+            <div style="font-size:14.5px;color:#3D3934;font-weight:500;">Google · Central Florida</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="reveal" style="background:#FFFFFF;border:1px solid rgba(184,150,53,0.22);box-shadow:0 15px 45px rgba(26,24,22,0.06);border-radius:24px;padding:56px 48px;">
+
+        <div id="form-status" style="display:none;margin-bottom:28px;padding:20px 24px;border-radius:12px;font-size:14px;border:1px solid;"></div>
+
+        <form id="booking-form" style="display:flex;flex-direction:column;gap:28px;">
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="form-row-2">
+            <div class="field-wrap">
+              <label for="name" class="field-label">Full Name <span style="color:var(--gold);">*</span></label>
+              <input type="text" id="name" name="name" required placeholder="Sarah Jenkins" class="field-input" />
+            </div>
+            <div class="field-wrap">
+              <label for="email" class="field-label">Email Address <span style="color:var(--gold);">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="sarah@example.com" class="field-input" />
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="form-row-2">
+            <div class="field-wrap">
+              <label for="serviceType" class="field-label">Service Type <span style="color:var(--gold);">*</span></label>
+              <select id="serviceType" name="serviceType" required class="field-input field-select">
+                <option value="" disabled selected>Select Service</option>
+                <option value="Weddings & Couples">Weddings & Couples</option>
+                <option value="Family & Portraits">Family & Lifestyle Portraits</option>
+                <option value="Real Estate Photography">Real Estate & Architectural</option>
+                <option value="Commercial & Event">Commercial & Corporate Event</option>
+              </select>
+            </div>
+            <div class="field-wrap">
+              <label for="targetArea" class="field-label">Location / Area <span style="color:var(--gold);">*</span></label>
+              <select id="targetArea" name="targetArea" required class="field-input field-select">
+                <option value="" disabled selected>Select Area</option>
+                <option value="Orlando & Surrounding Areas">Orlando & Surrounding Areas</option>
+                <option value="Daytona Beach & Volusia">Daytona Beach & Volusia County</option>
+                <option value="Cocoa Beach & Space Coast">Cocoa Beach & Space Coast</option>
+                <option value="Other Central Florida">Other Central Florida</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label for="preferredDate" class="field-label">Preferred Date or Season</label>
+            <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. October 14th, 2026 or Spring 2027" class="field-input" />
+          </div>
+
+          <div class="field-wrap">
+            <label for="details" class="field-label">Tell Us About Your Vision <span style="color:var(--gold);">*</span></label>
+            <textarea id="details" name="details" rows="5" required placeholder="Share your venue, story, or specific photography goals..." class="field-input" style="resize:vertical;"></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn" class="cta-btn" style="width:100%;padding:18px;font-size:12px;">
+            Send Inquiry to Kimberly & Rick
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field-label {
+    font-family: 'Cinzel', serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #11100F;
+  }
+  .field-input {
+    background: #FAF8F5;
+    border: 1px solid rgba(184,150,53,0.25);
+    border-radius: 10px;
+    color: #11100F;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: border-color 0.3s, background 0.3s;
+    width: 100%;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .field-select { background-color: #FFFFFF; cursor: pointer; color: #1A1816; }
+  .field-input::placeholder { color: #7A7470; }
+  .field-input:focus {
+    border-color: #B89635;
+    background: #FFFFFF;
+    box-shadow: 0 0 12px rgba(184,150,53,0.15);
+  }
+  @media (max-width: 900px) {
+    .contact-layout { grid-template-columns: 1fr !important; }
+    .form-row-2 { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<script>
+  const bookingForm = document.getElementById('booking-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const statusDiv = document.getElementById('form-status') as HTMLDivElement | null;
+
+  if (bookingForm && submitBtn && statusDiv) {
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusDiv.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Sending Inquiry…';
+
+      const formData = new FormData(bookingForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch('/api/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Failed to send inquiry.');
+        statusDiv.innerText = '✨ ' + (result.message || 'Thank you! Your inquiry has been sent to Kimberly & Rick.');
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = 'rgba(16,50,28,0.8)';
+        statusDiv.style.color = '#6ee7b7';
+        statusDiv.style.borderColor = 'rgba(110,231,183,0.3)';
+        bookingForm.reset();
+      } catch (err: any) {
+        statusDiv.innerText = '⚠️ ' + (err.message || 'An error occurred. Please try again.');
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = 'rgba(50,20,10,0.8)';
+        statusDiv.style.color = '#fca5a5';
+        statusDiv.style.borderColor = 'rgba(252,165,165,0.3)';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Send Inquiry to Kimberly & Rick';
+      }
+    });
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => obs.observe(el));
+</script>

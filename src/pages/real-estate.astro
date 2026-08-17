@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EditorialGallery from '../components/EditorialGallery.astro';
+
+const galleryItems = [
+  { number: '01', title: 'Waterfront Estate', location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/real%20estate/AEC_4701_result.webp', badge: '24-HR DELIVERY' },
+  { number: '02', title: 'Living Room Interior',location: 'CENTRAL FLORIDA', type: 'square'   as const, image: '/real%20estate/AEC_4860_result.webp' },
+  { number: '03', title: 'Twilight Exterior',  location: 'CENTRAL FLORIDA', type: 'portrait' as const, image: '/real%20estate/AEC_4705_result.webp', badge: 'HDR FLAMBIENT' },
+  { number: '04', title: 'Kitchen & Dining',   location: 'CENTRAL FLORIDA', type: 'square'   as const, image: '/real%20estate/AEC_4870_result.webp' },
+  { number: '05', title: 'Modern Pool & Outdoor', location: 'CENTRAL FLORIDA', type: 'wide' as const, image: '/real%20estate/AEC_4956_result.webp' },
+  { number: '06', title: 'Architectural Foyer',location: 'CENTRAL FLORIDA', type: 'portrait' as const, image: '/real%20estate/AEC_4584_result.webp' },
+  { number: '07', title: 'Primary Suite',      location: 'CENTRAL FLORIDA', type: 'wide'     as const, image: '/real%20estate/AEC_4859_result.webp' },
+];
+---
+
+<Layout
+  title="Real Estate & Architectural Photography | K&R Photography"
+  description="High-end HDR flambient real estate & architectural photography for top-producing agents. Orlando, Daytona & Cocoa Beach. Guaranteed 24-hour delivery."
+>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('/real%20estate/AEC_4956_result.webp');"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">B2B Real Estate · Architectural Media · Central Florida</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Make Every</span></span>
+        <span class="line"><span>Listing <em>Irresistible</em></span></span>
+      </h1>
+      <div class="hero-meta">
+        <div class="hero-stat"><strong>24hr</strong>Turnaround</div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><strong>HDR</strong>Flambient</div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><strong>MLS</strong>Ready Files</div>
+        <div style="margin-left:auto;"><a href="/contact" class="cta-btn">Book a Shoot</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EDITORIAL GALLERY ─── -->
+  <EditorialGallery
+    tagline="REAL ESTATE & ARCHITECTURAL PORTFOLIO"
+    items={galleryItems}
+    sectionId="realestate"
+  />
+
+  <!-- ─── WHY AGENTS CHOOSE US ─── -->
+  <section style="background:var(--black);padding:120px 60px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="reveal" style="text-align:center;margin-bottom:80px;">
+        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Why Top Agents Choose K&R</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,64px);font-weight:300;color:#11100F;margin-top:12px;line-height:0.95;">Your Competitive Edge</h2>
+      </div>
+      <div class="stagger-children reveal feat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+        {[
+          { icon: '⚡', title: '24-Hour Turnaround', desc: 'Next-day digital delivery so your listing goes live before the competition.' },
+          { icon: '◈', title: 'HDR Flambient Process', desc: 'Perfect window clarity, true-to-life color, and studio-quality natural light — every room.' },
+          { icon: '✓', title: 'MLS-Ready & High-Res', desc: 'Delivered in MLS-compliant formats alongside full print-ready archival files.' },
+          { icon: '🌇', title: 'Twilight & Blue Hour', desc: 'Premium twilight exterior sessions that create desire before the buyer steps inside.' },
+          { icon: '↕', title: 'Aerial Photography', desc: 'Licensed drone photography for lots, neighborhoods, and waterfront properties.' },
+          { icon: '▷', title: 'Listing Video Reels', desc: 'Cinematic social media reels and walkthrough videos for maximum engagement.' },
+        ].map(f => (
+          <div style="background:var(--surface);padding:44px 36px;border:1px solid rgba(184,150,53,0.18);box-shadow:0 10px 30px rgba(26,24,22,0.03);transition:border-color 0.4s,transform 0.4s;" class="feat-tile">
+            <div style="font-size:28px;margin-bottom:20px;">{f.icon}</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:#11100F;margin-bottom:12px;">{f.title}</h3>
+            <p style="font-size:15.5px;line-height:1.75;color:#3D3934;font-weight:400;">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section style="background:var(--black-soft);border-top:1px solid rgba(184,150,53,0.18);padding:120px 60px;text-align:center;" class="reveal">
+    <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;display:block;margin-bottom:20px;"><span class="gold-line"></span>Ready to List?</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#11100F;margin-bottom:24px;">Book Your<br/><em style="font-style:italic;">Property Shoot</em></h2>
+    <p style="font-size:17px;color:#3D3934;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.8;font-weight:400;">Contact us for volume agent pricing, rush availability, and custom media packages. Kimberly & Rick personally respond within hours.</p>
+    <a href="/contact" class="cta-btn">Book Real Estate Shoot</a>
+  </section>
+
+</Layout>
+
+<style>
+  .feat-tile:hover { border-color: rgba(201,168,76,0.4) !important; transform: translateY(-4px); }
+  @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr !important; } }
+  @media (max-width: 600px) { .feat-grid { grid-template-columns: 1fr !important; } }
+</style>
+
+<script>
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-right, .stagger-children, .img-wipe').forEach(el => obs.observe(el));
+</script>
