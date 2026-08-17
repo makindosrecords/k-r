@@ -210,7 +210,14 @@ const testimonials = [
   </section>
 
   <!-- ─── CINEMATIC ARROW GALLERY ─── -->
-  <section class="hscroll-section" id="gallery" style="padding:100px 0 80px;overflow:hidden;">
+  <section class="hscroll-section" id="gallery" style="padding:100px 0 80px;overflow:hidden;position:relative;">
+    
+    <!-- Floating Luxury Magnetic Drag Badge -->
+    <div id="gal-cursor-pill" class="gal-cursor-pill">
+      <span class="gal-cursor-dot"></span>
+      <span id="gal-cursor-text">DRAG · EXPLORE</span>
+    </div>
+
     <div style="padding:0 60px 50px;max-width:1200px;margin:0 auto;" class="reveal">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
         <div>
@@ -239,30 +246,42 @@ const testimonials = [
       <div class="h-gallery-track" id="gallery-track">
         {gallery.map((item, i) => (
           <div 
-            class="gallery-card"
+            class={`gallery-card${i === 0 ? ' is-active' : ''}`}
+            data-index={i}
             data-image={item.image}
             data-title={item.title}
             data-cat={item.category}
             data-loc={item.location}
             style={`width:${item.w}px; height:${item.h}px; flex-shrink:0; cursor:pointer;`}
           >
-            <img
-              src={item.image}
-              alt={item.title}
-              loading={i <= 3 ? 'eager' : 'lazy'}
-              decoding="async"
-              draggable="false"
-              width={item.w}
-              height={item.h}
-              style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"
-            />
+            <div class="gallery-card-inner">
+              <img
+                src={item.image}
+                alt={item.title}
+                loading={i <= 3 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable="false"
+                width={item.w}
+                height={item.h}
+                style="width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;"
+              />
+              <div class="gallery-card-overlay">
+                <span class="gallery-card-num">PLATE {String(i + 1).padStart(2, '0')}</span>
+                <span class="gallery-card-title">{item.title}</span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </div>
 
-    <!-- Dot indicators -->
-    <div id="gal-dots" style="display:flex;justify-content:center;gap:8px;margin-top:32px;padding:0 60px;"></div>
+    <!-- Gallery Progress Line & Dots -->
+    <div style="max-width:1200px;margin:32px auto 0;padding:0 60px;display:flex;flex-direction:column;align-items:center;gap:18px;">
+      <div class="gal-progress-bar-wrap">
+        <div id="gal-progress-bar" class="gal-progress-fill"></div>
+      </div>
+      <div id="gal-dots" style="display:flex;justify-content:center;gap:8px;"></div>
+    </div>
   </section>
 
   <!-- ─── ARTIST MANIFESTO / ABOUT ─── -->
@@ -393,6 +412,53 @@ const testimonials = [
   .service-link:hover { background: rgba(201,168,76,0.04); }
   .service-link:hover h3 { color: var(--gold) !important; }
 
+  /* ─── LUXURY FEATURED GALLERY STYLING ─── */
+  .gal-cursor-pill {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    padding: 8px 16px;
+    background: rgba(17, 16, 15, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    border-radius: 100px;
+    color: #FAF8F5;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.3s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+    box-shadow: 0 12px 30px rgba(17, 16, 15, 0.25);
+  }
+  .gal-cursor-pill.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .gal-cursor-pill.dragging {
+    transform: translate(-50%, -50%) scale(0.92);
+    background: #A3802C;
+    border-color: #FAF8F5;
+  }
+  .gal-cursor-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #B89635;
+    box-shadow: 0 0 6px #B89635;
+  }
+
+  .h-gallery-wrap {
+    will-change: scroll-position;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+  }
   .gallery-card {
     position: relative;
     cursor: pointer;
@@ -400,11 +466,79 @@ const testimonials = [
     border: none;
     box-shadow: none;
     border-radius: 0;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.88;
+    transform: scale(0.97);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
   }
+  .gallery-card.is-active,
   .gallery-card:hover {
-    transform: scale(1.02);
-    box-shadow: none;
+    opacity: 1;
+    transform: scale(1);
+  }
+  .gallery-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 16px 40px rgba(17, 16, 15, 0.08);
+    transition: box-shadow 0.4s ease, border-color 0.4s ease;
+    border: 1px solid rgba(184, 150, 53, 0.12);
+  }
+  .gallery-card.is-active .gallery-card-inner {
+    box-shadow: 0 24px 60px rgba(17, 16, 15, 0.14), 0 0 0 1px rgba(184, 150, 53, 0.4);
+  }
+  .gallery-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 20px 16px;
+    background: linear-gradient(to top, rgba(17,16,15,0.75) 0%, rgba(17,16,15,0) 100%);
+    color: #FAF8F5;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+  }
+  .gallery-card:hover .gallery-card-overlay,
+  .gallery-card.is-active .gallery-card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .gallery-card-num {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: #B89635;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .gallery-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FAF8F5;
+  }
+
+  .gal-progress-bar-wrap {
+    width: 100%;
+    max-width: 480px;
+    height: 2px;
+    background: rgba(184, 150, 53, 0.16);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .gal-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #A3802C 0%, #C9A84C 100%);
+    transition: width 0.1s linear;
   }
 
 </style>
@@ -417,21 +551,34 @@ const testimonials = [
   const btnNext = document.getElementById('gal-next') as HTMLButtonElement;
   const counter = document.getElementById('gal-counter') as HTMLElement;
   const dotsEl = document.getElementById('gal-dots') as HTMLElement;
+  const progressBar = document.getElementById('gal-progress-bar') as HTMLElement;
+  const cursorPill = document.getElementById('gal-cursor-pill') as HTMLElement;
+  const cursorText = document.getElementById('gal-cursor-text') as HTMLElement;
 
   if (track && wrap) {
     const cards = Array.from(track.querySelectorAll('.gallery-card')) as HTMLElement[];
     const total = cards.length;
     let currentCard = 0;
-    let targetScroll = 0;
-    let rafId = 0;
-    let isProgrammatic = false;
+    
+    // Cached layout offsets to eliminate frame-by-frame DOM queries / layout thrashing
+    let cardCenters: number[] = [];
+    let cardLefts: number[] = [];
+    let cardWidths: number[] = [];
+    let maxScroll = 0;
 
-    // Mouse drag state
-    let isDown = false;
-    let startX = 0;
-    let scrollLeftStart = 0;
-    let hasMoved = false;
-    let dragDistance = 0;
+    function measureCards() {
+      cardCenters = [];
+      cardLefts = [];
+      cardWidths = [];
+      cards.forEach(c => {
+        const left = c.offsetLeft;
+        const w = c.offsetWidth;
+        cardLefts.push(left);
+        cardWidths.push(w);
+        cardCenters.push(left + w / 2);
+      });
+      maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+    }
 
     // Build dot indicators
     cards.forEach((_, i) => {
@@ -439,11 +586,11 @@ const testimonials = [
       dot.style.cssText = 'width:6px;height:6px;border-radius:50%;border:none;cursor:pointer;transition:all 0.35s ease;padding:0;background:rgba(163,128,44,0.3);';
       dot.setAttribute('aria-label', `Photo ${i + 1}`);
       dot.addEventListener('click', () => goTo(i));
-      dotsEl.appendChild(dot);
+      dotsEl?.appendChild(dot);
     });
 
     function updateUI() {
-      counter.textContent = `${currentCard + 1} / ${total}`;
+      if (counter) counter.textContent = `${currentCard + 1} / ${total}`;
       if (btnPrev) {
         btnPrev.style.opacity = currentCard === 0 ? '0.35' : '1';
         btnPrev.style.pointerEvents = currentCard === 0 ? 'none' : 'auto';
@@ -452,22 +599,34 @@ const testimonials = [
         btnNext.style.opacity = currentCard === total - 1 ? '0.35' : '1';
         btnNext.style.pointerEvents = currentCard === total - 1 ? 'none' : 'auto';
       }
-      dotsEl.querySelectorAll('button').forEach((d, i) => {
-        const isActive = i === currentCard;
-        (d as HTMLElement).style.width = isActive ? '24px' : '6px';
-        (d as HTMLElement).style.borderRadius = isActive ? '4px' : '50%';
-        (d as HTMLElement).style.background = isActive ? '#A3802C' : 'rgba(163,128,44,0.3)';
+      if (dotsEl) {
+        dotsEl.querySelectorAll('button').forEach((d, i) => {
+          const isActive = i === currentCard;
+          (d as HTMLElement).style.width = isActive ? '24px' : '6px';
+          (d as HTMLElement).style.borderRadius = isActive ? '4px' : '50%';
+          (d as HTMLElement).style.background = isActive ? '#A3802C' : 'rgba(163,128,44,0.3)';
+        });
+      }
+      cards.forEach((c, i) => {
+        if (i === currentCard) {
+          c.classList.add('is-active');
+        } else {
+          c.classList.remove('is-active');
+        }
       });
+      if (progressBar) {
+        const progress = maxScroll > 0 ? (wrap.scrollLeft / maxScroll) * 100 : 0;
+        progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
+      }
     }
 
-    function syncCurrentFromScroll() {
+    function syncActiveCard() {
+      if (!cardCenters.length) measureCards();
       const wrapCenter = wrap.scrollLeft + wrap.clientWidth / 2;
       let minDiff = Infinity;
       let closest = 0;
-      for (let i = 0; i < total; i++) {
-        const c = cards[i];
-        const cardCenter = c.offsetLeft + c.offsetWidth / 2;
-        const diff = Math.abs(cardCenter - wrapCenter);
+      for (let i = 0; i < cardCenters.length; i++) {
+        const diff = Math.abs(cardCenters[i] - wrapCenter);
         if (diff < minDiff) {
           minDiff = diff;
           closest = i;
@@ -476,123 +635,218 @@ const testimonials = [
       if (closest !== currentCard) {
         currentCard = closest;
         updateUI();
+      } else if (progressBar) {
+        const progress = maxScroll > 0 ? (wrap.scrollLeft / maxScroll) * 100 : 0;
+        progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
       }
     }
+
+    // Smooth programmatic scroll for buttons/dots
+    let isProgrammatic = false;
+    let animStart = 0;
+    let startScroll = 0;
+    let targetScroll = 0;
+    let animDuration = 420;
+    let progRaf = 0;
 
     function easeOutCubic(t: number): number {
       return 1 - Math.pow(1 - t, 3);
     }
 
-    let startScroll = 0;
-    let animStartTime = 0;
-    const ANIM_DURATION = 420;
-
-    function smoothScroll(timestamp: number) {
-      if (!animStartTime) animStartTime = timestamp;
-      const elapsed = timestamp - animStartTime;
-      const progress = Math.min(1, elapsed / ANIM_DURATION);
+    function smoothProgrammaticScroll(timestamp: number) {
+      if (!animStart) animStart = timestamp;
+      const elapsed = timestamp - animStart;
+      const progress = Math.min(1, elapsed / animDuration);
       const ease = easeOutCubic(progress);
 
       wrap.scrollLeft = startScroll + (targetScroll - startScroll) * ease;
+      syncActiveCard();
 
       if (progress < 1) {
-        rafId = requestAnimationFrame(smoothScroll);
+        progRaf = requestAnimationFrame(smoothProgrammaticScroll);
       } else {
         wrap.scrollLeft = targetScroll;
         isProgrammatic = false;
-        syncCurrentFromScroll();
+        syncActiveCard();
       }
     }
 
     function goTo(idx: number) {
+      if (!cardLefts.length) measureCards();
       currentCard = Math.max(0, Math.min(total - 1, idx));
-      const card = cards[currentCard];
       const wrapWidth = wrap.clientWidth;
-      const cardLeft = card.offsetLeft;
-      const cardWidth = card.offsetWidth;
-      targetScroll = cardLeft - (wrapWidth - cardWidth) / 2;
-      targetScroll = Math.max(0, Math.min(wrap.scrollWidth - wrap.clientWidth, targetScroll));
+      const cardLeft = cardLefts[currentCard] || 0;
+      const cardWidth = cardWidths[currentCard] || 0;
+      targetScroll = Math.max(0, Math.min(maxScroll, cardLeft - (wrapWidth - cardWidth) / 2));
       
       startScroll = wrap.scrollLeft;
-      animStartTime = 0;
+      animStart = 0;
       isProgrammatic = true;
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(smoothScroll);
+      cancelAnimationFrame(progRaf);
+      cancelAnimationFrame(flingRaf);
+      progRaf = requestAnimationFrame(smoothProgrammaticScroll);
       updateUI();
     }
 
     btnPrev?.addEventListener('click', () => goTo(currentCard - 1));
     btnNext?.addEventListener('click', () => goTo(currentCard + 1));
 
-    // Keyboard left/right arrow navigation on gallery (when not in lightbox)
+    // Zero-lag 1:1 Mouse Drag + Kinetic Fling
+    let isDown = false;
+    let isDragging = false;
+    let totalDragDistance = 0;
+    let startX = 0;
+    let scrollStart = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    let flingRaf = 0;
+
+    function applyFling() {
+      if (Math.abs(velocity) > 0.4 && !isDown) {
+        wrap.scrollLeft += velocity;
+        velocity *= 0.93; // silky momentum decay
+        syncActiveCard();
+        flingRaf = requestAnimationFrame(applyFling);
+      } else {
+        velocity = 0;
+      }
+    }
+
+    wrap.addEventListener('mousedown', (e) => {
+      isDown = true;
+      isDragging = false;
+      totalDragDistance = 0;
+      startX = e.pageX;
+      scrollStart = wrap.scrollLeft;
+      lastX = e.pageX;
+      lastTime = performance.now();
+      velocity = 0;
+      cancelAnimationFrame(progRaf);
+      cancelAnimationFrame(flingRaf);
+      cancelAnimationFrame(wheelRaf);
+      isProgrammatic = false;
+      wrap.classList.add('is-dragging');
+      if (cursorPill) {
+        cursorPill.classList.add('dragging');
+        if (cursorText) cursorText.textContent = 'DRAGGING';
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (cursorPill && cursorPill.classList.contains('visible')) {
+        cursorPill.style.left = `${e.clientX}px`;
+        cursorPill.style.top = `${e.clientY}px`;
+      }
+      if (!isDown) return;
+
+      const dx = e.pageX - startX;
+      totalDragDistance += Math.abs(e.pageX - lastX);
+      if (totalDragDistance > 6) {
+        isDragging = true;
+      }
+
+      // Direct zero-lag 1:1 scroll tracking
+      wrap.scrollLeft = scrollStart - dx;
+      syncActiveCard();
+
+      const now = performance.now();
+      const dt = now - lastTime;
+      if (dt > 8) {
+        velocity = ((lastX - e.pageX) / dt) * 15;
+        lastX = e.pageX;
+        lastTime = now;
+      }
+    });
+
+    const endDrag = () => {
+      if (!isDown) return;
+      isDown = false;
+      wrap.classList.remove('is-dragging');
+      if (cursorPill) {
+        cursorPill.classList.remove('dragging');
+        if (cursorText) cursorText.textContent = 'DRAG · EXPLORE';
+      }
+      if (Math.abs(velocity) > 0.5) {
+        flingRaf = requestAnimationFrame(applyFling);
+      }
+    };
+
+    window.addEventListener('mouseup', endDrag);
+    wrap.addEventListener('mouseleave', () => {
+      if (cursorPill) cursorPill.classList.remove('visible');
+      if (isDown) endDrag();
+    });
+
+    wrap.addEventListener('mouseenter', (e) => {
+      if (cursorPill && window.matchMedia('(pointer: fine)').matches) {
+        cursorPill.style.left = `${e.clientX}px`;
+        cursorPill.style.top = `${e.clientY}px`;
+        cursorPill.classList.add('visible');
+      }
+    });
+
+    // Smooth Kinetic Mouse Wheel with Smart Boundary Release
+    let wheelVelocity = 0;
+    let wheelRaf = 0;
+
+    function applyWheelVelocity() {
+      if (Math.abs(wheelVelocity) > 0.4 && !isDown) {
+        wrap.scrollLeft += wheelVelocity;
+        wheelVelocity *= 0.90; // smooth wheel glide damping
+        syncActiveCard();
+        wheelRaf = requestAnimationFrame(applyWheelVelocity);
+      } else {
+        wheelVelocity = 0;
+      }
+    }
+
+    wrap.addEventListener('wheel', (e) => {
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      const delta = isHorizontal ? e.deltaX : e.deltaY;
+      
+      const canScrollLeft = wrap.scrollLeft > 2;
+      const canScrollRight = wrap.scrollLeft < maxScroll - 2;
+
+      const scrollingRight = delta > 0;
+      const scrollingLeft = delta < 0;
+
+      if ((scrollingRight && canScrollRight) || (scrollingLeft && canScrollLeft)) {
+        e.preventDefault();
+        cancelAnimationFrame(progRaf);
+        cancelAnimationFrame(flingRaf);
+        cancelAnimationFrame(wheelRaf);
+        wheelVelocity += delta * 0.45;
+        wheelVelocity = Math.max(-35, Math.min(35, wheelVelocity));
+        wheelRaf = requestAnimationFrame(applyWheelVelocity);
+      }
+    }, { passive: false });
+
+    // Touch swipe for mobile
+    let touchStartX = 0;
+    wrap.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) goTo(currentCard + (dx < 0 ? 1 : -1));
+    });
+
+    // Native scroll sync (trackpad gestures)
+    wrap.addEventListener('scroll', () => {
+      if (!isProgrammatic && !isDown && wheelVelocity === 0 && velocity === 0) {
+        syncActiveCard();
+      }
+    }, { passive: true });
+
+    // Keyboard navigation
     window.addEventListener('keydown', (e) => {
       if (document.getElementById('kr-lightbox')?.classList.contains('lb-open')) return;
       if (e.key === 'ArrowLeft') goTo(currentCard - 1);
       if (e.key === 'ArrowRight') goTo(currentCard + 1);
     });
 
-    // Native scroll listener for manual touch/trackpad/drag scroll
-    wrap.addEventListener('scroll', () => {
-      if (!isProgrammatic) {
-        syncCurrentFromScroll();
-      }
-    }, { passive: true });
-
-    // Smooth Mouse Drag Interaction
-    wrap.addEventListener('mousedown', (e) => {
-      isDown = true;
-      hasMoved = false;
-      dragDistance = 0;
-      wrap.classList.add('is-dragging');
-      startX = e.pageX - wrap.offsetLeft;
-      scrollLeftStart = wrap.scrollLeft;
-      cancelAnimationFrame(rafId);
-      isProgrammatic = false;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (!isDown) return;
-      isDown = false;
-      wrap.classList.remove('is-dragging');
-    });
-
-    wrap.addEventListener('mouseleave', () => {
-      if (!isDown) return;
-      isDown = false;
-      wrap.classList.remove('is-dragging');
-    });
-
-    wrap.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - wrap.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      dragDistance = Math.abs(x - startX);
-      if (dragDistance > 5) hasMoved = true;
-      wrap.scrollLeft = scrollLeftStart - walk;
-    });
-
-    // Touch swipe
-    let swipeStartX = 0;
-    wrap.addEventListener('touchstart', (e) => { swipeStartX = e.touches[0].clientX; }, { passive: true });
-    wrap.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - swipeStartX;
-      if (Math.abs(dx) > 40) goTo(currentCard + (dx < 0 ? 1 : -1));
-    });
-
-    // Hover effects on buttons
-    [btnPrev, btnNext].forEach(btn => {
-      if (!btn) return;
-      btn.addEventListener('mouseenter', () => {
-        btn.style.background = '#11100F';
-        btn.style.color = '#FAF8F5';
-        btn.style.borderColor = '#11100F';
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.background = 'rgba(255,255,255,0.9)';
-        btn.style.color = '#11100F';
-        btn.style.borderColor = 'rgba(163,128,44,0.35)';
-      });
+    window.addEventListener('resize', () => {
+      measureCards();
+      updateUI();
     });
 
     // Pre-decode initial card images
@@ -602,6 +856,7 @@ const testimonials = [
     });
 
     // Init
+    measureCards();
     goTo(0);
 
     // ── LIGHTBOX ──
@@ -688,7 +943,7 @@ const testimonials = [
 
     cards.forEach((card, i) => {
       card.addEventListener('click', (e) => {
-        if (hasMoved && dragDistance > 8) {
+        if (isDragging || totalDragDistance > 8) {
           e.preventDefault();
           return;
         }
