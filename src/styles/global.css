@@ -725,29 +725,23 @@ body {
 }
 
 .lb-stage-img {
-  position: absolute;
   max-width: 90%;
   max-height: 82vh;
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 28px 80px rgba(26, 24, 22, 0.12), 0 0 0 1px rgba(184, 150, 53, 0.2);
-  opacity: 0;
-  transform: scale(0.96);
-  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  pointer-events: none;
   user-select: none;
+  transition: opacity 0.15s ease;
 }
 
 #lb-title,
 #lb-meta,
 #lb-counter {
-  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.15s ease;
 }
 
 .lb-btn {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(184, 150, 53, 0.3);
   color: #1A1816;
   border-radius: 50%;
@@ -757,7 +751,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s, border-color 0.3s;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
 }
 
 .lb-btn:hover {
@@ -789,23 +783,12 @@ body {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 36px;
+  gap: 10px;
+  padding: 16px 36px 20px;
   border-top: 1px solid rgba(184, 150, 53, 0.18);
-  background: rgba(250, 248, 245, 0.95);
-  backdrop-filter: blur(12px);
+  background: #FAF8F5;
   position: relative;
   z-index: 2;
-}
-
-.lb-thumbs {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 2px;
 }
 
 .lb-thumb {

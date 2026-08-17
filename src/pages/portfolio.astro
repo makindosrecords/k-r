@@ -532,7 +532,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     });
   });
 
-  // ─── CINEMATIC LUXURY LIGHTBOX ───
+  // ─── INSTANT CINEMATIC LIGHTBOX ───
   let lb = document.getElementById('kr-lightbox');
   if (!lb) {
     lb = document.createElement('div');
@@ -554,8 +554,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
         <div class="lb-img-wrap" id="lb-img-wrap" style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-          <img id="lb-img-a" class="lb-stage-img" src="" alt="" />
-          <img id="lb-img-b" class="lb-stage-img" src="" alt="" />
+          <img id="lb-stage-img" class="lb-stage-img" src="" alt="" />
         </div>
         <button class="lb-nav-btn next lb-btn" id="lb-next" aria-label="Next">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
@@ -569,123 +568,44 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
             <div id="lb-meta" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-top:4px;"></div>
           </div>
           <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.16em;color:#3D3934;text-align:right;" class="hide-mobile">
-            ← → Navigate<br/>Esc Close
+            ← → Navigate &nbsp;·&nbsp; Esc Close
           </div>
         </div>
-        <div class="lb-thumbs" id="lb-thumbs"></div>
       </div>
     `;
     document.body.appendChild(lb);
   }
 
-  const thumbsEl = lb.querySelector('#lb-thumbs') as HTMLElement;
-  thumbsEl.innerHTML = '';
-  galleryArr.forEach((item, i) => {
-    const t = document.createElement('div');
-    t.className = 'lb-thumb';
-    t.dataset.idx = String(i);
-    t.innerHTML = `<img src="${item.image}" alt="${item.title}" decoding="async" />`;
-    t.addEventListener('click', () => {
-      const visible = getVisibleItems();
-      const vIdx = visible.indexOf(item);
-      if (vIdx >= 0) {
-        const dir = vIdx > currentIdx ? 1 : -1;
-        navigateTo(vIdx, dir);
-      }
-    });
-    thumbsEl.appendChild(t);
-  });
+  const lbStageImg = lb.querySelector('#lb-stage-img') as HTMLImageElement;
+  const lbTitle = lb.querySelector('#lb-title') as HTMLElement;
+  const lbMeta = lb.querySelector('#lb-meta') as HTMLElement;
+  const lbCounter = lb.querySelector('#lb-counter') as HTMLElement;
 
   let currentIdx = -1;
-  let activeBuffer = 'a';
-
-  function setThumbActive(origIdx: number) {
-    thumbsEl.querySelectorAll('.lb-thumb').forEach((t, i) => {
-      t.classList.toggle('active', i === origIdx);
-    });
-    const activeThumb = thumbsEl.children[origIdx] as HTMLElement;
-    if (activeThumb) {
-      const targetLeft = activeThumb.offsetLeft - (thumbsEl.clientWidth - activeThumb.offsetWidth) / 2;
-      thumbsEl.scrollTo({ left: targetLeft, behavior: 'smooth' });
-    }
-  }
 
   function getVisibleItems() {
     return galleryArr.filter(item => item.el.style.display !== 'none');
   }
 
-  function navigateTo(targetIdx: number, direction: number = 0) {
+  function showImage(targetIdx: number) {
     const visible = getVisibleItems();
-    if (visible.length === 0) return;
-    targetIdx = ((targetIdx % visible.length) + visible.length) % visible.length;
+    if (!visible.length) return;
+    currentIdx = ((targetIdx % visible.length) + visible.length) % visible.length;
+    const item = visible[currentIdx];
 
-    const item = visible[targetIdx];
-    const origIdx = galleryArr.indexOf(item);
-
-    const imgA = lb!.querySelector('#lb-img-a') as HTMLImageElement;
-    const imgB = lb!.querySelector('#lb-img-b') as HTMLImageElement;
-
-    const cur = activeBuffer === 'a' ? imgA : imgB;
-    const nxt = activeBuffer === 'a' ? imgB : imgA;
-
-    nxt.src = item.image;
-    nxt.alt = item.title;
-
-    // Typography
-    const titleEl = lb!.querySelector('#lb-title') as HTMLElement;
-    const metaEl = lb!.querySelector('#lb-meta') as HTMLElement;
-    const counterEl = lb!.querySelector('#lb-counter') as HTMLElement;
-
-    if (titleEl && metaEl && counterEl) {
-      titleEl.textContent = item.title;
-      metaEl.textContent = `${item.cat} · ${item.loc}`;
-      counterEl.textContent = `${targetIdx + 1} / ${visible.length}`;
-    }
-
-    setThumbActive(origIdx);
-
-    // Directional transition
-    if (direction === 0) {
-      // Instant reveal on initial open
-      nxt.style.transition = 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)';
-      nxt.style.transform = 'scale(1)';
-      nxt.style.opacity = '1';
-      nxt.style.pointerEvents = 'all';
-
-      cur.style.transition = 'opacity 0.2s ease';
-      cur.style.opacity = '0';
-      cur.style.pointerEvents = 'none';
-    } else {
-      const inX = direction > 0 ? 30 : -30;
-      const outX = direction > 0 ? -30 : 30;
-
-      nxt.style.transition = 'none';
-      nxt.style.transform = `translateX(${inX}px) scale(0.99)`;
-      nxt.style.opacity = '0';
-
-      requestAnimationFrame(() => {
-        nxt.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-        nxt.style.transform = 'translateX(0) scale(1)';
-        nxt.style.opacity = '1';
-        nxt.style.pointerEvents = 'all';
-
-        cur.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-        cur.style.transform = `translateX(${outX}px) scale(0.99)`;
-        cur.style.opacity = '0';
-        cur.style.pointerEvents = 'none';
-      });
-    }
-
-    activeBuffer = activeBuffer === 'a' ? 'b' : 'a';
-    currentIdx = targetIdx;
+    lbStageImg.src = item.image;
+    lbStageImg.alt = item.title;
+    lbTitle.textContent = item.title;
+    lbMeta.textContent = `${item.cat} · ${item.loc}`;
+    lbCounter.textContent = `${currentIdx + 1} / ${visible.length}`;
   }
 
   function openLightbox(item: any) {
     const visible = getVisibleItems();
     const idx = visible.indexOf(item);
+    showImage(idx >= 0 ? idx : 0);
     lb!.classList.add('lb-open');
     document.body.style.overflow = 'hidden';
-    navigateTo(idx >= 0 ? idx : 0, 0);
   }
 
   function closeLightbox() {
@@ -698,17 +618,20 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
   });
 
   lb.querySelector('#lb-close')?.addEventListener('click', closeLightbox);
-  lb.querySelector('#lb-prev')?.addEventListener('click', () => navigateTo(currentIdx - 1, -1));
-  lb.querySelector('#lb-next')?.addEventListener('click', () => navigateTo(currentIdx + 1, 1));
-  lb.querySelector('#lb-stage')?.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('#lb-img-wrap, .lb-nav-btn')) return;
-    closeLightbox();
+  lb.querySelector('#lb-prev')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx - 1); });
+  lb.querySelector('#lb-next')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx + 1); });
+
+  lb.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'lb-stage' || target.id === 'lb-img-wrap' || target.id === 'kr-lightbox' || target.closest('#lb-close')) {
+      closeLightbox();
+    }
   });
 
   window.addEventListener('keydown', (e) => {
     if (!lb!.classList.contains('lb-open')) return;
-    if (e.key === 'ArrowLeft')  navigateTo(currentIdx - 1, -1);
-    if (e.key === 'ArrowRight') navigateTo(currentIdx + 1, 1);
+    if (e.key === 'ArrowLeft')  showImage(currentIdx - 1);
+    if (e.key === 'ArrowRight') showImage(currentIdx + 1);
     if (e.key === 'Escape') closeLightbox();
   });
 
@@ -720,8 +643,8 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
       wheelCooldown = true;
       const dir = (e.deltaY > 0 || e.deltaX > 0) ? 1 : -1;
-      navigateTo(currentIdx + dir, dir);
-      setTimeout(() => { wheelCooldown = false; }, 260);
+      showImage(currentIdx + dir);
+      setTimeout(() => { wheelCooldown = false; }, 200);
     }
   }, { passive: true });
 </script>
