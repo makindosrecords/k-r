@@ -3,44 +3,44 @@ import Layout from '../layouts/Layout.astro';
 
 const allPortfolioItems = [
   // WEDDINGS & COUPLES
-  { id: 'w1', num: '01', title: 'Wedding Ceremony',         category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_5922_result.webp' },
-  { id: 'w2', num: '02', title: 'Bridal Elegance',          category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_5353_result.webp' },
-  { id: 'w3', num: '03', title: 'The Wedding Day',          category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_2100_result.webp' },
-  { id: 'w4', num: '04', title: 'First Look & Vows',        category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0045-2_result.webp' },
-  { id: 'w5', num: '05', title: 'Bride & Groom Intimate',   category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/1%20(5)_result.webp' },
-  { id: 'w6', num: '06', title: 'Reception Gala',           category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_8018_result.webp' },
-  { id: 'w7', num: '07', title: 'Bridal Suite Romance',     category: 'Weddings & Couples', location: 'Central Florida', image: '/KIM_9003-2.webp' },
-  { id: 'w8', num: '08', title: 'Sunset Couple Embrace',    category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_6682-2_result.webp' },
-  { id: 'w9', num: '09', title: 'Ceremony Kiss & Vows',     category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0773-2_result.webp' },
-  { id: 'w10', num: '10', title: 'Sanctuary Entrance',      category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/RIC_4988-2_result.webp' },
-  { id: 'w11', num: '11', title: 'Ceremony Processional',   category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0752-2_result.webp' },
-  { id: 'w12', num: '12', title: 'Bride & Groom Procession',category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_2729-3_result.webp' },
+  { id: 'w1', num: '01', title: 'Wedding Ceremony',         category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_5922_result.webp',   format: 'tall' as const },
+  { id: 'w2', num: '02', title: 'First Look & Vows',        category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0045-2_result.webp', format: 'wide' as const },
+  { id: 'w3', num: '03', title: 'The Wedding Day',          category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_2100_result.webp',   format: 'wide' as const },
+  { id: 'w4', num: '04', title: 'Bridal Elegance',          category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_5353_result.webp',   format: 'tall' as const },
+  { id: 'w5', num: '05', title: 'Bride & Groom Intimate',   category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/1%20(5)_result.webp',    format: 'tall' as const },
+  { id: 'w6', num: '06', title: 'Reception Gala',           category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_8018_result.webp',   format: 'wide' as const },
+  { id: 'w7', num: '07', title: 'Bridal Suite Romance',     category: 'Weddings & Couples', location: 'Central Florida', image: '/KIM_9003-2.webp',                  format: 'tall' as const },
+  { id: 'w8', num: '08', title: 'Sunset Couple Embrace',    category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_6682-2_result.webp', format: 'wide' as const },
+  { id: 'w9', num: '09', title: 'Ceremony Kiss & Vows',     category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0773-2_result.webp', format: 'tall' as const },
+  { id: 'w10', num: '10', title: 'Sanctuary Entrance',      category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/RIC_4988-2_result.webp', format: 'tall' as const },
+  { id: 'w11', num: '11', title: 'Ceremony Processional',   category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/DSC_0752-2_result.webp', format: 'wide' as const },
+  { id: 'w12', num: '12', title: 'Bride & Groom Procession',category: 'Weddings & Couples', location: 'Central Florida', image: '/weddings/KIM_2729-3_result.webp', format: 'wide' as const },
 
   // FAMILY & LIFESTYLE
-  { id: 'f1', num: '13', title: 'Golden Hour Family',       category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8902_result.webp' },
-  { id: 'f2', num: '14', title: 'Garden Walkway Family',    category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_6504_result.webp' },
-  { id: 'f3', num: '15', title: 'Generations Under Oak',    category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_0075_result.webp' },
-  { id: 'f4', num: '16', title: 'Coastal Family Session',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7250-2_result.webp' },
-  { id: 'f5', num: '17', title: 'Lush Garden Family Joy',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8221_result.webp' },
-  { id: 'f6', num: '18', title: 'Sand Dunes Family Session',category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_3497_result.webp' },
-  { id: 'f7', num: '19', title: 'Family Embrace',          category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7258_result.webp' },
-  { id: 'f8', num: '20', title: 'Sunset Family Portrait',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7349_result.webp' },
-  { id: 'f9', num: '21', title: 'Estate Portrait Ensemble', category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8822_result.webp' },
-  { id: 'f10', num: '22', title: 'Oceanfront Family Walk',  category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8930_result.webp' },
+  { id: 'f1', num: '13', title: 'Golden Hour Family',       category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8902_result.webp',     format: 'tall' as const },
+  { id: 'f2', num: '14', title: 'Generations Under Oak',    category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_0075_result.webp',     format: 'wide' as const },
+  { id: 'f3', num: '15', title: 'Garden Walkway Family',    category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_6504_result.webp',     format: 'tall' as const },
+  { id: 'f4', num: '16', title: 'Coastal Family Session',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7250-2_result.webp',   format: 'wide' as const },
+  { id: 'f5', num: '17', title: 'Lush Garden Family Joy',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8221_result.webp',     format: 'tall' as const },
+  { id: 'f6', num: '18', title: 'Sand Dunes Family Session',category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_3497_result.webp',     format: 'wide' as const },
+  { id: 'f7', num: '19', title: 'Family Embrace',          category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7258_result.webp',     format: 'tall' as const },
+  { id: 'f8', num: '20', title: 'Sunset Family Portrait',   category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_7349_result.webp',     format: 'tall' as const },
+  { id: 'f9', num: '21', title: 'Estate Portrait Ensemble', category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8822_result.webp',     format: 'wide' as const },
+  { id: 'f10', num: '22', title: 'Oceanfront Family Walk',  category: 'Family & Lifestyle', location: 'Central Florida', image: '/family/KIM_8930_result.webp',     format: 'wide' as const },
 
   // REAL ESTATE & ARCHITECTURAL MEDIA
-  { id: 'r1', num: '23', title: 'Modern Pool & Outdoor',    category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4956_result.webp' },
-  { id: 'r2', num: '24', title: 'Waterfront Estate',        category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4701_result.webp' },
-  { id: 'r3', num: '25', title: 'Living Room Interior',     category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4860_result.webp' },
-  { id: 'r4', num: '26', title: 'Twilight Exterior',       category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4705_result.webp' },
-  { id: 'r5', num: '27', title: 'Kitchen & Dining',        category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4870_result.webp' },
-  { id: 'r6', num: '28', title: 'Architectural Foyer',     category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4584_result.webp' },
-  { id: 'r7', num: '29', title: 'Primary Suite',           category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4859_result.webp' },
+  { id: 'r1', num: '23', title: 'Modern Pool & Outdoor',    category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4956_result.webp', format: 'wide' as const },
+  { id: 'r2', num: '24', title: 'Architectural Foyer',     category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4584_result.webp', format: 'tall' as const },
+  { id: 'r3', num: '25', title: 'Waterfront Estate',        category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4701_result.webp', format: 'wide' as const },
+  { id: 'r4', num: '26', title: 'Living Room Interior',     category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4860_result.webp', format: 'wide' as const },
+  { id: 'r5', num: '27', title: 'Twilight Exterior',       category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4705_result.webp', format: 'wide' as const },
+  { id: 'r6', num: '28', title: 'Kitchen & Dining',        category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4870_result.webp', format: 'wide' as const },
+  { id: 'r7', num: '29', title: 'Primary Suite',           category: 'Real Estate Media', location: 'Central Florida', image: '/real%20estate/AEC_4859_result.webp', format: 'wide' as const },
 
   // EXECUTIVE SERIES
-  { id: 'h1', num: '30', title: 'Executive Studio Portrait',category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_0296_result.webp' },
-  { id: 'h2', num: '31', title: 'Studio Headshot Series',   category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_8226_result.webp' },
-  { id: 'h3', num: '32', title: 'Executive Branding',       category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_8852_result.webp' },
+  { id: 'h1', num: '30', title: 'Executive Studio Portrait',category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_0296_result.webp', format: 'tall' as const },
+  { id: 'h2', num: '31', title: 'Studio Headshot Series',   category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_8226_result.webp', format: 'tall' as const },
+  { id: 'h3', num: '32', title: 'Executive Branding',       category: 'Executive Series',  location: 'Central Florida', image: '/headshots/KIM_8852_result.webp', format: 'tall' as const },
 ];
 
 const categoryCounts: Record<string, number> = {
@@ -82,7 +82,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
 
   <!-- ─── MUSEUM EXHIBITION GALLERY ─── -->
   <section style="background:var(--black);padding:100px 60px 140px;">
-    <div style="max-width:1380px;margin:0 auto;">
+    <div style="max-width:1440px;margin:0 auto;">
 
       <!-- Curated Header & Collection Navigation -->
       <div style="text-align:center;margin-bottom:70px;">
@@ -108,11 +108,11 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
         </div>
       </div>
 
-      <!-- Fine Art Grid -->
+      <!-- Fine Art Bento Grid -->
       <div class="exhibition-grid" id="portfolio-grid">
         {allPortfolioItems.map((item, idx) => (
           <article
-            class="art-plate-card"
+            class={`art-plate-card bento-${item.format}`}
             data-category={item.category}
             data-index={idx}
             data-image={item.image}
@@ -247,25 +247,34 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     color: #C9A84C;
   }
 
-  /* ─── Fine Art Exhibition Grid ─── */
+  /* ─── Fine Art Bento Box Grid ─── */
   .exhibition-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 36px;
-    row-gap: 56px;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 32px;
+    row-gap: 48px;
+    grid-auto-flow: dense;
   }
 
   .art-plate-card {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Bento Spans */
+  .art-plate-card.bento-tall {
+    grid-column: span 4;
+  }
+
+  .art-plate-card.bento-wide {
+    grid-column: span 8;
   }
 
   .art-frame {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 5;
     border-radius: 4px;
     overflow: hidden;
     background: #F3EFEA;
@@ -274,6 +283,15 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     transform: translateZ(0);
     will-change: transform;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  }
+
+  /* Uncropped Aspect Ratios Matching True Camera Proportions */
+  .bento-tall .art-frame {
+    aspect-ratio: 2 / 3;
+  }
+
+  .bento-wide .art-frame {
+    aspect-ratio: 16 / 10;
   }
 
   .art-plate-card:hover .art-frame {
@@ -292,7 +310,25 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
   }
 
   .art-plate-card:hover .art-img {
-    transform: scale(1.04);
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 1100px) {
+    .art-plate-card.bento-tall,
+    .art-plate-card.bento-wide {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .exhibition-grid {
+      grid-template-columns: 1fr;
+      row-gap: 36px;
+    }
+    .art-plate-card.bento-tall,
+    .art-plate-card.bento-wide {
+      grid-column: span 1;
+    }
   }
 
   /* ─── Architectural Fine Art Caption ─── */
