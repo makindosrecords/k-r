@@ -859,12 +859,22 @@ body {
   }
 
   .site-header {
-    padding: 0 16px;
-    height: 70px;
+    padding: 0 16px !important;
+    height: 60px !important;
+  }
+
+  .header-logo .logo-title {
+    font-size: 24px !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .header-logo .logo-sub {
+    font-size: 9px !important;
+    letter-spacing: 0.28em !important;
   }
 
   .cta-btn {
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 10px;
     letter-spacing: 0.16em;
     max-width: 100%;
@@ -884,26 +894,26 @@ body {
   }
 
   .hero {
-    padding: 90px 20px 40px;
+    padding: 80px 20px 32px;
     height: auto;
-    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .hero-eyebrow {
     font-size: 10px;
     letter-spacing: 0.16em;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     line-height: 1.5;
   }
 
   .hero-title {
-    font-size: clamp(42px, 11vw, 68px);
-    margin-bottom: 28px;
+    font-size: clamp(34px, 9vw, 56px);
+    margin-bottom: 20px;
   }
 
   .hero-meta {
     flex-wrap: wrap;
-    gap: 16px 24px;
+    gap: 12px 20px;
     align-items: center;
   }
 
@@ -913,11 +923,26 @@ body {
   }
 
   .hero-stat strong {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .hero-divider {
     display: none;
+  }
+
+  /* ── Featured Gallery Mobile & Vertical Scaling ── */
+  .h-gallery-wrap {
+    padding: 12px 16px 24px !important;
+  }
+
+  .h-gallery-track {
+    gap: 14px !important;
+    padding-right: 24px !important;
+  }
+
+  .gallery-card {
+    width: min(78vw, 320px) !important;
+    height: 380px !important;
   }
 
   .services-grid {
@@ -937,20 +962,6 @@ body {
 
   .footer-brand {
     grid-column: span 1 !important;
-  }
-
-  /* Homepage Lightbox Mobile Overrides */
-  .site-header {
-    padding: 0 20px !important;
-  }
-
-  .h-gallery-wrap {
-    padding: 16px 20px 32px !important;
-  }
-
-  .h-gallery-track {
-    gap: 16px !important;
-    padding-right: 40px !important;
   }
 
   .lb-header {
@@ -985,5 +996,90 @@ body {
     overflow-x: auto;
     gap: 8px;
     padding-bottom: 4px;
+  }
+}
+
+/* ─── MOBILE LANDSCAPE & SHORT SCREENS (max-height: 560px) ─── */
+@media (max-height: 560px) {
+  .site-header {
+    height: 48px !important;
+    padding: 0 16px !important;
+  }
+
+  .header-logo .logo-title {
+    font-size: 18px !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .header-logo .logo-sub {
+    font-size: 7.5px !important;
+    letter-spacing: 0.22em !important;
+  }
+
+  #mobile-toggle {
+    padding: 6px !important;
+  }
+
+  #mobile-toggle svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .hero {
+    padding: 56px 20px 24px !important;
+    min-height: 100svh !important;
+    height: auto !important;
+    justify-content: flex-end;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px !important;
+    padding: 4px 12px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .hero-title {
+    font-size: clamp(26px, 6vw, 38px) !important;
+    margin-bottom: 12px !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero-meta {
+    gap: 10px 16px !important;
+  }
+
+  .hero-stat {
+    font-size: 8px !important;
+  }
+
+  .hero-stat strong {
+    font-size: 18px !important;
+  }
+
+  .hero-stat .cta-btn,
+  .hero-meta .cta-btn {
+    padding: 6px 14px !important;
+    font-size: 9px !important;
+  }
+
+  /* Featured Gallery Landscape Dimensions */
+  .hscroll-section {
+    padding: 48px 0 36px !important;
+  }
+
+  .h-gallery-wrap {
+    padding: 8px 16px 16px !important;
+  }
+
+  .gallery-card {
+    height: min(60vh, 260px) !important;
+    width: auto !important;
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  .gallery-card img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
   }
 }

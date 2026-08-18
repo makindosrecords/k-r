@@ -252,7 +252,7 @@ const testimonials = [
             data-title={item.title}
             data-cat={item.category}
             data-loc={item.location}
-            style={`width:${item.w}px; height:${item.h}px; flex-shrink:0; cursor:pointer;`}
+            style={`--card-w:${item.w}px; --card-h:${item.h}px; flex-shrink:0; cursor:pointer;`}
           >
             <div class="gallery-card-inner">
               <img
@@ -466,10 +466,25 @@ const testimonials = [
     border: none;
     box-shadow: none;
     border-radius: 0;
+    width: var(--card-w, 480px);
+    height: var(--card-h, 480px);
     opacity: 0.88;
     transform: scale(0.97);
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
+  }
+  @media (max-width: 768px) {
+    .gallery-card {
+      width: min(78vw, 320px) !important;
+      height: 380px !important;
+    }
+  }
+  @media (max-height: 560px) {
+    .gallery-card {
+      height: min(60vh, 260px) !important;
+      width: auto !important;
+      aspect-ratio: 4 / 3 !important;
+    }
   }
   .gallery-card.is-active,
   .gallery-card:hover {
