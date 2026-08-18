@@ -877,21 +877,29 @@ body {
 
 @media (max-width: 768px) {
   .test-prev-btn {
-    left: -6px;
+    left: 4px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
   }
   .test-next-btn {
-    right: -6px;
+    right: 4px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
   }
   .test-nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 38px !important;
+    height: 38px !important;
+  }
+  .testimonials-track-wrap {
+    padding: 0 !important;
   }
   .testimonial-card {
-    flex: 0 0 86vw !important;
-    padding: 26px 22px 22px !important;
+    flex: 0 0 calc(100vw - 64px) !important;
+    max-width: 340px !important;
+    padding: 24px 20px !important;
+    box-sizing: border-box !important;
   }
   .testimonials-track {
-    gap: 16px !important;
+    gap: 14px !important;
+    padding: 12px 8px 24px !important;
   }
 }
 

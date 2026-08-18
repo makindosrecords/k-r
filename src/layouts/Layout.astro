@@ -96,7 +96,7 @@ const {
     <div style="max-width:1200px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;" class="footer-grid">
         <div style="grid-column:span 2;" class="footer-brand">
-          <div style="font-family:'Cinzel',serif;font-size:34px;letter-spacing:0.32em;color:#11100F;margin-bottom:6px;font-weight:700;">K&R PHOTOGRAPHY</div>
+          <div class="footer-logo-title">K&amp;R PHOTOGRAPHY</div>
           <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.35em;color:#A3802C;margin-bottom:20px;font-weight:600;">KIMBERLY & RICK • EST. 2004</div>
           <p style="font-size:15px;line-height:1.75;color:#3D3934;max-width:340px;font-weight:400;">A husband-and-wife photography studio serving weddings, portraits, and luxury real estate across Central Florida for over 20 years.</p>
           <div style="display:inline-flex;align-items:center;gap:14px;margin-top:24px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.3);padding:16px 22px;border-radius:12px;box-shadow:0 8px 25px rgba(26,24,22,0.04);">
@@ -135,6 +135,14 @@ const {
 </html>
 
 <style>
+  .footer-logo-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    letter-spacing: 0.28em;
+    color: #11100F;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
   .hide-mobile { display: flex; }
   .show-mobile { display: none !important; }
   @media (max-width: 900px) {
@@ -144,6 +152,10 @@ const {
     .footer-grid { grid-template-columns: 1fr 1fr !important; }
     .footer-brand { grid-column: span 2 !important; }
     footer { padding: 50px 24px 36px !important; }
+    .footer-logo-title {
+      font-size: 22px !important;
+      letter-spacing: 0.14em !important;
+    }
   }
   .nav-dropdown-wrap:hover .nav-dropdown {
     opacity: 1 !important;
