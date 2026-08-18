@@ -138,8 +138,7 @@ const galleryItems = [
               <a href={item.href} class="discipline-slide-card">
                 <!-- Adaptive Museum Photo Frame (0% Cropping) -->
                 <div class="discipline-photo-frame">
-                  <img src={item.image} alt="" aria-hidden="true" class="discipline-ambient-bg" />
-                  <img src={item.image} alt={item.title} class="discipline-main-img" loading="lazy" />
+                  <img src={item.image} alt={item.title} class="discipline-main-img" loading="lazy" decoding="async" />
                   <div class="discipline-num-badge">{item.num}</div>
                 </div>
 
@@ -269,24 +268,12 @@ const galleryItems = [
     position: relative;
     width: 100%;
     height: 300px;
-    background: #11100F;
+    background: radial-gradient(circle at center, #25221E 0%, #11100F 100%);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid rgba(184, 150, 53, 0.18);
-  }
-
-  .discipline-ambient-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(26px);
-    opacity: 0.32;
-    transform: scale(1.15);
-    pointer-events: none;
   }
 
   .discipline-main-img {

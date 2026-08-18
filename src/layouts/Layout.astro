@@ -33,24 +33,24 @@ const {
   <!-- Site Header -->
   <header class="site-header" id="site-header">
     <!-- Logo -->
-    <a href="/" class="header-logo" style="text-decoration:none; display:flex; flex-direction:column; gap:2px;">
-      <span class="logo-title" style="font-family:'Cinzel',serif; font-size:38px; font-weight:700; letter-spacing:0.28em; color:#11100F; text-transform:uppercase; line-height:1;">K&R</span>
-      <span class="logo-sub" style="font-family:'Cinzel',serif; font-size:13px; font-weight:700; letter-spacing:0.38em; color:#A3802C; text-transform:uppercase;">PHOTOGRAPHY</span>
+    <a href="/" class="header-logo">
+      <span class="logo-title">K&R</span>
+      <span class="logo-sub">PHOTOGRAPHY</span>
     </a>
 
     <!-- Desktop Nav -->
-    <nav style="display:flex; align-items:center; gap:44px;" class="hide-mobile">
-      <div style="position:relative; padding-bottom: 12px; margin-bottom: -12px;" class="nav-dropdown-wrap">
-        <span class="nav-link" style="cursor:pointer;">
-          Weddings & Portraits
-          <svg style="display:inline;margin-left:6px;vertical-align:middle;transition:transform 0.3s ease;" class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    <nav class="desktop-nav hide-mobile">
+      <div class="nav-dropdown-wrap">
+        <span class="nav-link nav-link-dropdown-trigger">
+          Weddings &amp; Portraits
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </span>
-        <div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border:1px solid rgba(184,150,53,0.25);box-shadow:0 15px 45px rgba(26,24,22,0.08);border-radius:12px;padding:14px;width:260px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 0.3s ease, transform 0.3s ease;">
-          <a href="/weddings-and-couples" style="display:block;padding:12px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#11100F;">Weddings & Couples</div>
+        <div class="nav-dropdown">
+          <a href="/weddings-and-couples" class="nav-dropdown-link">
+            <div class="nav-dropdown-title">Weddings &amp; Couples</div>
           </a>
-          <a href="/family-and-portraits" style="display:block;padding:12px 16px;border-radius:8px;text-decoration:none;transition:background 0.2s;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#11100F;">Family & Portraits</div>
+          <a href="/family-and-portraits" class="nav-dropdown-link">
+            <div class="nav-dropdown-title">Family &amp; Portraits</div>
           </a>
         </div>
       </div>
@@ -63,7 +63,7 @@ const {
     <a href="/contact" class="cta-btn hide-mobile">Inquire</a>
 
     <!-- Mobile Menu Toggle -->
-    <button id="mobile-toggle" style="display:none;background:none;border:none;cursor:pointer;padding:10px;z-index:1002;position:relative;" class="show-mobile" aria-label="Toggle Navigation">
+    <button id="mobile-toggle" class="show-mobile mobile-menu-btn" aria-label="Toggle Navigation">
       <svg id="icon-menu" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#11100F" stroke-width="2.2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg id="icon-close" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FAF8F5" stroke-width="2.2" style="display:none;"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
@@ -139,6 +139,99 @@ const {
 </html>
 
 <style>
+  /* ── Header Base & Responsive Layout ── */
+  .header-logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .logo-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 2.6vw, 36px);
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    color: #11100F;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .logo-sub {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(10px, 0.95vw, 12.5px);
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    color: #A3802C;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2.2vw, 38px);
+    flex-shrink: 1;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+  }
+
+  .nav-link-dropdown-trigger {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav-dropdown-wrap {
+    position: relative;
+    padding-bottom: 12px;
+    margin-bottom: -12px;
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    box-shadow: 0 15px 45px rgba(26, 24, 22, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    width: 250px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-dropdown-link {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-dropdown-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: #11100F;
+  }
+
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1002;
+    position: relative;
+  }
+
   .footer-logo-title {
     font-family: 'Cinzel', serif;
     font-size: clamp(22px, 5vw, 34px);
@@ -149,7 +242,29 @@ const {
   }
   .hide-mobile { display: flex; }
   .show-mobile { display: none !important; }
-  @media (max-width: 900px) {
+
+  /* ── Widescreen Tablet / iPad Landscape (901px - 1180px) ── */
+  @media (max-width: 1180px) {
+    .site-header {
+      padding: 0 24px !important;
+      height: 72px !important;
+    }
+    .desktop-nav {
+      gap: 16px !important;
+    }
+    .nav-link {
+      font-size: 12.5px !important;
+      letter-spacing: 0.12em !important;
+    }
+    .cta-btn {
+      padding: 10px 20px !important;
+      font-size: 12px !important;
+      letter-spacing: 0.14em !important;
+    }
+  }
+
+  /* ── Small Tablet & Mobile Breakpoint (<= 960px) ── */
+  @media (max-width: 960px) {
     .hide-mobile { display: none !important; }
     .show-mobile { display: flex !important; }
     #mobile-toggle { display: flex !important; }

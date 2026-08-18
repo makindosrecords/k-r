@@ -81,7 +81,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
               <img
                 src={item.image}
                 alt={item.title}
-                loading="eager"
+                loading={i < 2 ? "eager" : "lazy"}
                 decoding="async"
                 class="eg-img-inner"
                 id={`eg-img-${sectionId}-${i}`}
@@ -238,7 +238,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     height: 100%; align-items: center;
     gap: 28px;
     will-change: transform;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
   }
 
   /* ── Slides ── */
@@ -288,7 +288,6 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     border: none;
     border-radius: 0;
     filter: none !important;
-    will-change: transform;
     pointer-events: none;
   }
 
@@ -631,14 +630,9 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   var activeBuf = 'a';
   var slideOffsets = [];
   var maxOffset = 0;
+  var isTicking = false;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function metrics() {
-    var isMob = window.innerWidth <= 768;
-    var cW = carousel.offsetWidth || window.innerWidth;
-    return { isMob: isMob, cW: cW };
-  }
 
   function recalculateOffsets() {
     var cW = carousel.offsetWidth || window.innerWidth;
@@ -655,25 +649,10 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     maxOffset = slideOffsets[count - 1] || 0;
   }
 
-  function getClosestSlideIdx(x) {
-    if (!slideOffsets.length) recalculateOffsets();
-    var minDiff = Infinity;
-    var closestIdx = 0;
-    for (var i = 0; i < count; i++) {
-      var diff = Math.abs(slideOffsets[i] - x);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestIdx = i;
-      }
-    }
-    return closestIdx;
-  }
-
   function update() {
+    isTicking = false;
     var r = outer.getBoundingClientRect();
     var h = outer.offsetHeight, wh = window.innerHeight, tot = h - wh;
-    var m = metrics();
-    var dir = m.isMob ? 'column' : 'row';
 
     if (!slideOffsets.length) recalculateOffsets();
 
@@ -729,6 +708,13 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     if (!rafId) animate();
   }
 
+  function requestUpdate() {
+    if (!isTicking) {
+      isTicking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
   function setActive(idx) {
     if (lastIdx === idx) return;
     if (lastIdx >= 0 && slides[lastIdx]) slides[lastIdx].classList.remove('active');
@@ -750,7 +736,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   }
 
   function animate() {
-    curX = lerp(curX, targetX, 0.14);
+    curX = lerp(curX, targetX, 0.16);
     track.style.transform = 'translate3d(' + (-curX) + 'px, 0, 0)';
 
     if (Math.abs(curX - targetX) > 0.3) {
@@ -823,32 +809,34 @@ const first = items[0] || { location: 'Central Florida', title: '' };
       }, 90);
     }
     if (dialog && !dialog.open) {
-      dialog.style.display = 'flex';
-      try { dialog.showModal(); } catch(e) {}
+      try {
+        dialog.showModal();
+      } catch(e) {
+        dialog.setAttribute('open', '');
+      }
       document.body.style.overflow = 'hidden';
     }
   }
 
   function closeLb() {
-    if (dialog) { dialog.style.display = 'none'; try { dialog.close(); } catch(e) {} document.body.style.overflow = ''; }
+    if (dialog) {
+      try {
+        dialog.close();
+      } catch(e) {
+        dialog.removeAttribute('open');
+      }
+      document.body.style.overflow = '';
+    }
   }
 
   slides.forEach(function(s, i) {
     s.addEventListener('click', function() { openLb(i, 0); });
     var img = s.querySelector('img');
-    if (img) {
-      if (!img.complete) {
-        img.addEventListener('load', function() {
-          recalculateOffsets();
-          update();
-        });
-      }
-      if (img.decode) {
-        img.decode().then(function() {
-          recalculateOffsets();
-          update();
-        }).catch(function() {});
-      }
+    if (img && !img.complete) {
+      img.addEventListener('load', function() {
+        recalculateOffsets();
+        requestUpdate();
+      }, { once: true });
     }
   });
 
@@ -857,7 +845,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   if (lbNext) lbNext.addEventListener('click', function(e) { e.stopPropagation(); openLb(lbIdx + 1, 1); });
   if (dialog) dialog.addEventListener('click', function(e) { if (e.target === dialog) closeLb(); });
   window.addEventListener('keydown', function(e) {
-    if (!dialog || dialog.style.display !== 'flex') return;
+    if (!dialog || !dialog.open) return;
     if (e.key === 'Escape') closeLb();
     if (e.key === 'ArrowLeft') openLb(lbIdx - 1, -1);
     if (e.key === 'ArrowRight') openLb(lbIdx + 1, 1);
@@ -865,7 +853,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
 
   var wheelCooldown = false;
   window.addEventListener('wheel', function(e) {
-    if (!dialog || dialog.style.display !== 'flex') return;
+    if (!dialog || !dialog.open) return;
     if (wheelCooldown) return;
 
     if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
@@ -881,23 +869,18 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     if (titleEl) titleEl.classList.add('visible');
   }, 400);
 
+  var resizeTimeout;
   function handleResize() {
-    recalculateOffsets();
-    update();
-  }
-
-  if (typeof ResizeObserver !== 'undefined' && track) {
-    var ro = new ResizeObserver(function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
       recalculateOffsets();
-      update();
-    });
-    ro.observe(track);
-    slides.forEach(function(s) { ro.observe(s); });
+      requestUpdate();
+    }, 100);
   }
 
   recalculateOffsets();
-  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', handleResize, { passive: true });
-  update();
+  requestUpdate();
 })();
 </script>

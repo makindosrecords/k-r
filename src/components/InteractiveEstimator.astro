@@ -158,13 +158,14 @@
   </div>
 </section>
 
-<script is:inline>
+<script>
   (function initEstimator() {
     function setup() {
       const serviceBtns = document.querySelectorAll('.est-service-btn');
       const regionBtns = document.querySelectorAll('.est-region-btn');
-      const addons = document.querySelectorAll('.est-addon');
+      const addons = document.querySelectorAll<HTMLInputElement>('.est-addon');
       const totalDisplay = document.getElementById('est-total-display');
+      const summaryText = document.getElementById('est-summary-text');
       const bookBtn = document.getElementById('est-book-btn') as HTMLAnchorElement | null;
 
       let currentBase = 1800;
