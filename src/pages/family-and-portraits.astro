@@ -27,7 +27,7 @@ const galleryItems = [
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-bg" style="background-image:url('/family/KIM_7294_result.webp');"></div>
+    <div class="hero-bg" style="background-image:url('/family/KIM_7258_result.webp');"></div>
     <div class="hero-vignette"></div>
     <div class="hero-content">
       <div class="hero-eyebrow">Family & Portraits · Golden Hour Sessions · Central Florida</div>
@@ -52,29 +52,126 @@ const galleryItems = [
     sectionId="portraits"
   />
 
-  <!-- ─── SESSION TYPES ─── -->
-  <section style="background:var(--black);padding:120px 60px;">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div class="reveal" style="text-align:center;margin-bottom:80px;">
-        <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);"><span class="gold-line"></span>Session Types</span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,64px);font-weight:300;color:#1A1816;margin-top:12px;line-height:0.95;">Every Chapter of Life</h2>
+  <!-- ─── SESSION DISCIPLINES CAROUSEL ─── -->
+  <section class="sessions-carousel-section" style="background:var(--black-soft);padding:100px 40px 120px;border-top:1px solid rgba(184,150,53,0.18);border-bottom:1px solid rgba(184,150,53,0.18);position:relative;">
+    <div style="max-width:1380px;margin:0 auto;">
+      
+      <!-- Section Header -->
+      <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto 52px;">
+        <span style="font-family:'Cinzel',serif;font-size:12.5px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:#A3802C;display:inline-block;margin-bottom:8px;">
+          <span class="gold-line"></span>Session Disciplines
+        </span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.5vw,58px);font-weight:300;color:#11100F;margin-top:8px;line-height:1.05;">
+          Every Chapter of <em style="font-style:italic;color:#A3802C;">Life</em>
+        </h2>
+        <p style="font-size:15.5px;color:#4D4741;margin-top:10px;font-weight:400;line-height:1.6;">
+          Scroll through our fine art disciplines — from barefoot coastal evenings to intimate maternity, newborn milestones, and executive branding.
+        </p>
       </div>
-      <div class="stagger-children reveal sessions-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
-        {[
-          { title: 'Family Sessions', desc: 'Golden hour beach & lifestyle imagery for families of all sizes.', icon: '🌅' },
-          { title: 'Maternity', desc: 'Elegant maternity sessions at stunning Central Florida locations.', icon: '✨' },
-          { title: 'Newborn', desc: 'Tender lifestyle newborn sessions in your own home, within 2 weeks of birth.', icon: '🌸' },
-          { title: 'Portraits', desc: 'Individual and professional portrait sessions for actors, athletes, and executives.', icon: '◎' },
-          { title: 'Senior Portraits', desc: 'Cinematic senior portraits that capture personality and milestone energy.', icon: '🎓' },
-          { title: 'Headshots', desc: 'Clean, confident business headshots — studio or on-location.', icon: '→' },
-        ].map(s => (
-          <div style="background:var(--surface);padding:44px 36px;border:1px solid rgba(184,150,53,0.18);box-shadow:0 10px 30px rgba(26,24,22,0.03);transition:border-color 0.4s,transform 0.4s;" class="session-tile">
-            <div style="font-size:28px;margin-bottom:20px;">{s.icon}</div>
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#1A1816;margin-bottom:12px;">{s.title}</h3>
-            <p style="font-size:12px;line-height:1.8;color:var(--muted);">{s.desc}</p>
+
+      <!-- Carousel Container with Flanking Arrows -->
+      <div class="disciplines-carousel-container reveal">
+        <button class="disc-nav-btn disc-prev-btn" id="discPrev" aria-label="Previous discipline">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <div class="disciplines-track-wrap" id="discTrackWrap">
+          <div class="disciplines-track">
+            {[
+              {
+                num: 'I',
+                tag: 'Coastal & Generational',
+                title: 'Family & Lifestyle',
+                desc: 'Golden hour beach & lifestyle imagery for families of all sizes across Daytona, New Smyrna, and Cocoa Beach. Natural interaction with zero stiff posing.',
+                image: '/family/KIM_7258_result.webp',
+                href: '/contact',
+                cta: 'Inquire Family'
+              },
+              {
+                num: 'II',
+                tag: 'Ethereal & Timeless',
+                title: 'Maternity & Motherhood',
+                desc: 'Graceful, intimate maternity portraits celebrating the anticipation of new life against Florida’s glowing coastlines and scenic open fields.',
+                image: '/k1%20(7)_result.webp',
+                href: '/contact',
+                cta: 'Inquire Maternity'
+              },
+              {
+                num: 'III',
+                tag: 'Tender & In-Home',
+                title: 'Newborn Lifestyle',
+                desc: 'Comfortable, in-home lifestyle sessions capturing tiny details and natural innocence in the first two weeks of life, in the calm of your own nursery.',
+                image: '/DSC_0077-3_result.webp',
+                href: '/contact',
+                cta: 'Inquire Newborn'
+              },
+              {
+                num: 'IV',
+                tag: 'Editorial & Distinguished',
+                title: 'Fine Art & Portraits',
+                desc: 'Expressive studio and on-location portraiture with master lighting tailored for artists, actors, personal branding, and collector-grade artwork.',
+                image: '/portraits/KIM_0864-3_result.webp',
+                href: '/contact',
+                cta: 'Inquire Portraits'
+              },
+              {
+                num: 'V',
+                tag: 'Dynamic & Celebratory',
+                title: 'Senior Portraits',
+                desc: 'Cinematic high school and college graduate portraits capturing authentic personality, passions, sports, music, and milestone energy.',
+                image: '/DSC_0462-2_result.webp',
+                href: '/contact',
+                cta: 'Inquire Seniors'
+              },
+              {
+                num: 'VI',
+                tag: 'Confident & Polished',
+                title: 'Executive Headshots',
+                desc: 'High-definition commercial headshots and environmental media for top-tier listings, brokerages, attorneys, and corporate executive teams.',
+                image: '/portraits/KIM_5247_result.webp',
+                href: '/contact',
+                cta: 'Inquire Headshots'
+              },
+            ].map((item) => (
+              <a href={item.href} class="discipline-slide-card">
+                <!-- Adaptive Museum Photo Frame (0% Cropping) -->
+                <div class="discipline-photo-frame">
+                  <img src={item.image} alt="" aria-hidden="true" class="discipline-ambient-bg" />
+                  <img src={item.image} alt={item.title} class="discipline-main-img" loading="lazy" />
+                  <div class="discipline-num-badge">{item.num}</div>
+                </div>
+
+                <!-- Card Body (Editorial Narrative) -->
+                <div class="discipline-card-body">
+                  <div>
+                    <span class="discipline-card-tag">{item.tag}</span>
+                    <h3 class="discipline-card-title">{item.title}</h3>
+                    <p class="discipline-card-desc">{item.desc}</p>
+                  </div>
+
+                  <div class="discipline-card-footer">
+                    <span class="discipline-card-cta">{item.cta}</span>
+                    <div class="discipline-arrow-circle">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <button class="disc-nav-btn disc-next-btn" id="discNext" aria-label="Next discipline">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
       </div>
+
     </div>
   </section>
 
@@ -88,12 +185,265 @@ const galleryItems = [
 </Layout>
 
 <style>
-  .session-tile:hover { border-color: rgba(201,168,76,0.4) !important; transform: translateY(-4px); }
-  @media (max-width: 900px) { .sessions-grid { grid-template-columns: 1fr 1fr !important; } }
-  @media (max-width: 600px) { .sessions-grid { grid-template-columns: 1fr !important; } }
+  /* ─── DISCIPLINES CAROUSEL ─── */
+  .disciplines-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .disc-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    box-shadow: 0 6px 18px rgba(17, 16, 15, 0.1);
+    color: #A3802C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 10;
+    transition: all 0.35s var(--ease-out-expo);
+  }
+
+  .disc-nav-btn:hover {
+    background: #A3802C;
+    color: #FFFFFF;
+    border-color: #A3802C;
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(184, 150, 53, 0.3);
+  }
+
+  .disc-nav-btn:active {
+    transform: scale(0.96);
+  }
+
+  .disciplines-track-wrap {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    padding: 14px 4px 22px;
+  }
+
+  .disciplines-track-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .disciplines-track {
+    display: flex;
+    gap: 28px;
+  }
+
+  .discipline-slide-card {
+    flex: 0 0 calc((100% - 56px) / 3);
+    scroll-snap-align: start;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.22);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), border-color 0.35s ease;
+    box-shadow: 0 10px 30px rgba(26, 24, 22, 0.04);
+    position: relative;
+  }
+
+  .discipline-slide-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(184, 150, 53, 0.7);
+    box-shadow: 0 22px 50px rgba(184, 150, 53, 0.16), 0 8px 24px rgba(17, 16, 15, 0.06);
+  }
+
+  /* Adaptive Museum Photo Frame */
+  .discipline-photo-frame {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: #11100F;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.18);
+  }
+
+  .discipline-ambient-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(26px);
+    opacity: 0.32;
+    transform: scale(1.15);
+    pointer-events: none;
+  }
+
+  .discipline-main-img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 16px;
+    transition: transform 0.6s var(--ease-out-expo);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
+  }
+
+  .discipline-slide-card:hover .discipline-main-img {
+    transform: scale(1.04);
+  }
+
+  .discipline-num-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #A3802C;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    box-shadow: 0 4px 12px rgba(17, 16, 15, 0.08);
+  }
+
+  /* Card Body */
+  .discipline-card-body {
+    padding: 24px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    background: #FFFFFF;
+  }
+
+  .discipline-card-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #A3802C;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .discipline-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: #11100F;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+  }
+
+  .discipline-card-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #4A443E;
+    margin: 0 0 18px 0;
+  }
+
+  .discipline-card-footer {
+    border-top: 1px solid rgba(184, 150, 53, 0.18);
+    padding-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .discipline-card-cta {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A3802C;
+    transition: color 0.3s ease;
+  }
+
+  .discipline-arrow-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(184, 150, 53, 0.1);
+    border: 1px solid rgba(184, 150, 53, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A3802C;
+    transition: transform 0.35s var(--ease-out-expo), background 0.3s ease, color 0.3s ease;
+  }
+
+  .discipline-slide-card:hover .discipline-arrow-circle {
+    transform: translateX(4px);
+    background: #A3802C;
+    color: #FFFFFF;
+  }
+
+  .discipline-slide-card:hover .discipline-card-cta {
+    color: #7A5F1E;
+  }
+
+  @media (max-width: 1024px) {
+    .discipline-slide-card {
+      flex: 0 0 calc((100% - 28px) / 2) !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .disciplines-carousel-container {
+      gap: 8px !important;
+    }
+    .disc-nav-btn {
+      display: none !important;
+    }
+    .discipline-slide-card {
+      flex: 0 0 85% !important;
+    }
+    .discipline-photo-frame {
+      height: 260px !important;
+    }
+  }
 </style>
 
 <script>
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll('.reveal, .reveal-right, .stagger-children').forEach(el => obs.observe(el));
+
+  // ─── DISCIPLINES CAROUSEL CONTROLLER ───
+  const discTrackWrap = document.getElementById('discTrackWrap');
+  const discPrev = document.getElementById('discPrev');
+  const discNext = document.getElementById('discNext');
+
+  if (discTrackWrap && discPrev && discNext) {
+    const getCardWidth = () => {
+      const card = discTrackWrap.querySelector('.discipline-slide-card') as HTMLElement;
+      return card ? card.offsetWidth + 28 : 360;
+    };
+
+    discNext.addEventListener('click', () => {
+      discTrackWrap.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+    });
+
+    discPrev.addEventListener('click', () => {
+      discTrackWrap.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+    });
+  }
 </script>

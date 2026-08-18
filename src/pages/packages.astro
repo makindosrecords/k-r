@@ -91,13 +91,13 @@ const packages = [
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-bg" style="background-image:url('/weddings/k1%20(4)_result.webp');"></div>
+    <div class="hero-bg" style="background-image:url('/DSC_0475-2_result.webp');"></div>
     <div class="hero-vignette"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Investment & Pricing · Transparent Packages</div>
+      <div class="hero-eyebrow">Studio Services · Kimberly &amp; Rick · Central Florida</div>
       <h1 class="hero-title">
-        <span class="line"><span>Simple, Transparent</span></span>
-        <span class="line"><span>Studio <em>Investment</em></span></span>
+        <span class="line"><span>Services &amp;</span></span>
+        <span class="line"><span>Studio <em>Collections</em></span></span>
       </h1>
       <div class="hero-meta">
         <div class="hero-stat"><strong>Full</strong>Image Rights</div>
@@ -111,74 +111,65 @@ const packages = [
   </section>
 
   <!-- ─── PACKAGES GRID ─── -->
-  <section style="background:var(--black);padding:120px 60px;">
-    <div style="max-width:1240px;margin:0 auto;">
+  <section style="background:var(--black);padding:120px 48px;">
+    <div style="max-width:1280px;margin:0 auto;">
 
       <div class="reveal" style="text-align:center;margin-bottom:80px;">
-        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
-          <span class="gold-line"></span>Studio Investment
+        <span style="font-family:'Cinzel',serif;font-size:13.5px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;display:inline-block;margin-bottom:8px;">
+          <span class="gold-line"></span>Pricing &amp; Coverage
         </span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#11100F;margin-top:12px;line-height:0.95;">
-          Packages & Coverage Options
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5vw,72px);font-weight:300;color:#11100F;margin-top:10px;line-height:0.95;">
+          The Collections
         </h2>
-        <p style="font-size:16px;color:#3D3934;margin-top:16px;font-weight:400;max-width:560px;margin-left:auto;margin-right:auto;">
-          No hidden fees or print lock-ins. All packages include full digital download links with rights to keep, print, and share your photos forever.
+        <p style="font-size:16px;color:#4D4741;margin-top:16px;font-weight:400;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.65;">
+          All collections include full high-resolution digital download rights with private printing privileges and unwatermarked gallery delivery.
         </p>
       </div>
 
-      <!-- Pricing Cards Grid -->
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;" class="pkg-grid">
-        {packages.map(pkg => (
-          <div style={`position:relative;background:#FFFFFF;border:${pkg.popular ? '2px solid #A3802C' : '1px solid rgba(184,150,53,0.25)'};border-radius:20px;padding:48px 40px;box-shadow:0 15px 45px rgba(26,24,22,0.06);display:flex;flex-direction:column;justify-content:space-between;`} class="pkg-card">
-            
-            {pkg.popular && (
-              <div style="position:absolute;top:-16px;right:32px;background:#A3802C;color:#FAF8F5;font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:0.18em;padding:6px 16px;border-radius:100px;text-transform:uppercase;">
-                STUDIO CHOICE
-              </div>
-            )}
-
+      <!-- Luxury Pricing Cards Grid (Uniform Architectural Design) -->
+      <div class="luxury-pkg-grid reveal">
+        {packages.map((pkg, index) => (
+          <div class="luxury-pkg-card">
             <div>
-              <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#A3802C;margin-bottom:12px;">
-                {pkg.badge}
+              <!-- Top Header Row -->
+              <div class="luxury-card-header">
+                <span class="luxury-card-num">{['I', 'II', 'III', 'IV'][index]}</span>
+                <span class="luxury-card-tag">{pkg.badge}</span>
               </div>
 
-              <h3 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:#11100F;margin-bottom:16px;">
-                {pkg.name}
-              </h3>
+              <h3 class="luxury-card-title">{pkg.name}</h3>
 
               <!-- Price Box -->
-              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(184,150,53,0.18);">
-                <span style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:500;color:#11100F;line-height:1;">
-                  {pkg.price}
-                </span>
-                <span style="font-family:'Cinzel',serif;font-size:14.5px;font-weight:600;color:#3D3934;">
-                  {pkg.unit}
-                </span>
+              <div class="luxury-price-box">
+                <div class="luxury-price-amount">{pkg.price}</div>
+                <div class="luxury-price-unit">{pkg.unit}</div>
               </div>
 
-              <p style="font-size:16px;line-height:1.75;color:#3D3934;margin-bottom:28px;font-weight:400;">
-                {pkg.description}
-              </p>
+              <p class="luxury-card-desc">{pkg.description}</p>
 
-              <!-- Feature List -->
-              <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+              <!-- Features List -->
+              <div class="luxury-features-list">
                 {pkg.features.map(f => (
-                  <div style="display:flex;align-items:flex-start;gap:12px;">
-                    <span style="color:#A3802C;font-size:16px;font-weight:700;line-height:1.4;">✓</span>
-                    <span style="font-size:15.5px;color:#11100F;font-weight:500;line-height:1.4;">{f}</span>
+                  <div class="luxury-feature-row">
+                    <div class="luxury-check-icon">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    </div>
+                    <span class="luxury-feature-text">{f}</span>
                   </div>
                 ))}
               </div>
 
+              <!-- Addons Section -->
               {pkg.addons && (
-                <div style="margin-top:20px;padding-top:20px;border-top:1px dashed rgba(184,150,53,0.3);">
-                  <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.16em;color:#A3802C;margin-bottom:10px;">
-                    {pkg.addonsTitle}
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:8px;">
+                <div class="luxury-addons-box">
+                  <span class="luxury-addons-title">{pkg.addonsTitle}</span>
+                  <div class="luxury-addons-list">
                     {pkg.addons.map(a => (
-                      <div style="display:flex;align-items:center;gap:10px;font-size:14.5px;color:#3D3934;font-weight:500;">
-                        <span style="color:#A3802C;">+</span> {a}
+                      <div class="luxury-addon-pill">
+                        <span class="luxury-addon-plus">+</span>
+                        <span>{a}</span>
                       </div>
                     ))}
                   </div>
@@ -186,15 +177,21 @@ const packages = [
               )}
 
               {pkg.note && (
-                <div style="margin-top:16px;font-size:13.5px;color:#3D3934;font-style:italic;">
-                  {pkg.note}
-                </div>
+                <p class="luxury-card-note">{pkg.note}</p>
               )}
             </div>
 
-            <div style="margin-top:36px;">
-              <a href={`/contact?service=${encodeURIComponent(pkg.id === 'portraits' ? 'Family & Portraits' : pkg.id === 'real-estate' ? 'Real Estate Photography' : pkg.id === 'weddings-video' ? 'Wedding Videography' : 'Weddings & Couples')}`} class="cta-btn" style="display:block;text-align:center;width:100%;box-sizing:border-box;">
-                {pkg.ctaText}
+            <!-- Action Button -->
+            <div class="luxury-card-btn-wrap">
+              <a
+                href={`/contact?service=${encodeURIComponent(pkg.id === 'portraits' ? 'Family & Portraits' : pkg.id === 'real-estate' ? 'Real Estate Photography' : pkg.id === 'weddings-video' ? 'Wedding Videography' : 'Weddings & Couples')}`}
+                class="cta-btn"
+                style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;box-sizing:border-box;"
+              >
+                <span>{pkg.ctaText}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
               </a>
             </div>
 
@@ -202,15 +199,20 @@ const packages = [
         ))}
       </div>
 
-      <!-- Studio Policy Banner -->
-      <div style="margin-top:60px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.3);border-radius:16px;padding:32px 40px;box-shadow:0 10px 30px rgba(26,24,22,0.04);display:flex;align-items:center;justify-content:space-between;gap:32px;" class="policy-banner">
-        <div>
-          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:6px;">
-            STUDIO POLICY & RETAINER NOTICE
+      <!-- Studio Policy & Retainer Banner -->
+      <div class="luxury-policy-banner reveal">
+        <div class="policy-left">
+          <div class="policy-shield-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A3802C" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
           </div>
-          <p style="font-size:15px;color:#3D3934;font-weight:500;margin:0;">
-            * Deposits & retainers are non-refundable. Real Estate pricing is subject to change based on property square footage.
-          </p>
+          <div>
+            <div class="policy-title">Studio Reservation Policy &amp; Retainer Notice</div>
+            <p class="policy-desc">
+              * Deposits &amp; retainers are non-refundable to reserve your exclusive date on our calendar. Real Estate media pricing is scaled to property square footage.
+            </p>
+          </div>
         </div>
         <a href="/contact" class="cta-btn" style="flex-shrink:0;">
           Have Questions? Contact Us
@@ -221,23 +223,25 @@ const packages = [
   </section>
 
   <!-- ─── FAQ ─── -->
-  <section style="background:var(--surface);padding:100px 60px;border-top:1px solid rgba(184,150,53,0.15);">
-    <div style="max-width:900px;margin:0 auto;">
-      <div style="margin-bottom:60px;text-align:center;" class="reveal">
-        <span style="font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Investment & Details</span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,56px);font-weight:300;color:#11100F;margin-top:12px;">Frequently Asked Questions</h2>
+  <section style="background:var(--surface);padding:110px 48px;border-top:1px solid rgba(184,150,53,0.18);">
+    <div style="max-width:960px;margin:0 auto;">
+      <div style="margin-bottom:64px;text-align:center;" class="reveal">
+        <span style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;display:inline-block;margin-bottom:8px;">
+          <span class="gold-line"></span>Common Inquiries
+        </span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4.5vw,56px);font-weight:300;color:#11100F;margin-top:8px;">Frequently Asked Questions</h2>
       </div>
 
-      <div style="display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
         {[
-          { q: 'Why do you always shoot with two lead photographers?', a: 'Kimberly & Rick bring two distinct artistic eyes simultaneously. Rick captures wide, environmental portraits and architectural detail while Kimberly captures intimate candid emotion and expressions. Nothing is missed.' },
-          { q: 'What is your turnaround time for galleries?', a: 'You receive a curated sneak peek gallery within 24 to 48 hours. Full high-resolution color-graded galleries with print delivery rights are delivered within 2 weeks for portraits/real estate, and 4 weeks for full wedding collections.' },
+          { q: 'Why do you always shoot with two lead photographers on weddings?', a: 'Kimberly & Rick bring two distinct artistic eyes simultaneously. Rick captures wide, environmental portraits and architectural detail while Kimberly captures intimate candid emotion and expressions. Nothing is missed.' },
+          { q: 'What is your turnaround time for client galleries?', a: 'You receive a curated sneak peek gallery within 24 to 48 hours. Full high-resolution color-graded galleries with print delivery rights are delivered within 2 weeks for portraits/real estate, and 4 weeks for full wedding collections.' },
           { q: 'Do you travel outside of Central Florida?', a: 'Yes! While we are based in Orlando and frequently serve Cocoa Beach, Daytona Beach, and Tampa, we travel worldwide for weddings and portrait commissions.' },
           { q: 'Are print rights and high-resolution files included?', a: 'Yes, full digital download rights are included with every package. You own full rights to download, print, and share your images without watermark restrictions.' },
         ].map(item => (
-          <div style="padding:32px;background:#FFFFFF;border:1px solid rgba(184,150,53,0.2);box-shadow:0 10px 30px rgba(26,24,22,0.04);border-radius:12px;">
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#11100F;margin-bottom:12px;">{item.q}</h3>
-            <p style="font-size:16px;line-height:1.8;color:#3D3934;font-weight:400;">{item.a}</p>
+          <div class="faq-card reveal">
+            <h3 class="faq-question">{item.q}</h3>
+            <p class="faq-answer">{item.a}</p>
           </div>
         ))}
       </div>
@@ -247,8 +251,298 @@ const packages = [
 </Layout>
 
 <style>
-  @media (max-width: 900px) {
-    .pkg-grid { grid-template-columns: 1fr !important; }
-    .policy-banner { flex-direction: column !important; text-align: center !important; }
+  /* ─── LUXURY PRICING CARDS ─── */
+  .luxury-pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+  }
+
+  .luxury-pkg-card {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-radius: 20px;
+    padding: 52px 44px 44px;
+    box-shadow: 0 16px 45px rgba(26, 24, 22, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), border-color 0.35s ease;
+  }
+
+  .luxury-pkg-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(184, 150, 53, 0.7);
+    box-shadow: 0 24px 60px rgba(184, 150, 53, 0.16), 0 8px 24px rgba(17, 16, 15, 0.06);
+  }
+
+  .luxury-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .luxury-card-num {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #A3802C;
+    background: rgba(184, 150, 53, 0.12);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(184, 150, 53, 0.3);
+  }
+
+  .luxury-card-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #A3802C;
+  }
+
+  .luxury-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: #11100F;
+    line-height: 1.1;
+    margin: 0 0 18px;
+  }
+
+  /* Price Box */
+  .luxury-price-box {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.2);
+  }
+
+  .luxury-price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 500;
+    color: #11100F;
+    line-height: 1;
+  }
+
+  .luxury-price-unit {
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #5A524A;
+  }
+
+  .luxury-card-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4A443E;
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  /* Features List */
+  .luxury-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 34px;
+  }
+
+  .luxury-feature-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .luxury-check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(184, 150, 53, 0.12);
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A3802C;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .luxury-feature-text {
+    font-size: 15px;
+    color: #1A1816;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* Addons */
+  .luxury-addons-box {
+    margin-top: 24px;
+    padding: 20px 22px;
+    background: rgba(184, 150, 53, 0.06);
+    border: 1px dashed rgba(184, 150, 53, 0.35);
+    border-radius: 12px;
+  }
+
+  .luxury-addons-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #A3802C;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .luxury-addons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .luxury-addon-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #3D3934;
+    font-weight: 500;
+  }
+
+  .luxury-addon-plus {
+    color: #A3802C;
+    font-weight: 700;
+  }
+
+  .luxury-card-note {
+    margin-top: 18px;
+    font-size: 13.5px;
+    color: #6B6258;
+    font-style: italic;
+  }
+
+  .luxury-card-btn-wrap {
+    margin-top: 36px;
+  }
+
+  /* Policy Banner */
+  .luxury-policy-banner {
+    margin-top: 64px;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    border-radius: 18px;
+    padding: 34px 44px;
+    box-shadow: 0 12px 36px rgba(26, 24, 22, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+  }
+
+  .policy-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .policy-shield-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(184, 150, 53, 0.1);
+    border: 1px solid rgba(184, 150, 53, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .policy-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-bottom: 6px;
+  }
+
+  .policy-desc {
+    font-size: 15px;
+    color: #4A443E;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .faq-card {
+    padding: 32px 36px;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.2);
+    box-shadow: 0 10px 30px rgba(26, 24, 22, 0.04);
+    border-radius: 14px;
+    transition: transform 0.35s ease, border-color 0.35s ease;
+  }
+
+  .faq-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(184, 150, 53, 0.5);
+  }
+
+  .faq-question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: #11100F;
+    margin: 0 0 12px;
+  }
+
+  .faq-answer {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: #4A443E;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    .luxury-pkg-grid {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+    .luxury-policy-banner {
+      flex-direction: column !important;
+      text-align: center !important;
+      padding: 32px 24px !important;
+    }
+    .policy-left {
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .luxury-pkg-card {
+      padding: 36px 24px 28px !important;
+    }
+    .luxury-price-amount {
+      font-size: 48px !important;
+    }
+    .luxury-card-title {
+      font-size: 30px !important;
+    }
   }
 </style>

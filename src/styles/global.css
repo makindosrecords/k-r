@@ -455,6 +455,119 @@ body {
   background: rgba(184, 150, 53, 0.3);
 }
 
+/* ─── DISCIPLINES SHOWCASE GRID ─── */
+.disciplines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.discipline-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid rgba(184, 150, 53, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(17, 16, 15, 0.04);
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo), border-color 0.4s ease;
+}
+
+.discipline-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(17, 16, 15, 0.1);
+  border-color: rgba(184, 150, 53, 0.5);
+}
+
+.discipline-img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--black-soft);
+}
+
+.discipline-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 0.8s var(--ease-out-expo);
+  display: block;
+}
+
+.discipline-card:hover .discipline-img {
+  transform: scale(1.06);
+}
+
+.discipline-content {
+  padding: 30px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.discipline-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #A3802C;
+  margin-bottom: 10px;
+}
+
+.discipline-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #11100F;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+.discipline-card:hover .discipline-title {
+  color: #A3802C;
+}
+
+.discipline-desc {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #3D3934;
+  font-weight: 400;
+  margin-bottom: 24px;
+  flex: 1 1 auto;
+}
+
+.discipline-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #A3802C;
+  margin-top: auto;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.discipline-card:hover .discipline-cta {
+  gap: 16px;
+  color: #856620;
+}
+
+.discipline-arrow {
+  transition: transform 0.3s ease;
+}
+
+.discipline-card:hover .discipline-arrow {
+  transform: translateX(4px);
+}
+
 /* ─── HORIZONTAL SCROLL GALLERY SECTION ─── */
 .hscroll-section {
   position: relative;
@@ -573,11 +686,15 @@ body {
 /* ─── ABOUT / MANIFESTO ─── */
 .about-section {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 1fr 1.18fr;
   align-items: stretch;
+  gap: 48px;
   background: var(--black-soft);
   border-top: 1px solid rgba(184, 150, 53, 0.18);
   border-bottom: 1px solid rgba(184, 150, 53, 0.18);
+  padding: 60px 60px;
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
 .about-image-col {
@@ -585,7 +702,10 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
+  border-radius: 6px;
   overflow: hidden;
+  box-shadow: 0 16px 40px rgba(17, 16, 15, 0.08);
+  border: 1px solid rgba(184, 150, 53, 0.2);
 }
 
 .about-image-col img {
@@ -597,45 +717,182 @@ body {
 }
 
 .about-text-col {
-  background: var(--black-soft);
-  padding: 80px 70px;
+  background: transparent;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 24px;
+  justify-content: space-between;
+  height: 100%;
+  gap: 14px;
 }
 
 @media (max-width: 1024px) {
   .about-section {
     grid-template-columns: 1fr !important;
+    padding: 60px 24px !important;
+    gap: 32px !important;
   }
 
   .about-image-col {
-    position: relative !important;
-    height: 520px !important;
-    width: 100% !important;
-  }
-
-  .about-text-col {
-    padding: 60px 30px !important;
-    gap: 24px !important;
+    aspect-ratio: 4 / 3 !important;
+    min-height: 380px !important;
+    max-height: 440px !important;
   }
 }
 
 /* ─── TESTIMONIALS ─── */
+.testimonials-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.test-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(163, 128, 44, 0.4);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #11100F;
+  box-shadow: 0 10px 25px rgba(17, 16, 15, 0.12);
+}
+
+.test-prev-btn {
+  left: -24px;
+}
+
+.test-next-btn {
+  right: -24px;
+}
+
+.test-nav-btn:hover:not(:disabled) {
+  background: #A3802C;
+  color: #FFFFFF;
+  border-color: #A3802C;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 14px 30px rgba(163, 128, 44, 0.35);
+}
+
+.test-nav-btn:disabled {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.9);
+}
+
+.testimonials-track-wrap {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 12px 4px 24px;
+}
+
+.testimonials-track::-webkit-scrollbar {
+  display: none;
+}
+
 .testimonial-card {
-  background: var(--surface);
-  border: 1px solid rgba(184, 150, 53, 0.15);
-  border-radius: 20px;
-  padding: 48px 44px;
-  box-shadow: 0 16px 45px rgba(26, 24, 22, 0.05);
-  transition: border-color 0.4s ease, transform 0.4s var(--ease-out-expo), box-shadow 0.4s ease;
+  flex: 0 0 calc((100% - (2 * 28px)) / 3);
+  scroll-snap-align: start;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1px solid rgba(184, 150, 53, 0.24);
+  border-radius: 12px;
+  padding: 32px 28px 26px;
+  box-shadow: 0 10px 30px rgba(26, 24, 22, 0.05);
+  transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), border-color 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
 }
 
 .testimonial-card:hover {
-  border-color: rgba(184, 150, 53, 0.45);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(26, 24, 22, 0.1);
+  transform: translateY(-8px);
+  border-color: rgba(184, 150, 53, 0.75);
+  box-shadow: 0 24px 50px rgba(184, 150, 53, 0.18), 0 10px 25px rgba(17, 16, 15, 0.06);
+}
+
+.testimonial-card:hover::before {
+  opacity: 1;
+}
+
+.testimonial-card .testimonial-badge {
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-badge {
+  background: #A3802C !important;
+  color: #FFFFFF !important;
+  transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+  .test-prev-btn {
+    left: -12px;
+  }
+  .test-next-btn {
+    right: -12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .testimonial-card {
+    flex: 0 0 calc((100% - 20px) / 2) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .test-prev-btn {
+    left: -6px;
+  }
+  .test-next-btn {
+    right: -6px;
+  }
+  .test-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .testimonial-card {
+    flex: 0 0 86vw !important;
+    padding: 26px 22px 22px !important;
+  }
+  .testimonials-track {
+    gap: 16px !important;
+  }
 }
 
 /* ─── GOLD LINE ACCENTS ─── */
@@ -1001,6 +1258,32 @@ body {
     height: min(52vh, 380px) !important;
     aspect-ratio: var(--card-w, 640) / var(--card-h, 480) !important;
     max-width: min(85vw, 380px) !important;
+  }
+
+  .disciplines-section {
+    padding: 68px 20px 76px !important;
+  }
+
+  .disciplines-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .discipline-card {
+    height: 440px !important;
+  }
+
+  .discipline-content {
+    padding: 28px 24px 24px !important;
+  }
+
+  .discipline-title {
+    font-size: 30px !important;
+  }
+
+  .discipline-desc {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
   }
 
   .services-grid {

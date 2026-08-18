@@ -118,6 +118,27 @@ const gallery = [
 
 const testimonials = [
   {
+    author: 'Samantha Prickett',
+    role: 'Maternity Session',
+    location: 'Central Florida',
+    badge: 'Maternity Client',
+    text: 'We booked a maternity shoot with K&R Photography. Kim was great to work with! Had a rescheduling issue on my end, but they were able to book me on my next available day and time with no problem. She walked with us through the heat to our photo destination with no complaints either! I had a vision for how I wanted my photos to turn out and she helped make that happen for us! So incredibly happy with them, and for a great price! I will use them again for our next life event photos!',
+  },
+  {
+    author: 'Maria Cooke',
+    role: 'Intimate Wedding Vows',
+    location: 'Central Florida',
+    badge: 'Wedding Client',
+    text: 'Kimberly was the best photographer I could have imagined having for our very intimate wedding vows. As soon as I met her, she immediately helped me with my veil and her energy just had a way of relaxing our whole family. She knew exactly how to instruct us to get marvelous photos that will be treasured forever. Thank you so much Kimberly, you’re an angel for capturing the essence of my “dream wedding”!',
+  },
+  {
+    author: 'Karen Doerr',
+    role: 'Beach Family Session',
+    location: 'Ormond-by-the-Sea, FL',
+    badge: 'Family Client',
+    text: 'Wow! Thank you K&R for an outstanding family photo shoot! You were exceptionally patient with me trying to find a date/time that could work when we were in town. Loved that-no pressure just support. Aaron did an excellent job getting my crew relaxed and organized to capture us on our favorite beach at Ormond-by-the-Sea. LOTS of excellent shots-delivered earlier than expected. Thanks again! HIGHLY RECOMMEND',
+  },
+  {
     author: 'Sonialy Salgado',
     role: 'Quinceañera & Sweet 16 Client',
     location: 'Central Florida',
@@ -131,20 +152,13 @@ const testimonials = [
     badge: 'Verified Client',
     text: 'We couldn’t be happier with our experience! From the very first message, Kimberly was incredibly responsive, professional, and so easy to work with. She made the entire process completely stress-free. During our session, she made all of us feel comfortable and relaxed, giving great direction for poses while keeping everything natural. And then we got the photos… absolutely incredible. The clarity and quality of every single image is astounding. These are photos we’ll treasure for a lifetime!',
   },
-  {
-    author: 'Maria Cooke',
-    role: 'Intimate Wedding Vows',
-    location: 'Central Florida',
-    badge: 'Wedding Client',
-    text: 'Kimberly was the best photographer I could have imagined having for our very intimate wedding vows. As soon as I met her, she immediately helped me with my veil and her energy just had a way of relaxing our whole family. She knew exactly how to instruct us to get marvelous photos that will be treasured forever. Thank you so much Kimberly, you’re an angel for capturing the essence of my “dream wedding”!',
-  },
 ];
 ---
 <Layout title="K&R Photography | Weddings, Portraits & Real Estate | Central FL">
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-bg" style="background-image:url('/weddings/k1%20(4)_result.webp');"></div>
+    <div class="hero-bg" style="background-image:url('/KIM_5271-2_result.webp');"></div>
     <div class="hero-vignette"></div>
 
     <!-- Ambient gold orb -->
@@ -182,27 +196,6 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- ─── SERVICES BAND ─── -->
-  <section style="background:var(--black-soft);padding:0 60px;border-top:1px solid rgba(184,150,53,0.18);border-bottom:1px solid rgba(184,150,53,0.18);">
-    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;" class="services-grid">
-      
-      {[
-        { num: '01', title: 'Weddings & Couples', desc: 'Full-day wedding coverage by two lead photographers. Editorial, candid, and timeless.', href: '/weddings-and-couples' },
-        { num: '02', title: 'Family & Portraits', desc: 'Golden hour beach and lifestyle sessions across Orlando, Daytona & Cocoa Beach.', href: '/family-and-portraits' },
-        { num: '03', title: 'B2B Real Estate', desc: 'Flambient HDR interior & exterior media for top-producing agents. 24hr delivery.', href: '/real-estate' },
-      ].map((s, i) => (
-        <a href={s.href} style={`display:block;padding:56px 40px;text-decoration:none;border-right:${i < 2 ? '1px solid rgba(184,150,53,0.15)' : 'none'};transition:background 0.4s ease;position:relative;overflow:hidden;`} class="service-link">
-          <div style="font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:0.3em;color:#A3802C;margin-bottom:16px;text-transform:uppercase;">{s.num}</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:#11100F;margin-bottom:12px;transition:color 0.3s;">{s.title}</h3>
-          <p style="font-size:15px;line-height:1.75;color:#3D3934;max-width:280px;font-weight:400;">{s.desc}</p>
-          <div style="margin-top:28px;display:inline-flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#A3802C;">
-            View Work
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition:transform 0.3s;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
 
   <!-- ─── CINEMATIC ARROW GALLERY ─── -->
   <section class="hscroll-section" id="gallery" style="padding:100px 0 80px;overflow:hidden;position:relative;">
@@ -294,89 +287,168 @@ const testimonials = [
     <div class="about-text-col">
 
       <div class="reveal-right">
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;">
+        <span style="font-family:'Cinzel',serif;font-size:11.5px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#A3802C;">
           <span class="gold-line"></span>Meet Kimberly &amp; Rick
         </span>
       </div>
 
-      <h2 class="reveal-right" style="font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.5vw,68px);font-weight:300;color:#11100F;line-height:1.1;transition-delay:0.1s;">
-        Capturing Love, Laughter &amp;<br/><em style="font-style:italic;background:linear-gradient(135deg,#B89635 0%,#8A6D30 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Everything In Between</em>
+      <h2 class="reveal-right" style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3vw,44px);font-weight:300;color:#11100F;line-height:1.1;transition-delay:0.1s;margin:0;">
+        Capturing Love, Laughter &amp;<br/><em style="font-style:italic;color:#A3802C;">Everything In Between</em>
       </h2>
 
-      <div class="stagger-children reveal-right" style="transition-delay:0.2s;display:flex;flex-direction:column;gap:18px;">
-        <p style="font-size:17.5px;line-height:1.8;color:#2E2A25;font-weight:400;">
+      <div class="stagger-children reveal-right" style="transition-delay:0.2s;display:flex;flex-direction:column;gap:10px;">
+        <p style="font-size:14.5px;line-height:1.68;color:#2E2A25;font-weight:400;margin:0;">
           Welcome to K&amp;R Photography, where we’re all about capturing the good stuff—like love, laughter, and maybe a few happy tears! We’re Kimberly and Rick, your favorite husband and wife photography duo specializing in weddings and portraits across Central Florida.
         </p>
-        <p style="font-size:16.5px;line-height:1.8;color:#5C5650;font-weight:400;">
+        <p style="font-size:14px;line-height:1.68;color:#4D4741;font-weight:400;margin:0;">
           As a team, we know how to keep things fun and relaxed so you can focus on what really matters—like not tripping down the aisle! With our unique blend of photojournalistic flair and fine art style, we promise to snap those candid moments and epic poses that truly reflect your personalities.
         </p>
 
         <!-- Kimberly's Personal Note -->
-        <div style="background:rgba(255,255,255,0.7);border-left:2px solid #A3802C;padding:20px 24px;border-radius:0 6px 6px 0;margin-top:6px;box-shadow:0 6px 20px rgba(26,24,22,0.03);">
-          <div style="font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:8px;">
+        <div style="background:rgba(255,255,255,0.75);border-left:2px solid #A3802C;padding:12px 18px;border-radius:0 6px 6px 0;box-shadow:0 4px 16px rgba(26,24,22,0.03);">
+          <div style="font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:4px;">
             A Note From Kimberly
           </div>
-          <p style="font-size:15px;line-height:1.75;color:#4A443E;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:19px;margin:0;">
+          <p style="font-style:italic;font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.55;color:#3D3934;margin:0;">
             “I stumbled upon my love for photography back in the darkroom days of middle school—yes, I was the kid who thought developing film was the coolest thing ever! With over 25 years of experience, I’ve captured everything from jaw-dropping weddings to family portraits. Just over 12 years ago, I met the love of my life, Rick, who encouraged me to chase my dreams. Little did he know I’d get him in on it too! Now we get to create magic together every single day.”
           </p>
         </div>
       </div>
 
       <!-- Studio Credentials -->
-      <div class="reveal-right stagger-children" style="transition-delay:0.3s;display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid rgba(184,150,53,0.25);padding-top:30px;">
+      <div class="reveal-right stagger-children" style="transition-delay:0.3s;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;border-top:1px solid rgba(184,150,53,0.22);padding-top:16px;margin-top:2px;">
         {[
           { label: 'Years Behind The Lens', value: '25+' },
           { label: '5-Star Google Reviews', value: '380+' },
           { label: 'Weddings & Sessions', value: '1,200+' },
-          { label: 'Lead Photographers', value: '2 Always' },
+          { label: 'Studio Experience', value: 'Est. 2004' },
         ].map(c => (
           <div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;color:#A3802C;line-height:1;">{c.value}</div>
-            <div style="font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#3D3934;margin-top:6px;">{c.label}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#A3802C;line-height:1;">{c.value}</div>
+            <div style="font-family:'Cinzel',serif;font-size:9.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#3D3934;margin-top:4px;">{c.label}</div>
           </div>
         ))}
       </div>
 
-      <div class="reveal-right" style="transition-delay:0.4s;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-        <a href="/contact" class="cta-btn" style="display:inline-flex;align-items:center;gap:10px;">
+      <div class="reveal-right" style="transition-delay:0.4s;margin-top:2px;">
+        <a href="/contact" class="cta-btn" style="display:inline-flex;align-items:center;gap:10px;padding:11px 22px;font-size:11px;">
           Let’s Create Magic Together
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
 
     </div>
   </section>
 
-  <!-- ─── TESTIMONIALS ─── -->
-  <section style="background:var(--black);padding:140px 60px;position:relative;overflow:hidden;">
+  <!-- ─── TESTIMONIALS CAROUSEL ─── -->
+  <section style="background:var(--black);padding:72px 60px 80px;position:relative;overflow:hidden;" id="testimonials-section">
     <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
     
-    <div style="max-width:1300px;margin:0 auto;position:relative;z-index:2;">
+    <div style="max-width:1320px;margin:0 auto;position:relative;z-index:2;">
       
-      <div class="reveal" style="text-align:center;margin-bottom:80px;">
-        <span style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Client Experiences</span>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(46px,5.5vw,76px);font-weight:300;color:#11100F;margin-top:12px;line-height:0.95;">Words From Our Families & Couples</h2>
-        <p style="font-size:16px;color:#3D3934;margin-top:16px;font-weight:400;">Real stories from clients who trusted Kimberly & Rick with their milestone moments.</p>
+      <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto 40px;">
+        <span style="font-family:'Cinzel',serif;font-size:12.5px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#A3802C;"><span class="gold-line"></span>Client Experiences</span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,50px);font-weight:300;color:#11100F;margin-top:8px;line-height:1.05;">Words From Our Families &amp; Couples</h2>
+        <p style="font-size:15px;color:#4D4741;margin-top:8px;font-weight:400;">Real stories from clients who trusted Kimberly &amp; Rick with their milestone moments.</p>
       </div>
 
-      <div class="stagger-children reveal testimonials-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
-        {testimonials.map(t => (
-          <div class="testimonial-card" style="display:flex;flex-direction:column;justify-content:space-between;background:#FFFFFF;border:1px solid rgba(184,150,53,0.35);border-radius:20px;padding:44px 36px;box-shadow:0 18px 50px rgba(26,24,22,0.07);position:relative;">
-            <div>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-                <div style="color:#A3802C;font-size:16px;letter-spacing:0.18em;">★★★★★</div>
-                <span style="font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;background:rgba(201,168,76,0.12);padding:4px 10px;border-radius:20px;">{t.badge}</span>
-              </div>
-              <p style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;line-height:1.75;color:#11100F;margin-bottom:32px;">"{t.text}"</p>
-            </div>
-            <div style="border-top:1px solid rgba(184,150,53,0.22);padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end;">
+      <!-- Testimonials Carousel Container with Left/Right Flank Arrows -->
+      <div class="testimonials-carousel-container reveal">
+        <button id="test-prev" aria-label="Previous testimonials" class="test-nav-btn test-prev-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <!-- Testimonials Scroll Track (3 Visible on Desktop) -->
+        <div class="testimonials-track-wrap">
+          <div class="testimonials-track" id="testimonials-track">
+          {testimonials.map((t, idx) => (
+            <div class="testimonial-card" data-idx={idx}>
               <div>
-                <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#11100F;font-weight:600;letter-spacing:0.02em;">{t.author}</div>
-                <div style="font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-top:4px;">{t.role}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <div style="color:#A3802C;font-size:14px;letter-spacing:0.18em;">★★★★★</div>
+                  <span class="testimonial-badge" style="font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#A3802C;background:rgba(201,168,76,0.12);padding:4px 10px;border-radius:20px;">{t.badge}</span>
+                </div>
+                <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;line-height:1.65;color:#11100F;margin-bottom:24px;">"{t.text}"</p>
               </div>
-              <span style="font-size:12px;color:#7A7267;font-family:'Cinzel',serif;letter-spacing:0.1em;font-weight:600;">{t.location}</span>
+              <div style="border-top:1px solid rgba(184,150,53,0.2);padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;">
+                <div>
+                  <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#11100F;font-weight:600;letter-spacing:0.01em;">{t.author}</div>
+                  <div style="font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#A3802C;margin-top:2px;">{t.role}</div>
+                </div>
+                <span style="font-size:11.5px;color:#7A7267;font-family:'Cinzel',serif;letter-spacing:0.1em;font-weight:600;">{t.location}</span>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Next Arrow Button -->
+      <button id="test-next" aria-label="Next testimonials" class="test-nav-btn test-next-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    </div>
+  </section>
+
+  <!-- ─── SIGNATURE SERVICES / PORTFOLIOS ─── -->
+  <section class="disciplines-section" style="background:var(--black-soft);padding:90px 60px 100px;border-top:1px solid rgba(184,150,53,0.18);border-bottom:1px solid rgba(184,150,53,0.18);position:relative;">
+    <div style="max-width:1320px;margin:0 auto;">
+      
+      <!-- Section Header -->
+      <div style="text-align:center;max-width:700px;margin:0 auto 48px;" class="reveal">
+        <span style="font-family:'Cinzel',serif;font-size:12.5px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:#A3802C;display:inline-block;margin-bottom:8px;">
+          What We Capture
+        </span>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:#11100F;line-height:1.08;letter-spacing:-0.01em;">
+          Explore Our <em style="font-style:italic;color:#A3802C;">Portfolios</em>
+        </h2>
+      </div>
+
+      <!-- 3-Column Landscape Visual Card Grid -->
+      <div class="disciplines-grid">
+        {[
+          {
+            tag: 'Weddings & Elopements',
+            title: 'Weddings & Couples',
+            desc: 'All-day coverage across Florida’s coastlines and historic venues, capturing natural emotion, real moments, and sunset glow.',
+            image: '/weddings/DSC_0045-2_result.webp',
+            href: '/weddings-and-couples',
+            cta: 'Explore Weddings'
+          },
+          {
+            tag: 'Portraiture & Lifestyle',
+            title: 'Family & Portraits',
+            desc: 'Relaxed golden hour sessions along Daytona, New Smyrna, and Cocoa Beach, focused on real connection rather than rigid posing.',
+            image: '/family/KIM_7258_result.webp',
+            href: '/family-and-portraits',
+            cta: 'Explore Portraits'
+          },
+          {
+            tag: 'Commercial Architecture',
+            title: 'B2B Real Estate',
+            desc: 'High-definition flambient interior and exterior media built for top-tier listings, architects, and leading brokerages.',
+            image: '/real%20estate/AEC_4956_result.webp',
+            href: '/real-estate',
+            cta: 'Explore Real Estate'
+          }
+        ].map((item) => (
+          <a href={item.href} class="discipline-card reveal">
+            <div class="discipline-img-box">
+              <img src={item.image} alt={item.title} class="discipline-img" loading="lazy" />
+            </div>
+            <div class="discipline-content">
+              <div class="discipline-tag">{item.tag}</div>
+              <h3 class="discipline-title">{item.title}</h3>
+              <p class="discipline-desc">{item.desc}</p>
+              <div class="discipline-cta">
+                <span>{item.cta}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="discipline-arrow">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </div>
+          </a>
         ))}
       </div>
 
@@ -1004,6 +1076,39 @@ const testimonials = [
       const dx = e.changedTouches[0].clientX - lbSwipeX;
       if (Math.abs(dx) > 40) showImage(lbIdx + (dx < 0 ? 1 : -1));
     });
+  }
+
+  // ─── TESTIMONIALS CAROUSEL CONTROLLER ───
+  const testTrack = document.getElementById('testimonials-track');
+  const testPrev = document.getElementById('test-prev');
+  const testNext = document.getElementById('test-next');
+
+  if (testTrack && testPrev && testNext) {
+    const testCards = testTrack.querySelectorAll('.testimonial-card');
+
+    const updateTestNav = () => {
+      const scrollLeft = testTrack.scrollLeft;
+      const maxScroll = testTrack.scrollWidth - testTrack.clientWidth;
+      
+      if (testPrev) (testPrev as HTMLButtonElement).disabled = scrollLeft <= 4;
+      if (testNext) (testNext as HTMLButtonElement).disabled = scrollLeft >= maxScroll - 6;
+    };
+
+    testPrev.addEventListener('click', () => {
+      const card = testCards[0] as HTMLElement;
+      const scrollAmount = card ? card.offsetWidth + 28 : 380;
+      testTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    testNext.addEventListener('click', () => {
+      const card = testCards[0] as HTMLElement;
+      const scrollAmount = card ? card.offsetWidth + 28 : 380;
+      testTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    testTrack.addEventListener('scroll', updateTestNav, { passive: true });
+    window.addEventListener('resize', updateTestNav, { passive: true });
+    updateTestNav();
   }
 
   // ─── PARALLAX HERO ───
