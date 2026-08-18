@@ -595,16 +595,40 @@ import Layout from '../layouts/Layout.astro';
   @media (max-height: 600px) and (orientation: landscape) {
     .inquiry-page-wrapper {
       padding-top: 75px !important;
+      padding-bottom: 20px !important;
+    }
+    .modal-body {
+      grid-template-columns: 1fr !important; /* Single full-width column */
     }
     .modal-left-col {
-      display: none !important; /* Hide left column in mobile landscape so form fits without scrolling */
+      display: none !important; /* Hide left sidebar in landscape */
+    }
+    .modal-right-col {
+      padding: 16px 24px 20px !important;
+    }
+    form {
+      gap: 8px !important;
     }
     .f-row-2 {
-      grid-template-columns: 1fr 1fr !important; /* Side-by-side fields in landscape */
-      gap: 10px !important;
+      grid-template-columns: 1fr 1fr !important; /* 2 fields side-by-side */
+      gap: 12px !important;
+    }
+    .f-input {
+      height: 36px !important;
+      font-size: 13px !important;
     }
     .f-textarea {
-      min-height: 50px !important;
+      min-height: 48px !important;
+    }
+    .f-footer {
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      margin-top: 4px !important;
+    }
+    .f-submit-btn {
+      width: auto !important;
+      padding: 9px 22px !important;
     }
   }
 </style>
