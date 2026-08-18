@@ -509,11 +509,19 @@ import Layout from '../layouts/Layout.astro';
     transform: none;
   }
 
-  /* Responsive Mobile View */
+  /* Responsive Mobile & Landscape Optimizations */
   @media (max-width: 860px) {
     .inquiry-page-wrapper {
-      padding: 16px 12px;
+      padding: 90px 12px 30px;
       min-height: auto;
+      height: auto;
+    }
+    .modal-card {
+      max-width: 100%;
+      border-radius: 16px;
+    }
+    .modal-header {
+      padding: 16px 20px;
     }
     .modal-body {
       grid-template-columns: 1fr !important;
@@ -521,28 +529,82 @@ import Layout from '../layouts/Layout.astro';
     .modal-left-col {
       border-right: none !important;
       border-bottom: 1px solid rgba(184, 150, 53, 0.18);
-      padding: 20px 20px !important;
-      gap: 14px !important;
+      padding: 16px 18px !important;
+      gap: 10px !important;
+    }
+    .modal-intro {
+      display: none; /* Hide intro paragraph on mobile to save vertical height */
+    }
+    .modal-trust-callout {
+      display: none; /* Hide trust banner on mobile sidebar to keep modal compact */
     }
     .quick-cards-grid {
       display: grid !important;
       grid-template-columns: 1fr 1fr !important;
-      gap: 8px !important;
+      gap: 6px !important;
+    }
+    .q-card {
+      padding: 8px 10px;
+    }
+    .q-icon {
+      width: 26px;
+      height: 26px;
+    }
+    .q-icon svg {
+      width: 13px;
+      height: 13px;
+    }
+    .q-label {
+      font-size: 8px;
+    }
+    .q-val {
+      font-size: 11.5px;
     }
     .modal-right-col {
-      padding: 20px 20px !important;
+      padding: 18px 18px 24px !important;
+    }
+    form {
+      gap: 10px !important;
     }
     .f-row-2 {
       grid-template-columns: 1fr !important;
-      gap: 12px !important;
+      gap: 10px !important;
+    }
+    .f-input {
+      height: 38px !important;
+      font-size: 13px !important;
+      padding: 8px 12px !important;
+    }
+    .f-textarea {
+      min-height: 65px !important;
     }
     .f-footer {
       flex-direction: column !important;
       align-items: stretch !important;
+      gap: 10px !important;
+      margin-top: 2px !important;
     }
     .f-submit-btn {
       width: 100% !important;
       justify-content: center !important;
+      padding: 11px 20px !important;
+    }
+  }
+
+  /* Mobile Landscape specific scaling */
+  @media (max-height: 600px) and (orientation: landscape) {
+    .inquiry-page-wrapper {
+      padding-top: 75px !important;
+    }
+    .modal-left-col {
+      display: none !important; /* Hide left column in mobile landscape so form fits without scrolling */
+    }
+    .f-row-2 {
+      grid-template-columns: 1fr 1fr !important; /* Side-by-side fields in landscape */
+      gap: 10px !important;
+    }
+    .f-textarea {
+      min-height: 50px !important;
     }
   }
 </style>
