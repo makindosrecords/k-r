@@ -228,6 +228,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   }
 
   .eg-motion-track {
+    position: relative;
     display: flex; flex-direction: row;
     height: 100%; align-items: center;
     gap: 28px;
@@ -251,6 +252,16 @@ const first = items[0] || { location: 'Central Florida', title: '' };
     border-radius: 0;
     transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
   }
+  .eg-slide-item.type-portrait,
+  .eg-slide-item.type-tall {
+    aspect-ratio: 3 / 4;
+  }
+  .eg-slide-item.type-square {
+    aspect-ratio: 1 / 1;
+  }
+  .eg-slide-item.type-wide {
+    aspect-ratio: 3 / 2;
+  }
   .eg-slide-item.active {
     opacity: 1;
     transform: scale(1);
@@ -258,7 +269,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
 
   .eg-slide-inner {
     height: 100%;
-    width: auto;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -274,10 +285,10 @@ const first = items[0] || { location: 'Central Florida', title: '' };
 
   .eg-img-inner {
     display: block;
-    height: 84vh;
-    width: auto;
+    height: 100%;
+    width: 100%;
     max-width: none;
-    object-fit: contain;
+    object-fit: cover;
     background: transparent;
     border: none;
     border-radius: 0;
@@ -485,24 +496,36 @@ const first = items[0] || { location: 'Central Florida', title: '' };
       height: 100% !important;
       max-height: calc(100svh - 170px) !important;
       width: auto !important;
+      flex-shrink: 0 !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
+    .eg-slide-item.type-portrait,
+    .eg-slide-item.type-tall {
+      aspect-ratio: 3 / 4 !important;
+      max-width: min(86vw, calc((100svh - 170px) * 0.75)) !important;
+    }
+    .eg-slide-item.type-square {
+      aspect-ratio: 1 / 1 !important;
+      max-width: min(86vw, calc(100svh - 170px)) !important;
+    }
+    .eg-slide-item.type-wide {
+      aspect-ratio: 3 / 2 !important;
+      max-width: min(86vw, calc((100svh - 170px) * 1.5)) !important;
+    }
     .eg-slide-inner {
       height: 100% !important;
-      max-height: 100% !important;
-      width: auto !important;
+      width: 100% !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
     .eg-img-inner {
       height: 100% !important;
-      max-height: calc(100svh - 170px) !important;
-      width: auto !important;
-      max-width: 86vw !important;
-      object-fit: contain !important;
+      width: 100% !important;
+      max-width: none !important;
+      object-fit: cover !important;
       border-radius: 4px !important;
       box-shadow: 0 10px 30px rgba(17,16,15,0.12) !important;
     }
@@ -666,32 +689,39 @@ const first = items[0] || { location: 'Central Florida', title: '' };
       panel.style.cssText = 'position:absolute;top:0;bottom:;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
       track.style.transform = 'translate3d(' + (-slideOffsets[0]) + 'px, 0, 0)';
       bar.style.width = '0%';
+      targetX = slideOffsets[0] || 0;
+      curX = targetX;
       setActive(0); return;
     }
     if (r.bottom <= wh) {
       panel.style.cssText = 'position:absolute;top:;bottom:0;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
       track.style.transform = 'translate3d(' + (-maxOffset) + 'px, 0, 0)';
       bar.style.width = '100%';
+      targetX = maxOffset;
+      curX = targetX;
       setActive(count - 1); return;
     }
 
     panel.style.cssText = 'position:fixed;top:0;bottom:;left:0;width:100%;height:100vh;overflow:hidden;pointer-events:all;display:flex;flex-direction:' + dir + ';';
     var p = Math.max(0, Math.min(1, -r.top / tot));
     
-    // Equal scroll pacing per slide regardless of landscape/portrait image dimensions
+    // Equal scroll pacing per slide across full gallery length
     if (count > 1) {
       var slideProgress = p * (count - 1);
       var base = Math.floor(slideProgress);
       var frac = slideProgress - base;
       if (base >= count - 1) {
-        targetX = slideOffsets[count - 1] || 0;
+        targetX = maxOffset;
       } else {
-        var startOffset = slideOffsets[base] || 0;
+        var startOffset = slideOffsets[base] !== undefined ? slideOffsets[base] : 0;
         var endOffset = slideOffsets[base + 1] !== undefined ? slideOffsets[base + 1] : startOffset;
         targetX = startOffset + frac * (endOffset - startOffset);
       }
+      var activeIdx = Math.max(0, Math.min(count - 1, Math.round(slideProgress)));
+      setActive(activeIdx);
     } else {
       targetX = 0;
+      setActive(0);
     }
 
     bar.style.width = (p * 100) + '%';
@@ -700,6 +730,7 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   }
 
   function setActive(idx) {
+    if (lastIdx === idx) return;
     if (lastIdx >= 0 && slides[lastIdx]) slides[lastIdx].classList.remove('active');
     if (!slides[idx]) return;
     slides[idx].classList.add('active');
@@ -719,21 +750,14 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   }
 
   function animate() {
-    curX = lerp(curX, targetX, 0.12);
+    curX = lerp(curX, targetX, 0.14);
     track.style.transform = 'translate3d(' + (-curX) + 'px, 0, 0)';
-    
-    var activeIdx = getClosestSlideIdx(curX);
-    if (activeIdx !== lastIdx) {
-      setActive(activeIdx);
-    }
 
     if (Math.abs(curX - targetX) > 0.3) {
       rafId = requestAnimationFrame(animate);
     } else {
       track.style.transform = 'translate3d(' + (-targetX) + 'px, 0, 0)';
       curX = targetX;
-      var finalIdx = getClosestSlideIdx(targetX);
-      if (finalIdx !== lastIdx) setActive(finalIdx);
       rafId = null;
     }
   }
@@ -860,6 +884,15 @@ const first = items[0] || { location: 'Central Florida', title: '' };
   function handleResize() {
     recalculateOffsets();
     update();
+  }
+
+  if (typeof ResizeObserver !== 'undefined' && track) {
+    var ro = new ResizeObserver(function() {
+      recalculateOffsets();
+      update();
+    });
+    ro.observe(track);
+    slides.forEach(function(s) { ro.observe(s); });
   }
 
   recalculateOffsets();
