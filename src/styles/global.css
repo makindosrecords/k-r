@@ -941,8 +941,10 @@ body {
   }
 
   .gallery-card {
-    width: min(78vw, 320px) !important;
-    height: 380px !important;
+    width: auto !important;
+    height: min(52vh, 380px) !important;
+    aspect-ratio: var(--card-w, 640) / var(--card-h, 480) !important;
+    max-width: min(85vw, 380px) !important;
   }
 
   .services-grid {
@@ -1062,24 +1064,114 @@ body {
     font-size: 9px !important;
   }
 
-  /* Featured Gallery Landscape Dimensions */
+  /* Featured Gallery Landscape Dimensions - Preserve Aspect Ratios */
   .hscroll-section {
-    padding: 48px 0 36px !important;
+    padding: 40px 0 28px !important;
   }
 
   .h-gallery-wrap {
-    padding: 8px 16px 16px !important;
+    padding: 6px 16px 14px !important;
   }
 
   .gallery-card {
-    height: min(60vh, 260px) !important;
+    height: min(68vh, 270px) !important;
     width: auto !important;
-    aspect-ratio: 4 / 3 !important;
+    aspect-ratio: var(--card-w, 640) / var(--card-h, 480) !important;
+    max-width: 85vw !important;
   }
 
   .gallery-card img {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
+    object-position: center 20% !important; /* Protect faces in portrait orientations */
+  }
+
+  /* Compact Landscape Lightbox - Maximize Image Real Estate */
+  .lb-header {
+    padding: 8px 16px !important;
+    min-height: 38px !important;
+  }
+
+  .lb-header span {
+    font-size: 9.5px !important;
+  }
+
+  .lb-stage {
+    padding: 4px 10px !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+  }
+
+  .lb-stage-img {
+    max-width: 94vw !important;
+    max-height: calc(100vh - 82px) !important;
+  }
+
+  .lb-footer {
+    padding: 6px 16px 8px !important;
+    gap: 4px !important;
+    min-height: 36px !important;
+  }
+
+  #lb-title {
+    font-size: 16px !important;
+    line-height: 1.1 !important;
+  }
+
+  #lb-meta {
+    font-size: 8.5px !important;
+    margin-top: 1px !important;
+  }
+
+  .lb-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .lb-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .lb-nav-btn.prev {
+    left: 8px !important;
+  }
+
+  .lb-nav-btn.next {
+    right: 8px !important;
+  }
+}
+
+/* ─── GENERAL LANDSCAPE LIGHTBOX OPTIMIZATION (devices in landscape orientation) ─── */
+@media (orientation: landscape) and (max-height: 640px) {
+  #kr-lightbox .lb-header {
+    padding: 8px 20px !important;
+  }
+
+  #kr-lightbox .lb-stage {
+    padding: 2px 8px !important;
+  }
+
+  #kr-lightbox .lb-stage-img {
+    max-width: 95vw !important;
+    max-height: calc(100vh - 78px) !important;
+  }
+
+  #kr-lightbox .lb-footer {
+    padding: 6px 20px 8px !important;
+  }
+
+  #kr-lightbox #lb-title {
+    font-size: 16px !important;
+  }
+
+  #kr-lightbox #lb-meta {
+    font-size: 9px !important;
+  }
+
+  #kr-lightbox .lb-btn {
+    width: 36px !important;
+    height: 36px !important;
   }
 }

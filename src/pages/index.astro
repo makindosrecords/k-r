@@ -475,15 +475,24 @@ const testimonials = [
   }
   @media (max-width: 768px) {
     .gallery-card {
-      width: min(78vw, 320px) !important;
-      height: 380px !important;
+      width: auto !important;
+      height: min(52vh, 380px) !important;
+      aspect-ratio: var(--card-w, 640) / var(--card-h, 480) !important;
+      max-width: min(85vw, 380px) !important;
+    }
+    .gallery-card img {
+      object-position: center 20% !important;
     }
   }
-  @media (max-height: 560px) {
+  @media (max-height: 560px), (orientation: landscape) and (max-height: 640px) {
     .gallery-card {
-      height: min(60vh, 260px) !important;
+      height: min(68vh, 270px) !important;
       width: auto !important;
-      aspect-ratio: 4 / 3 !important;
+      aspect-ratio: var(--card-w, 640) / var(--card-h, 480) !important;
+      max-width: 85vw !important;
+    }
+    .gallery-card img {
+      object-position: center 20% !important;
     }
   }
   .gallery-card.is-active,

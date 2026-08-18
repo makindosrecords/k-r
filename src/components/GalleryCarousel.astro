@@ -323,3 +323,43 @@ const categories = ["All Works", ...Array.from(new Set(items.map(i => i.category
     }
   })();
 </script>
+
+<style>
+  @media (max-height: 560px), (orientation: landscape) and (max-height: 640px) {
+    .lightbox-dialog > div:first-child {
+      padding: 8px 16px !important;
+    }
+    .lightbox-close {
+      padding: 6px !important;
+    }
+    .lightbox-close svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+    .lightbox-prev,
+    .lightbox-next {
+      padding: 8px !important;
+    }
+    .lightbox-prev svg,
+    .lightbox-next svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    .lightbox-img {
+      max-height: calc(100vh - 84px) !important;
+    }
+    .lightbox-dialog > div:last-child {
+      padding: 6px 16px !important;
+      space-y: 2px !important;
+    }
+    .lightbox-title {
+      font-size: 16px !important;
+    }
+    .lightbox-meta {
+      font-size: 8.5px !important;
+    }
+    .lightbox-thumbnails {
+      display: none !important;
+    }
+  }
+</style>
