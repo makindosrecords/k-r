@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  hideFooter?: boolean;
 }
 
 const {
   title = "K&R Photography | Weddings, Portraits & Real Estate | Central Florida",
-  description = "Central Florida's premier husband-and-wife photography studio. 20+ years experience. 380+ 5-star Google reviews. Weddings, family portraits & real estate across Central Florida."
+  description = "Central Florida's premier husband-and-wife photography studio. 20+ years experience. 380+ 5-star Google reviews. Weddings, family portraits & real estate across Central Florida.",
+  hideFooter = false
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -92,6 +94,7 @@ const {
   </main>
 
   <!-- Footer -->
+  {!hideFooter && (
   <footer style="background:#F4F0EA;border-top:1px solid rgba(184,150,53,0.2);padding:80px 60px 48px;">
     <div style="max-width:1200px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px;" class="footer-grid">
@@ -130,6 +133,7 @@ const {
       </div>
     </div>
   </footer>
+  )}
 
 </body>
 </html>

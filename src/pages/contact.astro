@@ -5,185 +5,545 @@ import Layout from '../layouts/Layout.astro';
 <Layout
   title="Inquire & Book | K&R Photography | Orlando, Daytona, Cocoa Beach"
   description="Book your wedding, portrait session, or real estate photography with Kimberly & Rick. Central Florida's trusted duo with 380+ 5-star Google reviews."
+  hideFooter={true}
 >
 
-  <!-- ─── HERO ─── -->
-  <section style="position:relative;min-height:60vh;display:flex;align-items:flex-end;padding:80px 60px;overflow:hidden;">
-    <div style="position:absolute;inset:0;background-image:url('/weddings/KIM_2618_result.webp');background-size:cover;background-position:center;opacity:0.25;"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(5,4,3,1) 0%,rgba(5,4,3,0.5) 60%,rgba(5,4,3,0.8) 100%);"></div>
-    <!-- Gold orb -->
-    <div style="position:absolute;top:30%;right:20%;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.1) 0%,transparent 70%);border-radius:50%;animation:pulseGold 8s ease-in-out infinite;pointer-events:none;"></div>
-    <div style="position:relative;z-index:2;max-width:700px;">
-      <div class="hero-eyebrow">Studio Inquiries & Commissions · Orlando & Worldwide</div>
-      <h1 class="hero-title" style="font-size:clamp(52px,7vw,100px);">
-        <span class="line"><span>Reserve</span></span>
-        <span class="line"><span><em>Your Date</em></span></span>
-      </h1>
-    </div>
-  </section>
+  <!-- ─── MODAL PAGE CONTAINER ─── -->
+  <div class="inquiry-page-wrapper">
 
-  <!-- ─── CONTACT BODY ─── -->
-  <section style="background:#FAF8F5;padding:0 60px 120px;">
-    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start;padding-top:80px;" class="contact-layout">
+    <!-- Dark Blurred Backdrop Image -->
+    <div class="modal-backdrop-img"></div>
+    <div class="modal-backdrop-overlay"></div>
 
-      <!-- Left sidebar -->
-      <div style="display:flex;flex-direction:column;gap:48px;position:sticky;top:100px;" class="reveal-left">
+    <!-- ─── MODAL CARD ─── -->
+    <div class="modal-card">
 
-        <!-- Left: Studio Details -->
-        <div class="reveal" style="display:flex;flex-direction:column;justify-content:space-between;gap:40px;">
-          <div>
-            <span style="font-family:'Cinzel',serif;font-size:12.5px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);">
-              <span class="gold-line"></span>Let's Collaborate
-            </span>
-            <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,84px);font-weight:300;color:#1A1816;margin-top:16px;line-height:0.95;">
-              Let’s Connect<br/><em style="font-style:italic;">&amp; Create</em>
-            </h1>
-            <p style="font-size:14px;line-height:1.8;color:var(--muted);margin-top:28px;max-width:440px;">
-              Every story begins with a conversation. Tell Kimberly & Rick about your date, venue, or creative vision below to receive our bespoke collection guide and availability.
-            </p>
-          </div>
+      <!-- Modal Header Bar -->
+      <div class="modal-header">
+        <div>
+          <div class="modal-eyebrow">Studio Inquiries &amp; Booking</div>
+          <h1 class="modal-title">Reserve Your Date with <em>Kimberly &amp; Rick</em></h1>
+        </div>
+        <a href="/" class="modal-close-btn" title="Back to Home">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </a>
+      </div>
 
-          <!-- Direct Info -->
-          <div style="display:flex;flex-direction:column;gap:20px;">
-            {[
-              { label: 'Studio Direct', value: 'kimberly@kandrpix.com', href: 'mailto:kimberly@kandrpix.com' },
-              { label: 'Instagram', value: '@kandrpix', href: 'https://instagram.com/kandrpix' },
-              { label: 'Serving', value: 'Central Florida & Destination', href: null },
-            ].map(c => (
-              <div style="border-top:1px solid rgba(184,150,53,0.2);padding-top:16px;">
-                <div style="font-family:'Cinzel',serif;font-size:14.5px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-bottom:6px;">{c.label}</div>
-                {c.href ? (
-                  <a href={c.href} style="font-size:16px;color:#11100F;font-weight:500;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#A3802C'" onmouseout="this.style.color='#11100F'">{c.value}</a>
-                ) : (
-                  <div style="font-size:16px;color:#11100F;font-weight:500;">{c.value}</div>
-                )}
+      <!-- Modal Content Body (2-Column Grid) -->
+      <div class="modal-body">
+
+        <!-- Left Info Column -->
+        <div class="modal-left-col">
+          <p class="modal-intro">
+            Every story begins with a conversation. Share your details below to receive availability and custom pricing details.
+          </p>
+
+          <!-- Contact Quick Cards -->
+          <div class="quick-cards-grid">
+            <a href="tel:+14074979239" class="q-card">
+              <div class="q-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.79a16 16 0 0 0 6 6l1.88-1.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
-            ))}
+              <div>
+                <div class="q-label">Phone</div>
+                <div class="q-val">(407) 497-9239</div>
+              </div>
+            </a>
+
+            <a href="mailto:kimberly@kandrpix.com" class="q-card">
+              <div class="q-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="q-label">Email</div>
+                <div class="q-val">kimberly@kandrpix.com</div>
+              </div>
+            </a>
+
+            <a href="https://instagram.com/kandrpix" target="_blank" rel="noopener" class="q-card">
+              <div class="q-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div>
+                <div class="q-label">Instagram</div>
+                <div class="q-val">@kandrpix</div>
+              </div>
+            </a>
+
+            <div class="q-card no-link">
+              <div class="q-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="q-label">Territory</div>
+                <div class="q-val">Central FL &amp; Destination</div>
+              </div>
+            </div>
           </div>
 
-          <!-- Trust badge -->
-          <div style="background:#FFFFFF;border:1px solid rgba(184,150,53,0.25);box-shadow:0 8px 25px rgba(26,24,22,0.04);border-radius:16px;padding:24px;">
-            <div style="color:#A3802C;font-size:16px;margin-bottom:10px;">★★★★★</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#11100F;margin-bottom:4px;">380+ Verified Reviews</div>
-            <div style="font-size:14.5px;color:#3D3934;font-weight:500;">Google · Central Florida</div>
+          <!-- Trust Callout -->
+          <div class="modal-trust-callout">
+            <div class="stars">★★★★★</div>
+            <div class="trust-title">380+ Verified Reviews</div>
+            <div class="trust-sub">20+ Years Capturing Weddings &amp; Portraits</div>
           </div>
         </div>
+
+        <!-- Right Form Column -->
+        <div class="modal-right-col">
+          <div id="form-status" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:8px;font-size:13px;border:1px solid;"></div>
+
+          <form id="booking-form">
+            <div class="f-row-2">
+              <div class="f-wrap">
+                <label for="name" class="f-label">Full Name <span class="req">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Sarah Jenkins" class="f-input" />
+              </div>
+              <div class="f-wrap">
+                <label for="email" class="f-label">Email Address <span class="req">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="sarah@example.com" class="f-input" />
+              </div>
+            </div>
+
+            <div class="f-row-2">
+              <div class="f-wrap">
+                <label for="phone" class="f-label">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="(407) 555-0100" class="f-input" />
+              </div>
+              <div class="f-wrap">
+                <label for="serviceType" class="f-label">Service Type <span class="req">*</span></label>
+                <select id="serviceType" name="serviceType" required class="f-input f-select">
+                  <option value="" disabled selected>Select Service</option>
+                  <option value="Weddings & Couples">Weddings &amp; Couples Photography</option>
+                  <option value="Wedding Videography">Wedding Videography</option>
+                  <option value="Family & Portraits">Family &amp; Lifestyle Portraits</option>
+                  <option value="Real Estate Photography">Real Estate &amp; Architectural</option>
+                  <option value="Commercial & Event">Commercial &amp; Corporate Event</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="f-row-2">
+              <div class="f-wrap">
+                <label for="targetArea" class="f-label">Venue / Location <span class="req">*</span></label>
+                <input type="text" id="targetArea" name="targetArea" required placeholder="e.g. Bella Collina, Cocoa Beach" class="f-input" />
+              </div>
+              <div class="f-wrap">
+                <label for="preferredDate" class="f-label">Preferred Date / Season</label>
+                <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. October 14th 2026" class="f-input" />
+              </div>
+            </div>
+
+            <div class="f-wrap">
+              <label for="details" class="f-label">Tell Us About Your Vision <span class="req">*</span></label>
+              <textarea id="details" name="details" rows="3" required placeholder="Share your venue, story, or photography goals..." class="f-input f-textarea"></textarea>
+            </div>
+
+            <div class="f-footer">
+              <div class="f-privacy">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Details are private &amp; secure.
+              </div>
+              <button type="submit" id="submit-btn" class="f-submit-btn">
+                <span id="btn-text">Send Inquiry to K&amp;R</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+
       </div>
-
-      <!-- Right: Form -->
-      <div class="reveal" style="background:#FFFFFF;border:1px solid rgba(184,150,53,0.22);box-shadow:0 15px 45px rgba(26,24,22,0.06);border-radius:24px;padding:56px 48px;">
-
-        <div id="form-status" style="display:none;margin-bottom:28px;padding:20px 24px;border-radius:12px;font-size:14px;border:1px solid;"></div>
-
-        <form id="booking-form" style="display:flex;flex-direction:column;gap:28px;">
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="form-row-2">
-            <div class="field-wrap">
-              <label for="name" class="field-label">Full Name <span style="color:var(--gold);">*</span></label>
-              <input type="text" id="name" name="name" required placeholder="Sarah Jenkins" class="field-input" />
-            </div>
-            <div class="field-wrap">
-              <label for="email" class="field-label">Email Address <span style="color:var(--gold);">*</span></label>
-              <input type="email" id="email" name="email" required placeholder="sarah@example.com" class="field-input" />
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;" class="form-row-2">
-            <div class="field-wrap">
-              <label for="serviceType" class="field-label">Service Type <span style="color:var(--gold);">*</span></label>
-              <select id="serviceType" name="serviceType" required class="field-input field-select">
-                <option value="" disabled selected>Select Service</option>
-                <option value="Weddings & Couples">Weddings & Couples Photography</option>
-                <option value="Wedding Videography">Wedding Videography</option>
-                <option value="Family & Portraits">Family & Lifestyle Portraits</option>
-                <option value="Real Estate Photography">Real Estate & Architectural</option>
-                <option value="Commercial & Event">Commercial & Corporate Event</option>
-              </select>
-            </div>
-            <div class="field-wrap">
-              <label for="targetArea" class="field-label">Shoot Location / Venue <span style="color:var(--gold);">*</span></label>
-              <input type="text" id="targetArea" name="targetArea" required placeholder="e.g. Bella Collina, Orlando or Cocoa Beach" class="field-input" />
-            </div>
-          </div>
-
-          <div class="field-wrap">
-            <label for="preferredDate" class="field-label">Preferred Date or Season</label>
-            <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. October 14th, 2026 or Spring 2027" class="field-input" />
-          </div>
-
-          <div class="field-wrap">
-            <label for="details" class="field-label">Tell Us About Your Vision <span style="color:var(--gold);">*</span></label>
-            <textarea id="details" name="details" rows="5" required placeholder="Share your venue, story, or specific photography goals..." class="field-input" style="resize:vertical;"></textarea>
-          </div>
-
-          <button type="submit" id="submit-btn" class="cta-btn" style="width:100%;padding:18px;font-size:12px;">
-            Send Inquiry to K&R
-          </button>
-        </form>
-      </div>
-
     </div>
-  </section>
+  </div>
 
 </Layout>
 
 <style>
-  .field-wrap {
+  /* Lock page height & create backdrop */
+  .inquiry-page-wrapper {
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 40px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* Make fixed header dark-themed on inquiry page */
+  :global(.site-header) {
+    background: rgba(17, 16, 15, 0.85) !important;
+    backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.2) !important;
+  }
+  :global(.site-header .logo-title) {
+    color: #FAF8F5 !important;
+  }
+  :global(.site-header .nav-link) {
+    color: #FAF8F5 !important;
+  }
+
+  .modal-backdrop-img {
+    position: fixed;
+    inset: 0;
+    background-image: url('/weddings/KIM_7326-2_result.webp');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.4);
+    transform: scale(1.05);
+    z-index: 0;
+  }
+
+  .modal-backdrop-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(17,16,15,0.6) 0%, rgba(17,16,15,0.9) 100%);
+    z-index: 1;
+  }
+
+  /* Modal Card Frame */
+  .modal-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1080px;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 40px rgba(184, 150, 53, 0.15);
+    overflow: hidden;
+    margin: auto;
+  }
+
+  /* Modal Header Bar */
+  .modal-header {
+    background: linear-gradient(135deg, #11100F 0%, #1C1A17 100%);
+    padding: 22px 32px;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .modal-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-bottom: 4px;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 300;
+    color: #FAF8F5;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .modal-title em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .modal-close-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(184, 150, 53, 0.3);
+    color: #FAF8F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .modal-close-btn:hover {
+    background: rgba(163, 128, 44, 0.3);
+    border-color: #A3802C;
+  }
+
+  /* Modal Body */
+  .modal-body {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    align-items: stretch;
+  }
+
+  /* Left Column */
+  .modal-left-col {
+    background: #FAF8F5;
+    padding: 32px 30px;
+    border-right: 1px solid rgba(184, 150, 53, 0.18);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .modal-intro {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #4A443E;
+    margin: 0;
+  }
+
+  .quick-cards-grid {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .field-label {
+
+  .q-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  }
+
+  .q-card:not(.no-link):hover {
+    border-color: rgba(163, 128, 44, 0.6);
+    box-shadow: 0 4px 14px rgba(184, 150, 53, 0.12);
+    transform: translateX(3px);
+  }
+
+  .q-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(163, 128, 44, 0.08);
+    border: 1px solid rgba(163, 128, 44, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A3802C;
+    flex-shrink: 0;
+  }
+
+  .q-label {
     font-family: 'Cinzel', serif;
-    font-size: 13.5px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-bottom: 1px;
+  }
+
+  .q-val {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    color: #11100F;
+  }
+
+  .modal-trust-callout {
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.22);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .stars {
+    color: #A3802C;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+  }
+
+  .trust-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #11100F;
+  }
+
+  .trust-sub {
+    font-size: 11px;
+    color: #7A726C;
+    margin-top: 2px;
+  }
+
+  /* Right Column (Form) */
+  .modal-right-col {
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .f-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .f-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .f-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #11100F;
   }
-  .field-input {
+
+  .req { color: var(--gold); }
+
+  .f-input {
     background: #FAF8F5;
-    border: 1px solid rgba(184,150,53,0.25);
-    border-radius: 10px;
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-radius: 8px;
     color: #11100F;
-    padding: 14px 18px;
-    font-size: 15.5px;
+    padding: 10px 14px;
+    font-size: 13.5px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: border-color 0.3s, background 0.3s;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     width: 100%;
     box-sizing: border-box;
     outline: none;
-    height: 52px;
-    line-height: normal;
+    height: 42px;
   }
-  textarea.field-input {
+
+  .f-textarea {
     height: auto;
-    min-height: 130px;
+    min-height: 80px;
+    resize: vertical;
+    padding: 10px 14px;
   }
-  .field-select {
+
+  .f-input::placeholder { color: #A09892; }
+
+  .f-input:focus {
+    border-color: #B89635;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(184, 150, 53, 0.12);
+  }
+
+  .f-select {
     background-color: #FAF8F5;
     cursor: pointer;
-    color: #1A1816;
-    height: 52px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A3802C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 18px center;
-    background-size: 16px;
-    padding-right: 46px;
+    background-position: right 14px center;
+    background-size: 14px;
+    padding-right: 38px;
   }
-  .field-input::placeholder { color: #8C847E; }
-  .field-input:focus {
-    border-color: #B89635;
-    background: #FFFFFF;
-    box-shadow: 0 0 12px rgba(184,150,53,0.15);
+
+  .f-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 6px;
   }
-  @media (max-width: 900px) {
-    .contact-layout { grid-template-columns: 1fr !important; }
-    .form-row-2 { grid-template-columns: 1fr !important; gap: 20px !important; }
-    .reveal { padding: 40px 24px !important; }
+
+  .f-privacy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #8C847E;
+    font-weight: 500;
+  }
+
+  .f-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #11100F;
+    color: #FAF8F5;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1.5px solid #A3802C;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .f-submit-btn:hover {
+    background: #A3802C;
+    box-shadow: 0 8px 24px rgba(163, 128, 44, 0.3);
+    transform: translateY(-1.5px);
+  }
+
+  .f-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Responsive Mobile View */
+  @media (max-width: 860px) {
+    .inquiry-page-wrapper {
+      padding: 16px 12px;
+      min-height: auto;
+    }
+    .modal-body {
+      grid-template-columns: 1fr !important;
+    }
+    .modal-left-col {
+      border-right: none !important;
+      border-bottom: 1px solid rgba(184, 150, 53, 0.18);
+      padding: 20px 20px !important;
+      gap: 14px !important;
+    }
+    .quick-cards-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+    }
+    .modal-right-col {
+      padding: 20px 20px !important;
+    }
+    .f-row-2 {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+    .f-footer {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    .f-submit-btn {
+      width: 100% !important;
+      justify-content: center !important;
+    }
   }
 </style>
 
@@ -192,35 +552,27 @@ import Layout from '../layouts/Layout.astro';
     const params = new URLSearchParams(window.location.search);
     const requestedService = (params.get('service') || '').trim().toLowerCase();
     const serviceSelect = document.getElementById('serviceType') as HTMLSelectElement | null;
-    
     if (requestedService && serviceSelect) {
-      // Direct exact or partial keyword matching
       for (let i = 0; i < serviceSelect.options.length; i++) {
         const optVal = serviceSelect.options[i].value.toLowerCase();
         const optText = serviceSelect.options[i].text.toLowerCase();
-        
         if (
-          optVal === requestedService ||
-          optText === requestedService ||
+          optVal === requestedService || optText === requestedService ||
           (requestedService.includes('video') && (optVal.includes('video') || optText.includes('video'))) ||
           (requestedService.includes('wedding') && !requestedService.includes('video') && optVal.includes('wedding')) ||
           (requestedService.includes('portrait') && (optVal.includes('portrait') || optVal.includes('family'))) ||
           (requestedService.includes('estate') && optVal.includes('estate')) ||
           (requestedService.includes('commercial') && optVal.includes('commercial'))
-        ) {
-          serviceSelect.selectedIndex = i;
-          break;
-        }
+        ) { serviceSelect.selectedIndex = i; break; }
       }
     }
   }
-
-  // Run on initial load and navigation
   autoSelectService();
   window.addEventListener('DOMContentLoaded', autoSelectService);
 
   const bookingForm = document.getElementById('booking-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btn-text') as HTMLSpanElement | null;
   const statusDiv = document.getElementById('form-status') as HTMLDivElement | null;
 
   if (bookingForm && submitBtn && statusDiv) {
@@ -228,39 +580,33 @@ import Layout from '../layouts/Layout.astro';
       e.preventDefault();
       statusDiv.style.display = 'none';
       submitBtn.disabled = true;
-      submitBtn.innerText = 'Sending Inquiry…';
-
+      if (btnText) btnText.innerText = 'Sending\u2026';
       const formData = new FormData(bookingForm);
       const payload = Object.fromEntries(formData.entries());
-
       try {
         const res = await fetch('/api/booking', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
         const result = await res.json();
         if (!res.ok) throw new Error(result.error || 'Failed to send inquiry.');
-        statusDiv.innerText = '✨ ' + (result.message || 'Thank you! Your inquiry has been sent to Kimberly & Rick.');
+        const name = (payload.name as string || '').split(' ')[0];
+        statusDiv.innerHTML = `\u2728 Thank you${name ? ', ' + name : ''}! Your inquiry has been sent to Kimberly & Rick. We'll reach out within 24 hours.`;
         statusDiv.style.display = 'block';
-        statusDiv.style.background = 'rgba(16,50,28,0.8)';
-        statusDiv.style.color = '#6ee7b7';
-        statusDiv.style.borderColor = 'rgba(110,231,183,0.3)';
+        statusDiv.style.background = 'rgba(16,50,28,0.08)';
+        statusDiv.style.color = '#2D6A4F';
+        statusDiv.style.borderColor = 'rgba(45,106,79,0.3)';
         bookingForm.reset();
       } catch (err: any) {
-        statusDiv.innerText = '⚠️ ' + (err.message || 'An error occurred. Please try again.');
+        statusDiv.innerText = '\u26a0\ufe0f ' + (err.message || 'An error occurred. Please try again.');
         statusDiv.style.display = 'block';
-        statusDiv.style.background = 'rgba(50,20,10,0.8)';
-        statusDiv.style.color = '#fca5a5';
-        statusDiv.style.borderColor = 'rgba(252,165,165,0.3)';
+        statusDiv.style.background = 'rgba(50,20,10,0.08)';
+        statusDiv.style.color = '#9B1C1C';
+        statusDiv.style.borderColor = 'rgba(155,28,28,0.3)';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = 'Send Inquiry to K&R';
+        if (btnText) btnText.innerText = 'Send Inquiry to K&R';
       }
     });
   }
-
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
-  document.querySelectorAll('.reveal, .reveal-left').forEach(el => obs.observe(el));
 </script>
