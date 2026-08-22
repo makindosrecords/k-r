@@ -1,0 +1,607 @@
+---
+interface Testimonial {
+  author: string;
+  role: string;
+  location: string;
+  badge: string;
+  source: 'Thumbtack' | 'Google' | 'Direct';
+  text: string;
+  date?: string;
+  rating?: number;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    author: 'Shevon B.',
+    role: 'Surprise Proposal & Engagement',
+    location: 'Chicago to Orlando, FL',
+    badge: 'Proposal Client',
+    source: 'Thumbtack',
+    date: 'June 2026',
+    rating: 5,
+    text: 'My son and his Fiancé had an exceptional proposal and engagement photo session with Kim. They were able to take pics and video secretly then introduced themselves. It was a really great experience. Planning from Chicago to Orlando was not easy but they exceeded every expectation.',
+  },
+  {
+    author: 'Tyler D.',
+    role: 'Beach Proposal & Portraits',
+    location: 'Central Florida Coast',
+    badge: 'Engagement Client',
+    source: 'Thumbtack',
+    date: 'April 2026',
+    rating: 5,
+    text: 'I booked with K&R Photography for a surprise engagement for my fiancée on the beach. We came from out of town so I was nervous, but everything went seamlessly and my fiancée had no idea. After I proposed, Kimberly took posed photos of us and despite the windy weather, they turned out better than we could have imagined. Thank you!',
+  },
+  {
+    author: 'Maria Cooke',
+    role: 'Intimate Wedding Vows',
+    location: 'Central Florida',
+    badge: 'Wedding Client',
+    source: 'Direct',
+    rating: 5,
+    text: 'Kimberly was the best photographer I could have imagined having for our very intimate wedding vows. As soon as I met her, she immediately helped me with my veil and her energy just had a way of relaxing our whole family. She knew exactly how to instruct us to get marvelous photos that will be treasured forever. Thank you so much Kimberly, you’re an angel for capturing the essence of my “dream wedding”!',
+  },
+  {
+    author: 'Sonialy Salgado',
+    role: 'Quinceañera & Sweet 16 Client',
+    location: 'Central Florida',
+    badge: '5-Year Repeat Client',
+    source: 'Direct',
+    rating: 5,
+    text: 'Love Kimberly & Rick! They are such amazing people and photographers! 5 yrs later after my 1st daughter’s quince I reached out again for my second daughter’s sweet 16! Once again could not be happier with their services! The photos are so beautiful! It felt so special to have them there, they feel like family! They are so friendly and celebrated with us like one of our own!',
+  },
+  {
+    author: 'Samantha Prickett',
+    role: 'Maternity Session',
+    location: 'Central Florida',
+    badge: 'Maternity Client',
+    source: 'Thumbtack',
+    rating: 5,
+    text: 'We booked a maternity shoot with K&R Photography. Kim was great to work with! Had a rescheduling issue on my end, but they were able to book me on my next available day and time with no problem. She walked with us through the heat to our photo destination with no complaints either! So incredibly happy with them, and for a great price! I will use them again for our next life event photos!',
+  },
+  {
+    author: 'Sharon Rogers',
+    role: 'Family Beach Session',
+    location: 'Daytona Beach, FL',
+    badge: 'Verified Client',
+    source: 'Google',
+    rating: 5,
+    text: 'We couldn’t be happier with our experience! From the very first message, Kimberly was incredibly responsive, professional, and so easy to work with. She made the entire process completely stress-free. During our session, she made all of us feel comfortable and relaxed, giving great direction for poses while keeping everything natural. And then we got the photos… absolutely incredible.',
+  },
+  {
+    author: 'Karen Doerr',
+    role: 'Beach Family Session',
+    location: 'Ormond-by-the-Sea, FL',
+    badge: 'Family Client',
+    source: 'Thumbtack',
+    rating: 5,
+    text: 'Wow! Thank you K&R for an outstanding family photo shoot! You were exceptionally patient with me trying to find a date/time that could work when we were in town. Loved that—no pressure, just support. Aaron did an excellent job getting my crew relaxed and organized to capture us on our favorite beach at Ormond-by-the-Sea. LOTS of excellent shots—delivered earlier than expected. HIGHLY RECOMMEND!',
+  },
+];
+---
+
+<section class="testimonials-authority-section" id="testimonials-section">
+  <!-- Ambient Gold Glow -->
+  <div class="glow-orb" aria-hidden="true"></div>
+
+  <div class="authority-inner-wrap">
+    
+    <!-- ─── SECTION HEADER ─── -->
+    <div class="reveal section-header">
+      <span class="eyebrow"><span class="gold-line"></span>Verified Client Experiences</span>
+      <h2 class="section-title">Words From Our Families &amp; Couples</h2>
+      <p class="section-desc">18+ years of capturing love, legacy, and milestone moments across Central Florida.</p>
+    </div>
+
+    <!-- ─── THUMBTACK & SOCIAL PROOF AUTHORITY STATS BAR ─── -->
+    <div class="reveal authority-stats-bar">
+      <!-- Stat 1: Top Pro -->
+      <div class="stat-pill">
+        <div class="stat-icon-wrap" style="background: rgba(0, 159, 217, 0.12); color: #009FD9;">
+          <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+            <path fill="#FFCB42" d="M12.885 5.08H5.42v8.484h7.465z"></path>
+            <path fill="#009FD9" fill-rule="evenodd" d="M9.466.295a.87.87 0 0 0-.932 0l-1.366.866a.87.87 0 0 1-.502.134l-1.615-.067a.87.87 0 0 0-.807.467l-.75 1.432a.87.87 0 0 1-.367.367l-1.432.75a.87.87 0 0 0-.467.807l.067 1.615a.87.87 0 0 1-.135.502L.295 8.534a.87.87 0 0 0 0 .932l.865 1.366c.095.15.142.324.135.502l-.067 1.615a.87.87 0 0 0 .467.807l1.432.75a.87.87 0 0 1 .367.367l.75 1.432a.87.87 0 0 0 .807.467l1.615-.067a.87.87 0 0 1 .502.135l1.366.865a.87.87 0 0 0 .932 0l1.366-.865a.87.87 0 0 1 .502-.135l1.615.067a.87.87 0 0 0 .807-.467l.75-1.432a.87.87 0 0 1 .367-.367l1.432-.75a.87.87 0 0 0 .467-.807l-.067-1.615a.87.87 0 0 1 .135-.502l.865-1.366a.87.87 0 0 0 0-.932l-.865-1.366a.87.87 0 0 1-.135-.502l.067-1.615a.87.87 0 0 0-.467-.807l-1.432-.75a.87.87 0 0 1-.367-.367l-.75-1.432a.87.87 0 0 0-.807-.467l-1.615.067a.87.87 0 0 1-.502-.134zm.692 2.917L9.194 2.6a.36.36 0 0 0-.388 0l-.964.611a1.4 1.4 0 0 1-.796.214l-1.14-.047a.36.36 0 0 0-.336.193l-.53 1.012a1.4 1.4 0 0 1-.582.582l-1.012.53a.36.36 0 0 0-.193.335L3.3 7.171a1.4 1.4 0 0 1-.214.796l-.61.964a.36.36 0 0 0 0 .388l.61.964c.15.238.225.515.214.796l-.047 1.14c-.006.14.07.271.193.336l1.012.53c.249.13.452.333.582.582l.53 1.012c.065.124.195.2.335.194l1.141-.048c.28-.011.558.063.796.214l.964.61c.119.076.27.076.388 0l.964-.61a1.4 1.4 0 0 1 .796-.214l1.14.048c.14.005.271-.07.336-.194l.53-1.012a1.4 1.4 0 0 1 .582-.582l1.012-.53a.36.36 0 0 0 .193-.335l-.047-1.141a1.4 1.4 0 0 1 .214-.796l.61-.964a.36.36 0 0 0 0-.388l-.61-.964a1.4 1.4 0 0 1-.214-.796l.047-1.14a.36.36 0 0 0-.193-.336l-1.012-.53a1.4 1.4 0 0 1-.582-.582l-.53-1.012a.36.36 0 0 0-.335-.193l-1.141.047a1.4 1.4 0 0 1-.796-.213M9.466 2.17a.87.87 0 0 0-.932 0l-.965.612a.87.87 0 0 1-.502.134l-1.14-.047a.87.87 0 0 0-.808.466l-.53 1.012a.87.87 0 0 1-.367.367l-1.012.53a.87.87 0 0 0-.466.807l.047 1.141a.87.87 0 0 1-.135.502l-.61.965a.87.87 0 0 0 0 .932l.61.965a.87.87 0 0 1 .135.502l-.047 1.14a.87.87 0 0 0 .466.808l1.012.53a.87.87 0 0 1 .367.367l.53 1.012a.87.87 0 0 0 .807.466l1.141-.047a.87.87 0 0 1 .502.135l.965.61c.284.181.647.181.932 0l.965-.61a.87.87 0 0 1 .502-.135l1.14.047a.87.87 0 0 0 .808-.466l.53-1.012a.87.87 0 0 1 .367-.367l1.012-.53a.87.87 0 0 0 .466-.807l-.047-1.141a.87.87 0 0 1 .134-.502l.612-.965a.87.87 0 0 0 0-.932l-.612-.965a.87.87 0 0 1-.134-.502l.047-1.14a.87.87 0 0 0-.466-.808l-1.012-.53a.87.87 0 0 1-.367-.367l-.53-1.012a.87.87 0 0 0-.807-.466l-1.141.047a.87.87 0 0 1-.502-.134zm-.72 4.082a.17.17 0 0 1 .323 0l.58 1.745a.17.17 0 0 0 .162.117h1.872a.17.17 0 0 1 .098.308L10.274 9.49a.17.17 0 0 0-.063.192l.577 1.734a.17.17 0 0 1-.259.192l-1.523-1.08a.17.17 0 0 0-.197 0l-1.523 1.08a.17.17 0 0 1-.259-.192l.577-1.734a.17.17 0 0 0-.063-.192L6.034 8.422a.17.17 0 0 1 .098-.308h1.872a.17.17 0 0 0 .161-.117z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="stat-text-wrap">
+          <span class="stat-primary">Thumbtack Top Pro</span>
+          <span class="stat-secondary">7 Consecutive Years (2019–2025)</span>
+        </div>
+      </div>
+
+      <!-- Stat 2: Rating & Reviews -->
+      <div class="stat-pill">
+        <div class="stat-icon-wrap" style="background: rgba(201, 168, 76, 0.15); color: #A3802C;">
+          <span style="font-size: 14px; font-weight: 800;">4.9★</span>
+        </div>
+        <div class="stat-text-wrap">
+          <span class="stat-primary">595+ Verified Reviews</span>
+          <span class="stat-secondary">94% 5-Star Rating</span>
+        </div>
+      </div>
+
+      <!-- Stat 3: Hires & Experience -->
+      <div class="stat-pill">
+        <div class="stat-icon-wrap" style="background: rgba(46, 125, 50, 0.12); color: #2E7D32;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+          </svg>
+        </div>
+        <div class="stat-text-wrap">
+          <span class="stat-primary">1,535+ Hires</span>
+          <span class="stat-secondary">Background Checked &amp; Insured</span>
+        </div>
+      </div>
+
+      <!-- CTA to live reviews -->
+      <div class="stat-pill stat-cta-pill">
+        <a 
+          href="https://www.thumbtack.com/fl/osteen/event-photographers/kr-photography-husband-wife-team/service/339534872478163158" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="thumbtack-external-link"
+        >
+          <span>View Thumbtack Profile</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ─── TESTIMONIALS CAROUSEL TRACK ─── -->
+    <div class="testimonials-carousel-container reveal">
+      <button id="test-prev" aria-label="Previous testimonials" class="test-nav-btn test-prev-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+
+      <!-- Scroll Track -->
+      <div class="testimonials-track-wrap">
+        <div class="testimonials-track" id="testimonials-track">
+          {testimonials.map((t, idx) => (
+            <div class="testimonial-card" data-idx={idx}>
+              <div class="card-body">
+                <!-- Header of card -->
+                <div class="card-meta-top">
+                  <div class="stars-wrap">
+                    <span class="star-gold">★★★★★</span>
+                    {t.source === 'Thumbtack' && (
+                      <span class="source-badge thumbtack-tag">
+                        <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0z"/><path fill="#FFF" d="M8.973 10.385a3.7 3.7 0 0 1-.564 1.957L8 13l-.409-.658a3.7 3.7 0 0 1-.564-1.957v-3.14C7.51 6.62 8.231 6.4 8.973 6.4zM4 5.69V4h8v1.69z"/></svg>
+                        Thumbtack Verified
+                      </span>
+                    )}
+                    {t.source === 'Google' && (
+                      <span class="source-badge google-tag">Google Verified</span>
+                    )}
+                  </div>
+                  <span class="testimonial-badge">{t.badge}</span>
+                </div>
+
+                <!-- Review Text -->
+                <p class="review-quote">"{t.text}"</p>
+              </div>
+
+              <!-- Footer of card -->
+              <div class="card-footer">
+                <div class="author-details">
+                  <div class="author-name">{t.author}</div>
+                  <div class="author-role">{t.role}</div>
+                </div>
+                <div class="author-location-date">
+                  <span class="location-text">{t.location}</span>
+                  {t.date && <span class="date-text">{t.date}</span>}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button id="test-next" aria-label="Next testimonials" class="test-nav-btn test-next-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .testimonials-authority-section {
+    background: var(--black, #0D0C0B);
+    padding: 88px 40px 96px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow-orb {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .authority-inner-wrap {
+    max-width: 1360px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 36px;
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #A3802C;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gold-line {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: #A3802C;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 300;
+    color: #F7F5F0;
+    margin-top: 10px;
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: #B5AEA4;
+    margin-top: 10px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ─── AUTHORITY STATS BAR ─── */
+  .authority-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(184, 150, 53, 0.18);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .stat-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-primary {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #F7F5F0;
+  }
+
+  .stat-secondary {
+    font-size: 12px;
+    color: #9C9488;
+    font-weight: 400;
+  }
+
+  .stat-cta-pill {
+    justify-content: center;
+    background: rgba(184, 150, 53, 0.08);
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    transition: all 0.25s ease;
+  }
+
+  .stat-cta-pill:hover {
+    background: rgba(184, 150, 53, 0.18);
+    border-color: rgba(184, 150, 53, 0.45);
+  }
+
+  .thumbtack-external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #D4AF37;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  /* ─── CAROUSEL BASE & CARDS ─── */
+  .testimonials-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .testimonials-track-wrap {
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 4px 20px;
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonials-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card {
+    flex: 0 0 calc(33.333% - 16px);
+    scroll-snap-align: start;
+    background: #141312;
+    border: 1px solid rgba(184, 150, 53, 0.16);
+    border-radius: 12px;
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 310px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201, 168, 76, 0.4);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(184, 150, 53, 0.08);
+  }
+
+  .card-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stars-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .star-gold {
+    color: #D4AF37;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+  }
+
+  .source-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .thumbtack-tag {
+    background: rgba(0, 159, 217, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(0, 159, 217, 0.25);
+  }
+
+  .google-tag {
+    background: rgba(52, 168, 83, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(52, 168, 83, 0.25);
+  }
+
+  .testimonial-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A3802C;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  .review-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17.5px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: #ECE7DE;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .card-footer {
+    border-top: 1px solid rgba(184, 150, 53, 0.15);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .author-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    color: #F7F5F0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .author-role {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-top: 2px;
+  }
+
+  .author-location-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .location-text {
+    font-size: 11px;
+    color: #9C9488;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .date-text {
+    font-size: 10.5px;
+    color: #6E675E;
+  }
+
+  /* Nav Buttons */
+  .test-nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(20, 19, 18, 0.9);
+    border: 1px solid rgba(184, 150, 53, 0.3);
+    color: #D4AF37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .test-nav-btn:hover {
+    background: #D4AF37;
+    color: #0D0C0B;
+    border-color: #D4AF37;
+    transform: scale(1.06);
+  }
+
+  .test-prev-btn {
+    margin-right: 12px;
+  }
+
+  .test-next-btn {
+    margin-left: 12px;
+  }
+
+  /* ─── RESPONSIVE BREAKPOINTS ─── */
+  @media (max-width: 1080px) {
+    .testimonial-card {
+      flex: 0 0 calc(50% - 12px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .testimonials-authority-section {
+      padding: 64px 20px 72px;
+    }
+    .testimonial-card {
+      flex: 0 0 calc(100% - 16px);
+      min-height: auto;
+    }
+    .test-nav-btn {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function setupTestimonials() {
+    const track = document.getElementById('testimonials-track');
+    const prevBtn = document.getElementById('test-prev');
+    const nextBtn = document.getElementById('test-next');
+
+    if (!track) return;
+
+    const scrollCard = (direction: 'next' | 'prev') => {
+      const card = track.querySelector<HTMLElement>('.testimonial-card');
+      if (!card) return;
+      const cardWidth = card.offsetWidth + 24; // width + gap
+      track.scrollBy({
+        left: direction === 'next' ? cardWidth : -cardWidth,
+        behavior: 'smooth'
+      });
+    };
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => scrollCard('prev'));
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => scrollCard('next'));
+    }
+  }
+
+  // Support initial load and Astro client-side navigation
+  setupTestimonials();
+  document.addEventListener('astro:page-load', setupTestimonials);
+</script>

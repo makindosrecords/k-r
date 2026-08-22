@@ -20,12 +20,13 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const { name, email, serviceType, preferredDate, targetArea, projectDetails } = body;
+    const { name, email, phone, serviceType, preferredDate, targetArea, projectDetails, details } = body;
+    const notes = projectDetails || details || '';
 
     // Basic Validation
     if (!name || !email || !serviceType || !targetArea) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: Name, Email, Service Type, and Target Area are required.' }),
+        JSON.stringify({ error: 'Missing required fields: Name, Email, Service Type, and Location are required.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -82,13 +83,20 @@ export const POST: APIRoute = async ({ request }) => {
                 <div class="value"><a href="mailto:${email}">${email}</a></div>
               </div>
 
+              ${phone ? `
+              <div class="field">
+                <div class="label">Phone Number</div>
+                <div class="value"><a href="tel:${phone}">${phone}</a></div>
+              </div>
+              ` : ''}
+
               <div class="field">
                 <div class="label">Requested Service</div>
                 <div class="value"><strong>${serviceType}</strong></div>
               </div>
 
               <div class="field">
-                <div class="label">Target Area</div>
+                <div class="label">Venue / Location</div>
                 <div class="value">${targetArea}</div>
               </div>
 
@@ -99,7 +107,7 @@ export const POST: APIRoute = async ({ request }) => {
 
               <div class="box">
                 <div class="label">Project Details & Vision</div>
-                <div class="value">${projectDetails ? projectDetails.replace(/\n/g, '<br/>') : 'No additional details provided.'}</div>
+                <div class="value">${notes ? String(notes).replace(/\n/g, '<br/>') : 'No additional details provided.'}</div>
               </div>
             </div>
           </body>

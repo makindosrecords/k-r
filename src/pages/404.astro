@@ -1,0 +1,280 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Page Not Found (404) | K&R Photography"
+  description="Looks like this moment was lost in time. Return to Kimberly & Rick Photography to explore weddings, portraits, and real estate in Central Florida."
+>
+  <main class="lost-moment-page">
+    <!-- Cinematic Fullscreen Backdrop -->
+    <div class="lost-moment-bg" style="background-image: url('/weddings/KIM_8018_result.webp');"></div>
+    <div class="lost-moment-overlay"></div>
+    
+    <!-- Ambient Gold Glow Orb -->
+    <div class="lost-moment-glow" aria-hidden="true"></div>
+
+    <!-- Editorial Content Box -->
+    <div class="lost-moment-content">
+      <div class="lost-moment-eyebrow">
+        <span class="gold-line"></span>
+        <span>Error 404 • Lost in the Moment</span>
+        <span class="gold-line"></span>
+      </div>
+
+      <h1 class="lost-moment-title">
+        Even the Best Stories Take <br />
+        <em class="editorial-em">An Unexpected Path</em>
+      </h1>
+
+      <p class="lost-moment-desc">
+        The page or gallery you're searching for might have moved, been renamed, or simply slipped away. Let's guide you back to Kimberly &amp; Rick's favorite collections.
+      </p>
+
+      <!-- Navigation Pathway Cards -->
+      <div class="lost-moment-grid">
+        <a href="/weddings-and-couples" class="pathway-card">
+          <div class="pathway-eyebrow">Milestone Collections</div>
+          <div class="pathway-title">Weddings &amp; Couples</div>
+          <span class="pathway-link-text">Explore Stories →</span>
+        </a>
+
+        <a href="/family-and-portraits" class="pathway-card">
+          <div class="pathway-eyebrow">Golden Hour Memories</div>
+          <div class="pathway-title">Family &amp; Portraits</div>
+          <span class="pathway-link-text">View Sessions →</span>
+        </a>
+
+        <a href="/real-estate" class="pathway-card">
+          <div class="pathway-eyebrow">Commercial Architecture</div>
+          <div class="pathway-title">Real Estate &amp; Spaces</div>
+          <span class="pathway-link-text">See Architecture →</span>
+        </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="lost-moment-actions">
+        <a href="/" class="lost-btn lost-btn-primary">
+          <span>Return Home</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </a>
+
+        <a href="/contact" class="lost-btn lost-btn-secondary">
+          <span>Inquire With Kimberly &amp; Rick</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .lost-moment-page {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 24px 100px;
+    overflow: hidden;
+    background: #0D0C0B;
+    color: #F7F5F0;
+  }
+
+  .lost-moment-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.35) saturate(1.1);
+    transform: scale(1.04);
+    transition: transform 10s ease-out;
+  }
+
+  .lost-moment-page:hover .lost-moment-bg {
+    transform: scale(1.08);
+  }
+
+  .lost-moment-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(13, 12, 11, 0.4) 0%, rgba(13, 12, 11, 0.88) 75%, #0D0C0B 100%);
+  }
+
+  .lost-moment-glow {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .lost-moment-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .lost-moment-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    margin-bottom: 20px;
+  }
+
+  .editorial-em {
+    font-style: italic;
+    color: #E8D49E;
+    font-weight: 300;
+  }
+
+  .lost-moment-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5.5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: #FAF8F5;
+    margin-bottom: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .lost-moment-desc {
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: #C7C0B5;
+    line-height: 1.65;
+    max-width: 640px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+  }
+
+  /* Pathway Grid */
+  .lost-moment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .pathway-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-radius: 12px;
+    padding: 22px 18px;
+    text-decoration: none;
+    text-align: left;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .pathway-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(201, 168, 76, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 20px rgba(184, 150, 53, 0.12);
+  }
+
+  .pathway-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-bottom: 6px;
+  }
+
+  .pathway-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #F7F5F0;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .pathway-link-text {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #D4AF37;
+  }
+
+  /* Action Buttons */
+  .lost-moment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .lost-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lost-btn-primary {
+    background: #D4AF37;
+    color: #0D0C0B;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+  }
+
+  .lost-btn-primary:hover {
+    background: #E8D49E;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+  }
+
+  .lost-btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: #ECE7DE;
+    border: 1px solid rgba(184, 150, 53, 0.35);
+  }
+
+  .lost-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #D4AF37;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 820px) {
+    .lost-moment-grid {
+      grid-template-columns: 1fr;
+    }
+    .lost-moment-page {
+      padding: 120px 20px 80px;
+    }
+  }
+</style>

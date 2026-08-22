@@ -819,12 +819,21 @@ body {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 12px 4px 24px;
+  padding: 16px 4px 28px;
 }
 
 .testimonials-track::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Stagger animation ── */
+.testimonials-track .testimonial-card:nth-child(1) { animation-delay: 0ms; }
+.testimonials-track .testimonial-card:nth-child(2) { animation-delay: 80ms; }
+.testimonials-track .testimonial-card:nth-child(3) { animation-delay: 160ms; }
+.testimonials-track .testimonial-card:nth-child(4) { animation-delay: 240ms; }
+.testimonials-track .testimonial-card:nth-child(5) { animation-delay: 320ms; }
+.testimonials-track .testimonial-card:nth-child(6) { animation-delay: 400ms; }
+.testimonials-track .testimonial-card:nth-child(7) { animation-delay: 480ms; }
 
 .testimonial-card {
   flex: 0 0 calc((100% - (2 * 28px)) / 3);
@@ -834,35 +843,77 @@ body {
   flex-direction: column;
   justify-content: space-between;
   background: #FFFFFF;
-  border: 1px solid rgba(184, 150, 53, 0.24);
-  border-radius: 12px;
-  padding: 32px 28px 26px;
-  box-shadow: 0 10px 30px rgba(26, 24, 22, 0.05);
+  border: 1px solid rgba(184, 150, 53, 0.28);
+  border-radius: 16px;
+  padding: 36px 30px 26px;
+  /* Warmer resting shadow with faint gold tint */
+  box-shadow:
+    0 4px 6px rgba(184, 150, 53, 0.06),
+    0 12px 32px rgba(26, 24, 22, 0.07);
   transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), border-color 0.35s ease;
   position: relative;
   overflow: hidden;
   cursor: default;
+  animation: cardFadeUp 0.55s var(--ease-out-expo) both;
 }
 
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Gold top accent bar ── */
 .testimonial-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.45s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(184, 150, 53, 0.55) 30%, rgba(201, 168, 76, 0.85) 50%, rgba(184, 150, 53, 0.55) 70%, transparent 100%);
+  border-radius: 16px 16px 0 0;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+/* ── Large decorative opening quote mark ── */
+.testimonial-card::after {
+  content: '\201C';
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 88px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(201, 168, 76, 0.10);
   pointer-events: none;
+  user-select: none;
+  transition: color 0.4s ease;
 }
 
 .testimonial-card:hover {
   transform: translateY(-8px);
   border-color: rgba(184, 150, 53, 0.75);
-  box-shadow: 0 24px 50px rgba(184, 150, 53, 0.18), 0 10px 25px rgba(17, 16, 15, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.12),
+    0 6px 12px rgba(184, 150, 53, 0.10),
+    0 24px 50px rgba(184, 150, 53, 0.18),
+    0 10px 25px rgba(17, 16, 15, 0.06);
 }
 
 .testimonial-card:hover::before {
   opacity: 1;
+}
+
+.testimonial-card:hover::after {
+  color: rgba(201, 168, 76, 0.18);
 }
 
 .testimonial-card .testimonial-badge {
@@ -873,6 +924,144 @@ body {
   background: #A3802C !important;
   color: #FFFFFF !important;
   transform: scale(1.05);
+}
+
+/* ─── LUXURY AUTHORITY BADGES TRUST STRIP ─── */
+.authority-badges-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.authority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px 10px 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(184, 150, 53, 0.28);
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(17, 16, 15, 0.05);
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.google-authority-badge {
+  border-color: rgba(184, 150, 53, 0.38);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF8 100%);
+  cursor: pointer;
+}
+
+.google-authority-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: #A3802C;
+  box-shadow: 0 12px 30px rgba(184, 150, 53, 0.16), 0 4px 10px rgba(17, 16, 15, 0.06);
+}
+
+.thumbtack-authority-badge {
+  background: rgba(255, 255, 255, 0.9);
+  cursor: default;
+}
+
+.badge-icon-chip {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.google-chip {
+  background: #FFFFFF;
+  border: 1px solid rgba(66, 133, 244, 0.2);
+}
+
+.thumbtack-chip {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 159, 217, 0.25);
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+}
+
+.badge-row-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.badge-brand-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #11100F;
+}
+
+.badge-stars {
+  color: #D4AF37;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+}
+
+.badge-score {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #11100F;
+}
+
+.badge-row-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.badge-meta-sub {
+  color: #7A7267;
+  font-weight: 500;
+}
+
+.badge-arrow-cta {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #A3802C;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
+}
+
+.google-authority-badge:hover .badge-arrow-cta {
+  transform: translateX(2px) translateY(-1px);
+}
+
+.badge-dot-sep {
+  color: #C9A84C;
+  font-size: 9px;
+}
+
+.badge-hires-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #2E7D32;
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 1200px) {
@@ -909,7 +1098,7 @@ body {
   .testimonial-card {
     flex: 0 0 calc(100vw - 64px) !important;
     max-width: 340px !important;
-    padding: 24px 20px !important;
+    padding: 28px 22px !important;
     box-sizing: border-box !important;
   }
   .testimonials-track {
@@ -917,6 +1106,7 @@ body {
     padding: 12px 8px 24px !important;
   }
 }
+
 
 /* ─── GOLD LINE ACCENTS ─── */
 .gold-line {

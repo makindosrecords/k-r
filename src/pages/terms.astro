@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Terms & Conditions | K&R Photography" 
+  description="Terms and Conditions for K&R Photography (Kimberly & Rick). Understand booking agreements, retainers, cancellation policies, and image usage terms."
+>
+  <div class="legal-page-header">
+    <div class="legal-header-inner">
+      <div class="legal-eyebrow">
+        <span class="gold-line"></span>
+        <span>Studio Agreement</span>
+        <span class="gold-line"></span>
+      </div>
+      <h1 class="legal-title">Terms &amp; Conditions</h1>
+      <p class="legal-meta">Effective Date: June 2024 · Last Updated: August 2026</p>
+    </div>
+  </div>
+
+  <main class="legal-body-container">
+    <div class="legal-content">
+      
+      <section class="legal-section">
+        <h2>1. Scope of Agreement</h2>
+        <p>
+          Welcome to <strong>K&amp;R Photography</strong> ("Studio," "we," "us," operated by Kimberly &amp; Rick). By using <strong>kandrpix.com</strong>, submitting session inquiry forms, or entering into a photography service booking with our studio, you agree to these Terms &amp; Conditions.
+        </p>
+        <p>
+          <em>Note: Specific session agreements, wedding contracts, and commercial releases executed individually through our studio manager (Pixieset Studio Manager) take precedence over general website terms.</em>
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Session Bookings &amp; Retainers</h2>
+        <p>
+          To secure your requested date on Kimberly &amp; Rick's calendar, a signed contract and non-refundable booking retainer/deposit are required. Until both the contract and retainer are received, dates remain open to other prospective clients.
+        </p>
+        <ul>
+          <li><strong>Balance Due:</strong> The remaining session balance is due as designated in your specific booking agreement prior to or on the date of the session.</li>
+          <li><strong>Payment Methods:</strong> We accept credit/debit card payments processed securely through Stripe, as well as approved studio payment methods.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Rescheduling &amp; Weather Contingencies</h2>
+        <p>
+          We understand that unexpected circumstances and Florida weather can require flexibility:
+        </p>
+        <ul>
+          <li><strong>Weather Rescheduling:</strong> For outdoor beach and portrait sessions (e.g., in Daytona Beach, Cocoa Beach, or Orlando parks), if severe weather conditions make shooting unsafe or impractical, Kimberly &amp; Rick will work closely with you to reschedule to the earliest mutually available date at no additional fee.</li>
+          <li><strong>Client Rescheduling:</strong> Rescheduling requests made with reasonable advance notice will be accommodated based on studio calendar availability.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Copyright, Licensing &amp; Usage Rights</h2>
+        <p>
+          Under United States Copyright Law, <strong>K&amp;R Photography (Kimberly &amp; Rick)</strong> retains full artistic copyright to all raw and processed photographs captured during sessions.
+        </p>
+        <ul>
+          <li><strong>Personal Usage License:</strong> Clients are granted a perpetual, non-exclusive personal print and digital sharing release. You may freely download, print, share on personal social media, and reproduce images for non-commercial personal use.</li>
+          <li><strong>Commercial &amp; Real Estate Usage:</strong> Real estate and architectural media are licensed to the hiring agent or broker for the duration of the property listing campaign. Commercial licensing for advertising or third-party vendor publications requires written authorization from K&amp;R Photography.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Gallery Delivery &amp; Archival</h2>
+        <p>
+          High-resolution, hand-edited digital images are delivered via private online digital galleries. While galleries are accessible online for a minimum period specified in your contract, clients are strongly advised to download and maintain local backups of their digital image files upon delivery.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Limitation of Liability</h2>
+        <p>
+          In the unlikely event that Kimberly &amp; Rick are unable to perform services due to unforeseen extreme emergencies, severe equipment failure, or Acts of God, our liability is strictly limited to the return of any retainers and fees paid for the unperformed services.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>7. Inquiries &amp; Governance</h2>
+        <p>
+          These Terms are governed by the laws of the State of Florida. For questions regarding your contract or session details, please contact Kimberly &amp; Rick directly:
+        </p>
+        <div class="legal-contact-box">
+          <strong>K&amp;R Photography</strong><br />
+          Kimberly &amp; Rick<br />
+          Central Florida (Serving Orlando, Daytona Beach, Cocoa Beach &amp; Beyond)<br />
+          Email: <a href="mailto:kimberly@kandrpix.com" class="legal-link">kimberly@kandrpix.com</a><br />
+          Website: <a href="https://kandrpix.com" class="legal-link">kandrpix.com</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page-header {
+    background: #0D0C0B;
+    padding: 140px 24px 70px;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.2);
+    text-align: center;
+    position: relative;
+  }
+
+  .legal-header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .legal-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    margin-bottom: 16px;
+  }
+
+  .legal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 54px);
+    font-weight: 300;
+    color: #FAF8F5;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .legal-meta {
+    font-size: 13.5px;
+    color: #9C9488;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+  }
+
+  .legal-body-container {
+    background: #FAF8F5;
+    padding: 80px 24px 100px;
+  }
+
+  .legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #2D2824;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  .legal-section {
+    margin-bottom: 48px;
+  }
+
+  .legal-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #11100F;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(184, 150, 53, 0.2);
+    padding-bottom: 8px;
+  }
+
+  .legal-section p {
+    margin-bottom: 16px;
+    color: #3D3934;
+  }
+
+  .legal-section ul {
+    margin: 16px 0 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legal-section li {
+    color: #3D3934;
+  }
+
+  .legal-contact-box {
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.7;
+    box-shadow: 0 4px 16px rgba(17, 16, 15, 0.04);
+  }
+
+  .legal-link {
+    color: #A3802C;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .legal-link:hover {
+    color: #11100F;
+  }
+</style>
