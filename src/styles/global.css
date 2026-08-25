@@ -384,22 +384,6 @@ body {
 .hero-title em {
   font-style: italic;
   color: #A3802C;
-  background: linear-gradient(135deg, #B89635 0%, #8A6D30 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  padding-bottom: 0.1em;
-  display: inline-block;
-}
-
-.hero-title .line {
-  overflow: hidden;
-  display: block;
-  padding-bottom: 0.15em;
-  margin-bottom: -0.1em;
-}
-
-.hero-title .line span {
-  display: block;
 }
 
 .hero-meta {
@@ -1410,7 +1394,6 @@ body {
 
   .hero-title em {
     color: #A3802C !important;
-    -webkit-text-fill-color: #A3802C !important;
   }
 
   .hero-meta {
