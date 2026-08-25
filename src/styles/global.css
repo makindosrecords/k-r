@@ -1400,6 +1400,10 @@ body {
     background: linear-gradient(to top, rgba(250, 248, 245, 0.98) 0%, rgba(250, 248, 245, 0.85) 30%, rgba(250, 248, 245, 0.15) 65%, rgba(250, 248, 245, 0) 85%) !important;
   }
 
+  .hero-bg {
+    background-image: url('/KIM_5271-2_result_720w.webp') !important;
+  }
+
   .hero-content {
     width: 100% !important;
     max-width: 100% !important;
@@ -1419,6 +1423,11 @@ body {
     box-shadow: 0 4px 12px rgba(17, 16, 15, 0.06) !important;
     display: inline-flex !important;
     align-self: flex-start !important;
+    animation-delay: 0.05s !important;
+  }
+
+  .hero-title .line span {
+    animation-delay: 0.1s !important;
   }
 
   .hero-title {
