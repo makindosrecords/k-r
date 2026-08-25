@@ -334,12 +334,50 @@ body {
   background-size: cover;
   background-position: center 20%;
   transform: scale(1.08);
-  transition: transform 8s ease;
+  animation: heroZoomOut 7s var(--ease-out-expo) 0.1s forwards;
   will-change: transform;
 }
 
-.hero-bg.loaded {
-  transform: scale(1);
+@keyframes heroZoomOut {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGold {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 .hero-vignette {
