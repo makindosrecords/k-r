@@ -37,9 +37,13 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Left Info Column -->
         <div class="modal-left-col">
-          <p class="modal-intro">
-            Every story begins with a conversation. Share your details below to receive availability and custom pricing details.
-          </p>
+          <div class="intro-quote-card">
+            <div class="intro-quote-mark">“</div>
+            <p class="modal-intro">
+              We photograph only a select number of celebrations each season to give every client our complete, undivided creative focus.
+            </p>
+            <div class="intro-author">— Kimberly &amp; Rick</div>
+          </div>
 
           <!-- Contact Quick Cards -->
           <div class="quick-cards-grid">
@@ -132,8 +136,49 @@ import Layout from '../layouts/Layout.astro';
                 <input type="text" id="targetArea" name="targetArea" required placeholder="e.g. Bella Collina, Cocoa Beach" class="f-input" />
               </div>
               <div class="f-wrap">
-                <label for="preferredDate" class="f-label">Preferred Date / Season</label>
-                <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. October 14th 2026" class="f-input" />
+                <label for="preferredDate" class="f-label">Preferred Date <span class="req">*</span></label>
+                <div class="date-picker-wrap">
+                  <input type="text" id="preferredDate" name="preferredDate" required placeholder="Select a date..." class="f-input date-input-picker" readonly />
+                  <svg class="date-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Time Window Selector -->
+            <div class="f-wrap" id="time-window-container" style="margin-top: 4px; margin-bottom: 16px;">
+              <label class="f-label" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>Preferred Shoot Time Window</span>
+                <span id="avail-badge" style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#2D6A4F; display:none;">● Live Availability Active</span>
+              </label>
+              <div class="time-slot-grid">
+                <label class="time-slot-btn">
+                  <input type="radio" name="timeWindow" value="Morning (8:00 AM – 11:30 AM)" checked />
+                  <span class="slot-content">
+                    <span class="slot-title">Morning</span>
+                    <span class="slot-time">8:00 – 11:30 AM</span>
+                  </span>
+                </label>
+                <label class="time-slot-btn">
+                  <input type="radio" name="timeWindow" value="Early Afternoon (12:00 PM – 3:30 PM)" />
+                  <span class="slot-content">
+                    <span class="slot-title">Afternoon</span>
+                    <span class="slot-time">12:00 – 3:30 PM</span>
+                  </span>
+                </label>
+                <label class="time-slot-btn">
+                  <input type="radio" name="timeWindow" value="Golden Hour / Sunset (4:30 PM – 7:30 PM)" />
+                  <span class="slot-content">
+                    <span class="slot-title">Golden Hour</span>
+                    <span class="slot-time">4:30 – 7:30 PM</span>
+                  </span>
+                </label>
+                <label class="time-slot-btn">
+                  <input type="radio" name="timeWindow" value="Full Day Coverage (Weddings / Events)" />
+                  <span class="slot-content">
+                    <span class="slot-title">Full Day</span>
+                    <span class="slot-time">Weddings &amp; Events</span>
+                  </span>
+                </label>
               </div>
             </div>
 
@@ -292,11 +337,46 @@ import Layout from '../layouts/Layout.astro';
     gap: 20px;
   }
 
+  .intro-quote-card {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-left: 3px solid #D4AF37;
+    border-radius: 10px;
+    padding: 16px 18px 14px 20px;
+    box-shadow: 0 4px 16px rgba(184, 150, 53, 0.06);
+  }
+
+  .intro-quote-mark {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    line-height: 1;
+    color: rgba(184, 150, 53, 0.2);
+    pointer-events: none;
+  }
+
   .modal-intro {
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: #4A443E;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16.5px;
+    font-style: italic;
+    line-height: 1.55;
+    color: #2E2924;
     margin: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .intro-author {
+    font-family: 'Cinzel', serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #A3802C;
+    margin-top: 10px;
+    text-align: right;
   }
 
   .quick-cards-grid {
@@ -459,6 +539,154 @@ import Layout from '../layouts/Layout.astro';
     background-position: right 14px center;
     background-size: 14px;
     padding-right: 38px;
+  }
+
+  .date-picker-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .date-picker-wrap .date-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #A3802C;
+    pointer-events: none;
+  }
+
+  .date-input-picker {
+    cursor: pointer;
+    background-color: #FAF8F5;
+  }
+
+  /* Flatpickr Luxury Theme Overrides */
+  :global(.flatpickr-calendar) {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(184, 150, 53, 0.35) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  :global(.flatpickr-months) {
+    background: #11100F !important;
+    border-top-left-radius: 11px !important;
+    border-top-right-radius: 11px !important;
+    color: #FAF8F5 !important;
+    padding: 6px 0 !important;
+  }
+
+  :global(.flatpickr-current-month) {
+    font-family: 'Cinzel', serif !important;
+    font-size: 110% !important;
+    color: #FAF8F5 !important;
+  }
+
+  :global(.flatpickr-weekday) {
+    font-family: 'Cinzel', serif !important;
+    font-weight: 700 !important;
+    color: #A3802C !important;
+    font-size: 11px !important;
+  }
+
+  :global(.flatpickr-day.today) {
+    border: 2px solid #D4AF37 !important;
+    background: rgba(212, 175, 55, 0.15) !important;
+    font-weight: 700 !important;
+    color: #8B6914 !important;
+  }
+
+  :global(.flatpickr-day.selected) {
+    background: #11100F !important;
+    border-color: #11100F !important;
+    color: #FAF8F5 !important;
+    font-weight: 700 !important;
+  }
+
+  :global(.flatpickr-day.flatpickr-disabled),
+  :global(.flatpickr-day.flatpickr-disabled:hover) {
+    color: #B0A8A0 !important;
+    background-color: #F4EFEA !important;
+    text-decoration: line-through !important;
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+  }
+
+  :global(.flatpickr-day:hover:not(.flatpickr-disabled)) {
+    background: rgba(184, 150, 53, 0.15) !important;
+    border-color: #B89635 !important;
+  }
+
+  /* Time Window Selector Grid */
+  .time-slot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .time-slot-btn {
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .time-slot-btn input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .slot-content {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    background: #FAF8F5;
+    border: 1px solid rgba(184, 150, 53, 0.25);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .slot-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #11100F;
+    text-transform: uppercase;
+  }
+
+  .slot-time {
+    font-size: 11.5px;
+    color: #7A726C;
+    margin-top: 1px;
+  }
+
+  .time-slot-btn:hover .slot-content {
+    border-color: #B89635;
+    background: #FFFFFF;
+  }
+
+  .time-slot-btn input[type="radio"]:checked + .slot-content {
+    border-color: #B89635;
+    background: rgba(184, 150, 53, 0.08);
+    box-shadow: 0 0 0 2px rgba(184, 150, 53, 0.25);
+  }
+
+  .time-slot-btn input[type="radio"]:checked + .slot-content .slot-title {
+    color: #8B6914;
+  }
+
+  .time-slot-btn.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .time-slot-btn.disabled .slot-content {
+    background: #F0EAE1;
+    border-color: rgba(150, 140, 130, 0.2);
+    text-decoration: line-through;
   }
 
   .f-footer {
@@ -655,6 +883,113 @@ import Layout from '../layouts/Layout.astro';
   }
   autoSelectService();
   window.addEventListener('DOMContentLoaded', autoSelectService);
+
+  // Set minimum date to today and initialize Flatpickr calendar
+  const dateInput = document.getElementById('preferredDate') as HTMLInputElement | null;
+  const availBadge = document.getElementById('avail-badge') as HTMLSpanElement | null;
+  const slotButtons = document.querySelectorAll('.time-slot-btn') as NodeListOf<HTMLLabelElement>;
+  let busySlots: Array<{ start: string; end: string; isAllDay: boolean }> = [];
+  let fpInstance: any = null;
+
+  function initDatePicker() {
+    if (typeof (window as any).flatpickr !== 'undefined' && dateInput) {
+      fpInstance = (window as any).flatpickr(dateInput, {
+        minDate: 'today',
+        defaultDate: 'today',
+        dateFormat: 'Y-m-d',
+        altInput: true,
+        altFormat: 'F j, Y',
+        animate: true,
+        disableMobile: true, // Use custom luxury theme everywhere
+        onChange: function(selectedDates: Date[], dateStr: string) {
+          updateSlotAvailability(dateStr);
+        }
+      });
+    } else {
+      setTimeout(initDatePicker, 100);
+    }
+  }
+  initDatePicker();
+
+  async function initCalendarAvailability() {
+    try {
+      const res = await fetch('/api/calendar-availability');
+      const data = await res.json();
+      if (data && Array.isArray(data.busySlots)) {
+        busySlots = data.busySlots;
+        if (data.source === 'live' && availBadge) {
+          availBadge.style.display = 'inline-block';
+        }
+        if (dateInput && dateInput.value) {
+          updateSlotAvailability(dateInput.value);
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch live calendar availability:', e);
+    }
+  }
+  initCalendarAvailability();
+
+  function updateSlotAvailability(selectedDateStr: string) {
+    if (!selectedDateStr) return;
+    
+    // Check overlapping busy slots for the selected day
+    const dayEvents = busySlots.filter(slot => {
+      const slotStart = new Date(slot.start).toISOString().split('T')[0];
+      return slotStart === selectedDateStr;
+    });
+
+    slotButtons.forEach(btn => {
+      const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement;
+      if (!radio) return;
+      const val = radio.value;
+
+      let isOverlapping = false;
+
+      dayEvents.forEach(evt => {
+        if (evt.isAllDay) {
+          isOverlapping = true;
+          return;
+        }
+
+        const startHour = new Date(evt.start).getHours();
+
+        if (val.includes('Morning') && startHour < 12) {
+          isOverlapping = true;
+        } else if (val.includes('Afternoon') && startHour >= 12 && startHour < 16) {
+          isOverlapping = true;
+        } else if (val.includes('Golden Hour') && startHour >= 16) {
+          isOverlapping = true;
+        } else if (val.includes('Full Day')) {
+          isOverlapping = true;
+        }
+      });
+
+      if (isOverlapping) {
+        btn.classList.add('disabled');
+        radio.disabled = true;
+        if (radio.checked) {
+          radio.checked = false;
+        }
+      } else {
+        btn.classList.remove('disabled');
+        radio.disabled = false;
+      }
+    });
+
+    // Auto-select first available radio if current is disabled
+    const checkedRadio = document.querySelector('input[name="timeWindow"]:checked') as HTMLInputElement | null;
+    if (!checkedRadio) {
+      const firstAvailable = document.querySelector('.time-slot-btn:not(.disabled) input[type="radio"]') as HTMLInputElement | null;
+      if (firstAvailable) firstAvailable.checked = true;
+    }
+  }
+
+  if (dateInput) {
+    dateInput.addEventListener('change', () => {
+      updateSlotAvailability(dateInput.value);
+    });
+  }
 
   const bookingForm = document.getElementById('booking-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
