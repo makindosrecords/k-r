@@ -271,7 +271,6 @@ body {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  overflow: hidden;
   display: flex;
   align-items: flex-end;
   padding: 80px 60px;
