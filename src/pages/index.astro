@@ -185,10 +185,18 @@ const testimonials = [
 ];
 ---
 <Layout title="K&R Photography | Weddings, Portraits & Real Estate | Central FL">
+  <link rel="preload" as="image" href="/KIM_5271-2_result.webp" type="image/webp" fetchpriority="high" slot="head" />
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-bg" style="background-image:url('/KIM_5271-2_result.webp');"></div>
+    <img
+      src="/KIM_5271-2_result.webp"
+      alt="K&R Photography — Romantic Couple Session"
+      class="hero-bg-img"
+      fetchpriority="high"
+      loading="eager"
+      decoding="sync"
+    />
     <div class="hero-vignette"></div>
 
     <!-- Ambient gold orb -->
