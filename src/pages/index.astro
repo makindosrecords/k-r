@@ -718,6 +718,33 @@ const testimonials = [
     transition: width 0.1s linear;
   }
 
+  /* Accessible 32px Touch Targets with Composited GPU Scale */
+  .gal-dot-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 -4px;
+  }
+  .gal-dot-inner {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(163, 128, 44, 0.3);
+    transition: transform 0.25s ease, background 0.25s ease;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .gal-dot-btn.is-active .gal-dot-inner {
+    transform: scaleX(4);
+    background: #A3802C;
+  }
 </style>
 
 <script>
@@ -757,11 +784,12 @@ const testimonials = [
       maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
     }
 
-    // Build dot indicators
+    // Build dot indicators with accessible touch targets & composited animations
     cards.forEach((_, i) => {
       const dot = document.createElement('button');
-      dot.style.cssText = 'width:6px;height:6px;border-radius:50%;border:none;cursor:pointer;transition:all 0.35s ease;padding:0;background:rgba(163,128,44,0.3);';
+      dot.className = 'gal-dot-btn';
       dot.setAttribute('aria-label', `Photo ${i + 1}`);
+      dot.innerHTML = '<span class="gal-dot-inner"></span>';
       dot.addEventListener('click', () => goTo(i));
       dotsEl?.appendChild(dot);
     });
@@ -777,11 +805,12 @@ const testimonials = [
         btnNext.style.pointerEvents = currentCard === total - 1 ? 'none' : 'auto';
       }
       if (dotsEl) {
-        dotsEl.querySelectorAll('button').forEach((d, i) => {
-          const isActive = i === currentCard;
-          (d as HTMLElement).style.width = isActive ? '24px' : '6px';
-          (d as HTMLElement).style.borderRadius = isActive ? '4px' : '50%';
-          (d as HTMLElement).style.background = isActive ? '#A3802C' : 'rgba(163,128,44,0.3)';
+        dotsEl.querySelectorAll('.gal-dot-btn').forEach((d, i) => {
+          if (i === currentCard) {
+            d.classList.add('is-active');
+          } else {
+            d.classList.remove('is-active');
+          }
         });
       }
       cards.forEach((c, i) => {
