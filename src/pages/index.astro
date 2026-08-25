@@ -1222,6 +1222,16 @@ const testimonials = [
   // ─── PARALLAX HERO ───
   const heroBg = document.querySelector('.hero-bg') as HTMLElement;
   const ctaBgImg = document.querySelector('.cta-bg-img') as HTMLElement;
+
+  if (heroBg) {
+    // Trigger loaded zoom transition
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        heroBg.classList.add('loaded');
+      }, 50);
+    });
+  }
+
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     if (heroBg) heroBg.style.transform = `scale(1) translateY(${y * 0.25}px)`;

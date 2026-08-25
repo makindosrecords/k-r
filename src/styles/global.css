@@ -332,19 +332,14 @@ body {
   inset: 0;
   background-image: url('/KIM_5271-2_result.webp');
   background-size: cover;
-  background-position: center center;
-  transform: scale(1.15);
-  animation: heroZoomOut 9s var(--ease-out-expo) 0.1s forwards;
+  background-position: center 0%;
+  transform: scale(1.08);
+  transition: transform 8s ease;
   will-change: transform;
 }
 
-@keyframes heroZoomOut {
-  from {
-    transform: scale(1.15);
-  }
-  to {
-    transform: scale(1);
-  }
+.hero-bg.loaded {
+  transform: scale(1);
 }
 
 @keyframes slideUp {
@@ -1433,7 +1428,7 @@ body {
 
   .hero-bg {
     background-image: url('/KIM_5271-2_result_720w.webp') !important;
-    background-position: center center !important;
+    background-position: center 5% !important;
     animation: none !important;
     transform: none !important;
   }
