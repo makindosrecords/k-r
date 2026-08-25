@@ -333,14 +333,14 @@ body {
   background-image: url('/KIM_5271-2_result.webp');
   background-size: cover;
   background-position: center 20%;
-  transform: scale(1.08);
-  animation: heroZoomOut 7s var(--ease-out-expo) 0.1s forwards;
+  transform: scale(1.15);
+  animation: heroZoomOut 9s var(--ease-out-expo) 0.1s forwards;
   will-change: transform;
 }
 
 @keyframes heroZoomOut {
   from {
-    transform: scale(1.08);
+    transform: scale(1.15);
   }
   to {
     transform: scale(1);
@@ -1432,15 +1432,10 @@ body {
   }
 
   .hero-bg {
-    background-position: center 15% !important;
-  }
-
-  .hero-vignette {
-    background: linear-gradient(to top, rgba(250, 248, 245, 0.98) 0%, rgba(250, 248, 245, 0.85) 30%, rgba(250, 248, 245, 0.15) 65%, rgba(250, 248, 245, 0) 85%) !important;
-  }
-
-  .hero-bg {
     background-image: url('/KIM_5271-2_result_720w.webp') !important;
+    background-position: center 15% !important;
+    animation: none !important;
+    transform: none !important;
   }
 
   .hero-content {
