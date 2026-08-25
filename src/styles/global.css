@@ -319,6 +319,7 @@ body {
   border-radius: 100px;
   box-shadow: 0 4px 20px rgba(26, 24, 22, 0.08);
   margin-bottom: 24px;
+  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.1s both;
 }
 
 .hero-title {
@@ -329,6 +330,7 @@ body {
   letter-spacing: -0.01em;
   color: #11100F;
   margin-bottom: 40px;
+  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.25s both;
 }
 
 .hero-title em {
@@ -341,6 +343,13 @@ body {
   align-items: center;
   gap: 28px;
   flex-wrap: nowrap;
+  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.4s both;
+}
+
+/* Transform-only entrance — opacity stays 1 so LCP always detects the element */
+@keyframes heroSlideUp {
+  from { transform: translateY(22px); }
+  to   { transform: translateY(0); }
 }
 
 .hero-stat {

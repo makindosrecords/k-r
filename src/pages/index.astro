@@ -1064,15 +1064,24 @@ const testimonials = [
       updateUI();
     });
 
-    // Pre-decode initial card images
-    cards.forEach(c => {
-      const img = c.querySelector('img');
-      if (img && img.decode) img.decode().catch(() => {});
-    });
-
-    // Init
-    measureCards();
-    goTo(0);
+    // ── Defer heavy init until after LCP paints ──
+    // measureCards() queries offsetLeft/offsetWidth on 16 cards which causes
+    // a 143ms forced reflow that blocks LCP. We defer until idle.
+    function initGallery() {
+      // Pre-decode initial card images
+      cards.forEach(c => {
+        const img = c.querySelector('img');
+        if (img && img.decode) img.decode().catch(() => {});
+      });
+      measureCards();
+      goTo(0);
+    }
+    const ric = (window as any).requestIdleCallback;
+    if (ric) {
+      ric(initGallery, { timeout: 500 });
+    } else {
+      setTimeout(initGallery, 0);
+    }
 
     // ── LIGHTBOX ──
     const galleryArr = cards.map((c, i) => ({
@@ -1232,7 +1241,8 @@ const testimonials = [
 
     testTrack.addEventListener('scroll', updateTestNav, { passive: true });
     window.addEventListener('resize', updateTestNav, { passive: true });
-    updateTestNav();
+    // Defer nav state init until idle
+    setTimeout(updateTestNav, 0);
   }
 
   // ─── PARALLAX HERO ───
