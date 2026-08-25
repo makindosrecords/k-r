@@ -1372,8 +1372,8 @@ body {
     align-items: flex-start !important;
   }
 
-  .hero-bg {
-    background-position: center 15% !important;
+  .hero-bg-img {
+    object-position: center 15% !important;
   }
 
   .hero-vignette {

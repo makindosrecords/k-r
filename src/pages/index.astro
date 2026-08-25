@@ -284,7 +284,7 @@ const testimonials = [
               <img
                 src={item.image}
                 alt={item.title}
-                loading={i <= 3 ? 'eager' : 'lazy'}
+                loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 draggable="false"
                 width={item.w}
