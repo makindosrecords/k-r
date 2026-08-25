@@ -369,9 +369,6 @@ body {
   border-radius: 100px;
   box-shadow: 0 4px 20px rgba(26, 24, 22, 0.08);
   margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeSlideUp 0.9s var(--ease-out-expo) 0.3s forwards;
 }
 
 .hero-title {
@@ -403,27 +400,12 @@ body {
 
 .hero-title .line span {
   display: block;
-  animation: slideUp 0.8s var(--ease-out-expo) forwards;
-}
-
-.hero-title .line:nth-child(1) span {
-  animation-delay: 0.1s;
-}
-
-.hero-title .line:nth-child(2) span {
-  animation-delay: 0.25s;
-}
-
-.hero-title .line:nth-child(3) span {
-  animation-delay: 0.4s;
 }
 
 .hero-meta {
   display: flex;
   align-items: center;
   gap: 28px;
-  opacity: 0;
-  animation: fadeSlideUp 0.9s var(--ease-out-expo) 1s forwards;
   flex-wrap: nowrap;
 }
 
