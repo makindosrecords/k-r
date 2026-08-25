@@ -110,13 +110,9 @@ const schemaData = {
   <!-- LCP Hero Image Preload -->
   <link rel="preload" as="image" href="/KIM_5271-2_result.webp" fetchpriority="high" />
 
-  <!-- Flatpickr Luxury Datepicker (Deferred) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" media="print" onload="this.media='all'" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_gold.css" media="print" onload="this.media='all'" />
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-
   <!-- JSON-LD LocalBusiness Rich Schema -->
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <slot name="head" />
 </head>
 <body>
 

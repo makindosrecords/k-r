@@ -7,6 +7,10 @@ import Layout from '../layouts/Layout.astro';
   description="Book your wedding, portrait session, or real estate photography with Kimberly & Rick. Central Florida's trusted duo with 380+ 5-star Google reviews."
   hideFooter={true}
 >
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+  </Fragment>
 
   <!-- ─── MODAL PAGE CONTAINER ─── -->
   <div class="inquiry-page-wrapper">
