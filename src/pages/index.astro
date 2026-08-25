@@ -5,10 +5,11 @@ const getSrcSet = (src: string) => {
   const decoded = decodeURI(src);
   const ext = decoded.substring(decoded.lastIndexOf('.'));
   const base = decoded.substring(0, decoded.lastIndexOf('.'));
+  const encoded400 = encodeURI(`${base}_400w${ext}`);
   const encoded720 = encodeURI(`${base}_720w${ext}`);
   const encoded1200 = encodeURI(`${base}_1200w${ext}`);
   const encodedOrig = encodeURI(decoded);
-  return `${encoded720} 720w, ${encoded1200} 1200w, ${encodedOrig} 1920w`;
+  return `${encoded400} 400w, ${encoded720} 720w, ${encoded1200} 1200w, ${encodedOrig} 1920w`;
 };
 
 const gallery = [
@@ -286,7 +287,7 @@ const testimonials = [
               <img
                 src={item.image}
                 srcset={getSrcSet(item.image)}
-                sizes="(max-width: 768px) 85vw, 640px"
+                sizes="(max-width: 768px) 360px, 640px"
                 alt={item.title}
                 loading={i <= 3 ? 'eager' : 'lazy'}
                 decoding="async"
@@ -320,6 +321,8 @@ const testimonials = [
       <div class="img-wipe" style="height:100%;width:100%;">
         <img 
           src="/kim%20and%20rick.webp" 
+          srcset="/kim%20and%20rick_400w.webp 400w, /kim%20and%20rick.webp 704w"
+          sizes="(max-width: 768px) 90vw, 420px"
           alt="Kimberly & Rick — K&R Photography"
           class="about-portrait-img"
           style="width:100%;height:100%;object-fit:cover;"
