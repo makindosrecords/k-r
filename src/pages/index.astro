@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 
 const getSrcSet = (src: string) => {
-  const ext = src.substring(src.lastIndexOf('.'));
-  const base = src.substring(0, src.lastIndexOf('.'));
+  const decoded = decodeURI(src);
+  const ext = decoded.substring(decoded.lastIndexOf('.'));
+  const base = decoded.substring(0, decoded.lastIndexOf('.'));
   const encoded720 = encodeURI(`${base}_720w${ext}`);
   const encoded1200 = encodeURI(`${base}_1200w${ext}`);
-  const encodedOrig = encodeURI(src);
+  const encodedOrig = encodeURI(decoded);
   return `${encoded720} 720w, ${encoded1200} 1200w, ${encodedOrig} 1920w`;
 };
 
@@ -197,7 +198,7 @@ const testimonials = [
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg home-hero-bg"></div>
     <div class="hero-vignette"></div>
 
     <!-- Ambient gold orb -->

@@ -332,10 +332,14 @@ body {
   inset: 0;
   background-image: url('/KIM_5271-2_result.webp');
   background-size: cover;
-  background-position: center 0%;
+  background-position: center 20%;
   transform: scale(1.08);
   transition: transform 8s ease;
   will-change: transform;
+}
+
+.home-hero-bg {
+  background-position: center 0% !important;
 }
 
 .hero-bg.loaded {
