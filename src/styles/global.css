@@ -62,73 +62,24 @@ body {
 
 /* ─── SCROLL REVEAL ─── */
 .reveal {
-  opacity: 0;
-  transform: translateY(48px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
-}
-
-.reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .reveal-left {
-  opacity: 0;
-  transform: translateX(-60px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
-}
-
-.reveal-left.visible {
   opacity: 1;
-  transform: translateX(0);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 .reveal-right {
-  opacity: 0;
-  transform: translateX(60px);
-  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
-}
-
-.reveal-right.visible {
   opacity: 1;
-  transform: translateX(0);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
 }
 
 /* Staggered children */
 .stagger-children>* {
-  opacity: 0;
-  transform: translateY(36px);
+  opacity: 1;
   transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-}
-
-.stagger-children.visible>*:nth-child(1) {
-  opacity: 1;
-  transform: none;
-  transition-delay: 0ms;
-}
-
-.stagger-children.visible>*:nth-child(2) {
-  opacity: 1;
-  transform: none;
-  transition-delay: 100ms;
-}
-
-.stagger-children.visible>*:nth-child(3) {
-  opacity: 1;
-  transform: none;
-  transition-delay: 200ms;
-}
-
-.stagger-children.visible>*:nth-child(4) {
-  opacity: 1;
-  transform: none;
-  transition-delay: 300ms;
-}
-
-.stagger-children.visible>*:nth-child(5) {
-  opacity: 1;
-  transform: none;
-  transition-delay: 400ms;
 }
 
 /* ─── WORD SPLIT ANIMATION ─── */
