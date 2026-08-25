@@ -332,7 +332,7 @@ body {
   inset: 0;
   background-image: url('/KIM_5271-2_result.webp');
   background-size: cover;
-  background-position: center 20%;
+  background-position: center center;
   transform: scale(1.15);
   animation: heroZoomOut 9s var(--ease-out-expo) 0.1s forwards;
   will-change: transform;
@@ -1433,7 +1433,7 @@ body {
 
   .hero-bg {
     background-image: url('/KIM_5271-2_result_720w.webp') !important;
-    background-position: center 15% !important;
+    background-position: center center !important;
     animation: none !important;
     transform: none !important;
   }
@@ -1457,7 +1457,9 @@ body {
     box-shadow: 0 4px 12px rgba(17, 16, 15, 0.06) !important;
     display: inline-flex !important;
     align-self: flex-start !important;
-    animation-delay: 0.05s !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 
   .hero-title .line {
