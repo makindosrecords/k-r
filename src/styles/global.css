@@ -318,8 +318,8 @@ body {
 /* ─── HERO ─── */
 .hero {
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
@@ -1348,8 +1348,8 @@ body {
 
   .hero {
     padding: 0 20px 32px !important;
-    height: 100svh !important;
-    min-height: 100svh !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important;
