@@ -286,9 +286,6 @@ body {
   object-fit: cover;
   object-position: center 20%;
   pointer-events: none;
-  transform: scale(1.04);
-  transition: transform 8s ease;
-  will-change: transform;
 }
 
 .hero-vignette {
