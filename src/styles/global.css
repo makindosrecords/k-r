@@ -1427,8 +1427,14 @@ body {
     animation-delay: 0.05s !important;
   }
 
+  .hero-title .line {
+    overflow: visible !important;
+  }
+
   .hero-title .line span {
-    animation-delay: 0.1s !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 1 !important;
   }
 
   .hero-title {
