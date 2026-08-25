@@ -1498,16 +1498,16 @@ body {
 
   .hero {
     padding: 48px 24px 16px !important;
-    min-height: 100svh !important;
-    height: 100svh !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important;
     align-items: flex-start !important;
   }
 
-  .hero-bg {
-    background-position: center 20% !important;
+  .hero-bg-img {
+    object-position: center 20% !important;
   }
 
   .hero-vignette {
@@ -1530,7 +1530,6 @@ body {
 
   .hero-title em {
     color: #A3802C !important;
-    -webkit-text-fill-color: #A3802C !important;
   }
 
   .hero-meta {
