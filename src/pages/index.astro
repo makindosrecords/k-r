@@ -4,7 +4,10 @@ import Layout from '../layouts/Layout.astro';
 const getSrcSet = (src: string) => {
   const ext = src.substring(src.lastIndexOf('.'));
   const base = src.substring(0, src.lastIndexOf('.'));
-  return `${base}_720w${ext} 720w, ${base}_1200w${ext} 1200w, ${src} 1920w`;
+  const encoded720 = encodeURI(`${base}_720w${ext}`);
+  const encoded1200 = encodeURI(`${base}_1200w${ext}`);
+  const encodedOrig = encodeURI(src);
+  return `${encoded720} 720w, ${encoded1200} 1200w, ${encodedOrig} 1920w`;
 };
 
 const gallery = [
@@ -315,8 +318,8 @@ const testimonials = [
     <div class="about-image-col">
       <div class="img-wipe" style="height:100%;width:100%;">
         <img 
-          src="/kim and rick.webp" 
-          srcset="/kim and rick_720w.webp 720w, /kim and rick.webp 1200w"
+          src="/kim%20and%20rick.webp" 
+          srcset="/kim%20and%20rick_720w.webp 720w, /kim%20and%20rick.webp 1200w"
           sizes="(max-width: 768px) 100vw, 600px"
           alt="Kimberly & Rick — K&R Photography"
           class="about-portrait-img"
