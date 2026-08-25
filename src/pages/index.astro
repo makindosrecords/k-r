@@ -185,31 +185,22 @@ const testimonials = [
 ];
 ---
 <Layout title="K&R Photography | Weddings, Portraits & Real Estate | Central FL">
-  <link rel="preload" as="image" href="/KIM_5271-2_result.webp" type="image/webp" fetchpriority="high" slot="head" />
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <img
-      src="/KIM_5271-2_result.webp"
-      alt="K&R Photography — Romantic Couple Session"
-      class="hero-bg-img"
-      fetchpriority="high"
-      loading="eager"
-      decoding="sync"
-      width="1920"
-      height="1080"
-      elementtiming="hero-image"
-    />
+    <div class="hero-bg" style="background-image:url('/KIM_5271-2_result.webp');"></div>
     <div class="hero-vignette"></div>
 
     <!-- Ambient gold orb -->
-    <div style="position:absolute;top:20%;right:15%;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);border-radius:50%;opacity:0.3;pointer-events:none;"></div>
+    <div style="position:absolute;top:20%;right:15%;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);border-radius:50%;animation:pulseGold 8s ease-in-out infinite;pointer-events:none;"></div>
 
     <div class="hero-content">
       <div class="hero-eyebrow">Kimberly & Rick • Central Florida • Est. 2004</div>
 
-      <h1 class="hero-title" elementtiming="hero-title">
-        The Art of <em>Light &amp; Memory</em>
+      <h1 class="hero-title">
+        <span class="line"><span>The Art</span></span>
+        <span class="line"><span>of <em>Light &</em></span></span>
+        <span class="line"><span><em>Memory</em></span></span>
       </h1>
 
       <div class="hero-meta">
@@ -229,9 +220,9 @@ const testimonials = [
     </div>
 
     <!-- Scroll indicator -->
-    <div style="position:absolute;right:40px;bottom:60px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0.75;">
-      <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:#7A5B18;writing-mode:vertical-rl;transform:rotate(180deg);font-weight:700;">Scroll to explore</span>
-      <div style="width:1px;height:48px;background:linear-gradient(to bottom,#7A5B18,transparent);"></div>
+    <div style="position:absolute;right:40px;bottom:60px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeSlideUp 1s var(--ease-out-expo) 1.4s forwards;">
+      <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(201,168,76,0.6);writing-mode:vertical-rl;transform:rotate(180deg);">Scroll to explore</span>
+      <div style="width:1px;height:48px;background:linear-gradient(to bottom,rgba(201,168,76,0.6),transparent);animation:pulseGold 2s ease-in-out infinite;"></div>
     </div>
   </section>
 
@@ -285,7 +276,7 @@ const testimonials = [
               <img
                 src={item.image}
                 alt={item.title}
-                loading={i === 0 ? 'eager' : 'lazy'}
+                loading={i <= 3 ? 'eager' : 'lazy'}
                 decoding="async"
                 draggable="false"
                 width={item.w}
@@ -727,33 +718,6 @@ const testimonials = [
     transition: width 0.1s linear;
   }
 
-  /* Accessible 32px Touch Targets with Composited GPU Scale */
-  .gal-dot-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 -4px;
-  }
-  .gal-dot-inner {
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(163, 128, 44, 0.3);
-    transition: transform 0.25s ease, background 0.25s ease;
-    transform-origin: center;
-    will-change: transform;
-  }
-  .gal-dot-btn.is-active .gal-dot-inner {
-    transform: scaleX(4);
-    background: #A3802C;
-  }
 </style>
 
 <script>
@@ -793,12 +757,11 @@ const testimonials = [
       maxScroll = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
     }
 
-    // Build dot indicators with accessible touch targets & composited animations
+    // Build dot indicators
     cards.forEach((_, i) => {
       const dot = document.createElement('button');
-      dot.className = 'gal-dot-btn';
+      dot.style.cssText = 'width:6px;height:6px;border-radius:50%;border:none;cursor:pointer;transition:all 0.35s ease;padding:0;background:rgba(163,128,44,0.3);';
       dot.setAttribute('aria-label', `Photo ${i + 1}`);
-      dot.innerHTML = '<span class="gal-dot-inner"></span>';
       dot.addEventListener('click', () => goTo(i));
       dotsEl?.appendChild(dot);
     });
@@ -814,12 +777,11 @@ const testimonials = [
         btnNext.style.pointerEvents = currentCard === total - 1 ? 'none' : 'auto';
       }
       if (dotsEl) {
-        dotsEl.querySelectorAll('.gal-dot-btn').forEach((d, i) => {
-          if (i === currentCard) {
-            d.classList.add('is-active');
-          } else {
-            d.classList.remove('is-active');
-          }
+        dotsEl.querySelectorAll('button').forEach((d, i) => {
+          const isActive = i === currentCard;
+          (d as HTMLElement).style.width = isActive ? '24px' : '6px';
+          (d as HTMLElement).style.borderRadius = isActive ? '4px' : '50%';
+          (d as HTMLElement).style.background = isActive ? '#A3802C' : 'rgba(163,128,44,0.3)';
         });
       }
       cards.forEach((c, i) => {
@@ -1064,24 +1026,15 @@ const testimonials = [
       updateUI();
     });
 
-    // ── Defer heavy init until after LCP paints ──
-    // measureCards() queries offsetLeft/offsetWidth on 16 cards which causes
-    // a 143ms forced reflow that blocks LCP. We defer until idle.
-    function initGallery() {
-      // Pre-decode initial card images
-      cards.forEach(c => {
-        const img = c.querySelector('img');
-        if (img && img.decode) img.decode().catch(() => {});
-      });
-      measureCards();
-      goTo(0);
-    }
-    const ric = (window as any).requestIdleCallback;
-    if (ric) {
-      ric(initGallery, { timeout: 500 });
-    } else {
-      setTimeout(initGallery, 0);
-    }
+    // Pre-decode initial card images
+    cards.forEach(c => {
+      const img = c.querySelector('img');
+      if (img && img.decode) img.decode().catch(() => {});
+    });
+
+    // Init
+    measureCards();
+    goTo(0);
 
     // ── LIGHTBOX ──
     const galleryArr = cards.map((c, i) => ({
@@ -1241,8 +1194,7 @@ const testimonials = [
 
     testTrack.addEventListener('scroll', updateTestNav, { passive: true });
     window.addEventListener('resize', updateTestNav, { passive: true });
-    // Defer nav state init until idle
-    setTimeout(updateTestNav, 0);
+    updateTestNav();
   }
 
   // ─── PARALLAX HERO ───

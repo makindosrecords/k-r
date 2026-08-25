@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600&display=swap');
+
 *,
 *::before,
 *::after {
@@ -62,24 +64,73 @@ body {
 
 /* ─── SCROLL REVEAL ─── */
 .reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.visible {
   opacity: 1;
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  transform: translateY(0);
 }
 
 .reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal-left.visible {
   opacity: 1;
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  transform: translateX(0);
 }
 
 .reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal-right.visible {
   opacity: 1;
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  transform: translateX(0);
 }
 
 /* Staggered children */
 .stagger-children>* {
-  opacity: 1;
+  opacity: 0;
+  transform: translateY(36px);
   transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.stagger-children.visible>*:nth-child(1) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0ms;
+}
+
+.stagger-children.visible>*:nth-child(2) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 100ms;
+}
+
+.stagger-children.visible>*:nth-child(3) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 200ms;
+}
+
+.stagger-children.visible>*:nth-child(4) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 300ms;
+}
+
+.stagger-children.visible>*:nth-child(5) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 400ms;
 }
 
 /* ─── WORD SPLIT ANIMATION ─── */
@@ -269,25 +320,27 @@ body {
 /* ─── HERO ─── */
 .hero {
   position: relative;
-  min-height: 100vh;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
   padding: 80px 60px;
   background: var(--black);
 }
 
-.hero-bg,
-.hero-bg-img {
+.hero-bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   background-size: cover;
   background-position: center 20%;
-  object-fit: cover;
-  object-position: center 20%;
-  pointer-events: none;
+  transform: scale(1.08);
+  transition: transform 8s ease;
+  will-change: transform;
+}
+
+.hero-bg.loaded {
+  transform: scale(1);
 }
 
 .hero-vignette {
@@ -319,7 +372,9 @@ body {
   border-radius: 100px;
   box-shadow: 0 4px 20px rgba(26, 24, 22, 0.08);
   margin-bottom: 24px;
-  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.1s both;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideUp 0.9s var(--ease-out-expo) 0.3s forwards;
 }
 
 .hero-title {
@@ -330,26 +385,50 @@ body {
   letter-spacing: -0.01em;
   color: #11100F;
   margin-bottom: 40px;
-  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.25s both;
 }
 
 .hero-title em {
   font-style: italic;
   color: #A3802C;
+  background: linear-gradient(135deg, #B89635 0%, #8A6D30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.1em;
+  display: inline-block;
+}
+
+.hero-title .line {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.1em;
+}
+
+.hero-title .line span {
+  display: block;
+  transform: translateY(105%);
+  animation: slideUp 1s var(--ease-out-expo) forwards;
+}
+
+.hero-title .line:nth-child(1) span {
+  animation-delay: 0.4s;
+}
+
+.hero-title .line:nth-child(2) span {
+  animation-delay: 0.55s;
+}
+
+.hero-title .line:nth-child(3) span {
+  animation-delay: 0.7s;
 }
 
 .hero-meta {
   display: flex;
   align-items: center;
   gap: 28px;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s var(--ease-out-expo) 1s forwards;
   flex-wrap: nowrap;
-  animation: heroSlideUp 0.9s var(--ease-out-expo) 0.4s both;
-}
-
-/* Transform-only entrance — opacity stays 1 so LCP always detects the element */
-@keyframes heroSlideUp {
-  from { transform: translateY(22px); }
-  to   { transform: translateY(0); }
 }
 
 .hero-stat {
@@ -775,8 +854,19 @@ body {
   position: relative;
   overflow: hidden;
   cursor: default;
+  animation: cardFadeUp 0.55s var(--ease-out-expo) both;
 }
 
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* ── Gold top accent bar ── */
 .testimonial-card::before {
@@ -1296,8 +1386,8 @@ body {
 
   .hero {
     padding: 0 20px 32px !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important;
@@ -1306,10 +1396,6 @@ body {
 
   .hero-bg {
     background-position: center 15% !important;
-  }
-
-  .hero-bg-img {
-    object-position: center 15% !important;
   }
 
   .hero-vignette {
@@ -1328,7 +1414,6 @@ body {
     margin-bottom: 8px !important;
     padding: 4px 12px !important;
     line-height: 1.3 !important;
-    color: #11100F !important;
     background: rgba(250, 248, 245, 0.88) !important;
     backdrop-filter: blur(8px) !important;
     border: 1px solid rgba(184, 150, 53, 0.35) !important;
@@ -1347,6 +1432,7 @@ body {
 
   .hero-title em {
     color: #A3802C !important;
+    -webkit-text-fill-color: #A3802C !important;
   }
 
   .hero-meta {
@@ -1500,8 +1586,8 @@ body {
 
   .hero {
     padding: 48px 24px 16px !important;
-    min-height: 100vh !important;
-    height: 100vh !important;
+    min-height: 100svh !important;
+    height: 100svh !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important;
@@ -1510,10 +1596,6 @@ body {
 
   .hero-bg {
     background-position: center 20% !important;
-  }
-
-  .hero-bg-img {
-    object-position: center 20% !important;
   }
 
   .hero-vignette {
@@ -1525,7 +1607,6 @@ body {
     padding: 2px 8px !important;
     margin-bottom: 4px !important;
     font-weight: 700 !important;
-    color: #11100F !important;
   }
 
   .hero-title {
@@ -1537,6 +1618,7 @@ body {
 
   .hero-title em {
     color: #A3802C !important;
+    -webkit-text-fill-color: #A3802C !important;
   }
 
   .hero-meta {
