@@ -290,6 +290,19 @@ body {
   width: 100%;
 }
 
+.nav-phone-link {
+  color: #11100F;
+}
+
+.nav-phone-link:hover {
+  color: var(--gold) !important;
+}
+
+:global(.site-header.dark) .nav-phone-link,
+[data-theme="dark"] .nav-phone-link {
+  color: #FAF8F5;
+}
+
 .cta-btn {
   font-family: 'Cinzel', serif;
   font-size: 14.5px;
@@ -469,11 +482,12 @@ body {
 
 .hero-stat {
   font-family: 'Cinzel', serif;
-  font-size: 14.5px;
+  font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #3D3934;
+  line-height: 1.35;
 }
 
 .hero-stat strong {
@@ -483,11 +497,13 @@ body {
   font-weight: 500;
   color: var(--gold);
   letter-spacing: 0;
+  line-height: 1;
+  margin-bottom: 6px;
 }
 
 .hero-divider {
   width: 1px;
-  height: 44px;
+  height: 52px;
   background: rgba(184, 150, 53, 0.3);
 }
 
@@ -1498,6 +1514,11 @@ body {
   .hero-stat strong {
     font-size: 22px !important;
     font-weight: 700 !important;
+    line-height: 1 !important;
+  }
+
+  .hero-stat strong span:first-child {
+    font-size: 22px !important;
   }
 
   .hero-divider {

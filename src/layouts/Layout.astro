@@ -114,6 +114,26 @@ const schemaData = {
   <!-- JSON-LD LocalBusiness Rich Schema -->
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
   <slot name="head" />
+
+  <!-- PostHog Analytics & Session Recording -->
+  <script is:inline define:vars={{ posthogKey: import.meta.env.PUBLIC_POSTHOG_KEY, posthogHost: import.meta.env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com' }}>
+    if (posthogKey) {
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      posthog.init(posthogKey, {
+        api_host: posthogHost,
+        person_profiles: 'identified_only',
+        autocapture: true,
+        capture_pageview: true,
+        capture_pageleave: true,
+        session_recording: {
+          maskAllInputs: false,
+          maskInputOptions: {
+            password: true
+          }
+        }
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -146,8 +166,16 @@ const schemaData = {
       <a href="/portfolio" class="nav-link">Portfolio</a>
     </nav>
 
-    <!-- CTA -->
-    <a href="/contact" class="cta-btn hide-mobile">Inquire</a>
+    <!-- Header Actions (Phone & CTA) -->
+    <div class="header-actions hide-mobile" style="display:flex;align-items:center;gap:18px;">
+      <a href="tel:+14074979239" class="nav-phone-link" aria-label="Call K&R Photography" style="display:inline-flex;align-items:center;gap:7px;font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:0.12em;text-decoration:none;color:inherit;transition:color 0.3s ease;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold,#A3802C);flex-shrink:0;">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span>(407) 497-9239</span>
+      </a>
+      <a href="/contact" class="cta-btn">Inquire</a>
+    </div>
 
     <!-- Mobile Menu Toggle -->
     <button id="mobile-toggle" class="show-mobile mobile-menu-btn" aria-label="Toggle Navigation">
@@ -166,7 +194,13 @@ const schemaData = {
       <a href="/real-estate" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Real Estate Media</a>
       <a href="/packages" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Packages & Pricing</a>
       <a href="/portfolio" style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,36px);font-weight:400;color:#FAF8F5;text-decoration:none;transition:color 0.2s;">Portfolio Archive</a>
-      <a href="/contact" style="margin-top:12px;width:100%;max-width:280px;text-align:center;" class="cta-btn">Inquire & Reserve Date</a>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:280px;margin-top:12px;">
+        <a href="tel:+14074979239" style="display:inline-flex;align-items:center;gap:8px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:#FAF8F5;text-decoration:none;font-weight:600;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#A3802C;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (407) 497-9239
+        </a>
+        <a href="/contact" style="width:100%;text-align:center;" class="cta-btn">Inquire & Reserve Date</a>
+      </div>
     </div>
 
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#A3802C;font-family:'Cinzel',serif;letter-spacing:0.15em;">

@@ -235,6 +235,9 @@ import Layout from '../layouts/Layout.astro';
   :global(.site-header .nav-link) {
     color: #FAF8F5 !important;
   }
+  :global(.site-header .nav-phone-link) {
+    color: #FAF8F5 !important;
+  }
 
   .modal-backdrop-img {
     position: fixed;
@@ -1016,14 +1019,25 @@ import Layout from '../layouts/Layout.astro';
         const result = await res.json();
         if (!res.ok) throw new Error(result.error || 'Failed to send inquiry.');
         const name = (payload.name as string || '').split(' ')[0];
-        statusDiv.innerHTML = `\u2728 Thank you${name ? ', ' + name : ''}! Your inquiry has been sent to Kimberly & Rick. We'll reach out within 24 hours.`;
+        statusDiv.innerHTML = `✨ Thank you${name ? ', ' + name : ''}! Your inquiry has been sent to Kimberly & Rick. We'll reach out within 24 hours.`;
         statusDiv.style.display = 'block';
         statusDiv.style.background = 'rgba(16,50,28,0.08)';
         statusDiv.style.color = '#2D6A4F';
         statusDiv.style.borderColor = 'rgba(45,106,79,0.3)';
+
+        // Track conversion in PostHog
+        if (typeof (window as any).posthog !== 'undefined') {
+          (window as any).posthog.capture('inquiry_submitted', {
+            service_type: payload.package || 'general',
+            requested_date: payload.date || '',
+            preferred_time: payload.timeWindow || '',
+            location: payload.location || ''
+          });
+        }
+
         bookingForm.reset();
       } catch (err: any) {
-        statusDiv.innerText = '\u26a0\ufe0f ' + (err.message || 'An error occurred. Please try again.');
+        statusDiv.innerText = '⚠️ ' + (err.message || 'An error occurred. Please try again.');
         statusDiv.style.display = 'block';
         statusDiv.style.background = 'rgba(50,20,10,0.08)';
         statusDiv.style.color = '#9B1C1C';
