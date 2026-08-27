@@ -65,14 +65,14 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Initialize Resend SDK
-    const apiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
-    const testEmail = import.meta.env.TEST_EMAIL || process.env.TEST_EMAIL;
-    const studioEmail = testEmail || import.meta.env.STUDIO_EMAIL || process.env.STUDIO_EMAIL || 'kimberly@kandrpix.com';
-    const fromDomain = import.meta.env.RESEND_FROM_EMAIL || process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const apiKey = import.meta.env.RESEND_API_KEY;
+    const testEmail = import.meta.env.TEST_EMAIL;
+    const studioEmail = testEmail || import.meta.env.STUDIO_EMAIL || 'kimberly@kandrpix.com';
+    const fromDomain = import.meta.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
     
     if (!apiKey) {
       console.warn('⚠️ RESEND_API_KEY is not set. Logging inquiry payload instead of sending email:');
-      console.log('Inquiry Payload:', { name, email, serviceType, preferredDate, timeWindow, targetArea, projectDetails, testEmail: studioEmail });
+      console.log('Inquiry Payload:', { name, email, serviceType, preferredDate, timeWindow, targetArea, notes, testEmail: studioEmail });
 
       return new Response(
         JSON.stringify({

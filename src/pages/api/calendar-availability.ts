@@ -82,7 +82,7 @@ function parseICalDate(str: string): Date {
 
 export const GET: APIRoute = async () => {
   try {
-    const calendarUrl = import.meta.env.GOOGLE_CALENDAR_ICAL_URL || process.env.GOOGLE_CALENDAR_ICAL_URL;
+    const calendarUrl = import.meta.env.GOOGLE_CALENDAR_ICAL_URL;
 
     if (!calendarUrl) {
       // Fail open: Return empty busy slots with status flag
