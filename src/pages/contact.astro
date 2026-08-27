@@ -1028,10 +1028,10 @@ import Layout from '../layouts/Layout.astro';
         // Track conversion in PostHog
         if (typeof (window as any).posthog !== 'undefined') {
           (window as any).posthog.capture('inquiry_submitted', {
-            service_type: payload.package || 'general',
-            requested_date: payload.date || '',
+            service_type: payload.serviceType || payload.package || 'general',
+            requested_date: payload.preferredDate || payload.date || '',
             preferred_time: payload.timeWindow || '',
-            location: payload.location || ''
+            location: payload.targetArea || payload.location || ''
           });
         }
 

@@ -20,14 +20,21 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const { name, email, phone, serviceType, preferredDate, timeWindow, targetArea, projectDetails, details } = body;
-    const notes = projectDetails || details || '';
+    // Normalize and alias all potential form field variations
+    const name = (body.name || body.fullName || '').trim();
+    const email = (body.email || '').trim();
+    const phone = (body.phone || body.telephone || '').trim();
+    const serviceType = (body.serviceType || body.package || body.service || '').trim();
+    const targetArea = (body.targetArea || body.location || body.venue || '').trim();
+    const preferredDate = (body.preferredDate || body.date || '').trim();
+    const timeWindow = (body.timeWindow || body.time || body.preferredTime || '').trim();
+    const notes = (body.details || body.message || body.projectDetails || body.vision || '').trim();
     const formattedTime = timeWindow || 'Flexible / Any Time';
 
     // Basic Validation
     if (!name || !email || !serviceType || !targetArea) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: Name, Email, Service Type, and Location are required.' }),
+        JSON.stringify({ error: 'Missing required fields: Name, Email, Service Type, and Location/Venue are required.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
