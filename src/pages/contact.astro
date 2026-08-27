@@ -105,6 +105,13 @@ import Layout from '../layouts/Layout.astro';
           <div id="form-status" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:8px;font-size:13px;border:1px solid;"></div>
 
           <form id="booking-form">
+            <!-- Invisible Anti-Spam Honeypot & Timestamp Verification -->
+            <div style="display:none !important; position:absolute; left:-9999px;" aria-hidden="true">
+              <label for="website_url">Leave this field blank</label>
+              <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+              <input type="hidden" id="form_rendered_at" name="form_rendered_at" value="" />
+            </div>
+
             <div class="f-row-2">
               <div class="f-wrap">
                 <label for="name" class="f-label">Full Name <span class="req">*</span></label>
@@ -996,6 +1003,11 @@ import Layout from '../layouts/Layout.astro';
     dateInput.addEventListener('change', () => {
       updateSlotAvailability(dateInput.value);
     });
+  }
+
+  const renderedAtInput = document.getElementById('form_rendered_at') as HTMLInputElement | null;
+  if (renderedAtInput) {
+    renderedAtInput.value = Date.now().toString();
   }
 
   const bookingForm = document.getElementById('booking-form') as HTMLFormElement | null;

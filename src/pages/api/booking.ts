@@ -20,6 +20,31 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
+    // ─── LAYER 1: INVISIBLE HONEYPOT SPAM PROTECTION ───
+    const honeypot = body.website_url || body.b_name || body.honeypot;
+    if (honeypot) {
+      console.warn('[Security] Bot detected via honeypot field. Silently dropping request.');
+      // Return a simulated success so automated bots don't adapt
+      return new Response(
+        JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // ─── LAYER 2: TIME-DELTA SUBMISSION CHECK ───
+    const formRenderedAt = Number(body.form_rendered_at || 0);
+    if (formRenderedAt > 0) {
+      const timeDeltaMs = Date.now() - formRenderedAt;
+      // If submitted in under 1.5 seconds, it is an automated script
+      if (timeDeltaMs < 1500) {
+        console.warn(`[Security] Rapid submission detected (${timeDeltaMs}ms). Silently dropping bot payload.`);
+        return new Response(
+          JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+    }
+
     // Normalize and alias all potential form field variations
     const name = (body.name || body.fullName || '').trim();
     const email = (body.email || '').trim();

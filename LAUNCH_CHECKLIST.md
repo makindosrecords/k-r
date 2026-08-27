@@ -81,7 +81,12 @@ In Google Business Profile (`Edit profile ➔ Contact`):
 - [ ] In PostHog: `Settings ➔ Organization ➔ Members ➔ Invite Member`.
 - [ ] Send an invitation to `kimberly@kandrpix.com` so they can view traffic charts and session replays.
 
-### 7. 🎥 Client Handoff Video (Loom)
+### 7. 🛡️ Optional Layer 3 Bot Protection: Cloudflare Turnstile (Post-Launch)
+- [ ] Sign up for a free Cloudflare account & create a Turnstile widget for `kandrpix.com`.
+- [ ] Add `PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` into Vercel environment variables.
+- [ ] Enable the Turnstile invisible token verification check in `src/pages/api/booking.ts`.
+
+### 8. 🎥 Client Handoff Video (Loom)
 - [ ] Record a 3-minute video walking Kimberly & Rick through:
   - How lead notifications arrive in their inbox.
   - How calendar blocks prevent double bookings.
