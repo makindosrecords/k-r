@@ -193,13 +193,17 @@ export const POST: APIRoute = async ({ request }) => {
                     </ul>
                   </div>
 
-                  <p>We will check our calendar availability and get back to you within 24 hours with details, pricing packages, and next steps.</p>
-                  
+                  <div style="background: #F4F0EA; border: 1px solid #E7DDD0; border-radius: 8px; padding: 18px 20px; margin: 26px 0; text-align: center;">
+                    <div style="font-size: 14px; font-weight: bold; color: #1C1917; margin-bottom: 4px;">Loved working with us in the past?</div>
+                    <div style="font-size: 12.5px; color: #433426; margin-bottom: 12px;">We'd be deeply honored if you left a 5-star review on Google!</div>
+                    <a href="https://g.page/r/kandrpix/review" target="_blank" style="display: inline-block; background: #B89635; color: #FAF8F5; text-decoration: none; font-size: 12px; font-weight: bold; padding: 9px 18px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px;">★ Leave a Google Review</a>
+                  </div>
+
                   <p>Warmest regards,<br/><strong>Kimberly & Rick</strong><br/>K&R Photography (kandrpix.com)</p>
                 </div>
 
                 <div class="footer">
-                  ★★★★★ 380+ 5-Star Reviews on Google<br/>
+                  ★★★★★ 380+ 5-Star Reviews on <a href="https://www.google.com/search?q=K%26R+Photography+Orlando" style="color: #A68868; text-decoration: underline;">Google</a><br/>
                   Instagram: <a href="https://instagram.com/kandrpix" style="color: #A68868;">@kandrpix</a> | Email: kimberly@kandrpix.com
                 </div>
               </div>

@@ -343,7 +343,6 @@ body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/KIM_5271-2_result.webp');
   background-size: cover;
   background-position: center 20%;
   transform: scale(1.08);
@@ -352,6 +351,7 @@ body {
 }
 
 .home-hero-bg {
+  background-image: url('/KIM_5271-2_result.webp');
   background-position: center 0% !important;
 }
 
@@ -1446,11 +1446,9 @@ body {
     align-items: flex-start !important;
   }
 
-  .hero-bg {
+  .home-hero-bg {
     background-image: url('/KIM_5271-2_result_720w.webp') !important;
     background-position: center 5% !important;
-    animation: none !important;
-    transform: none !important;
   }
 
   .hero-content {

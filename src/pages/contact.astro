@@ -898,7 +898,7 @@ import Layout from '../layouts/Layout.astro';
 <script>
   function autoSelectService() {
     const params = new URLSearchParams(window.location.search);
-    const requestedService = (params.get('service') || '').trim().toLowerCase();
+    const requestedService = (params.get('package') || params.get('pkg') || params.get('service') || '').trim().toLowerCase();
     const serviceSelect = document.getElementById('serviceType') as HTMLSelectElement | null;
     if (requestedService && serviceSelect) {
       for (let i = 0; i < serviceSelect.options.length; i++) {
@@ -911,7 +911,10 @@ import Layout from '../layouts/Layout.astro';
           (requestedService.includes('portrait') && (optVal.includes('portrait') || optVal.includes('family'))) ||
           (requestedService.includes('estate') && optVal.includes('estate')) ||
           (requestedService.includes('commercial') && optVal.includes('commercial'))
-        ) { serviceSelect.selectedIndex = i; break; }
+        ) { 
+          serviceSelect.selectedIndex = i; 
+          break; 
+        }
       }
     }
   }
