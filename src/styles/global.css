@@ -1823,3 +1823,72 @@ body {
     height: 36px !important;
   }
 }
+
+/* ─── MOBILE STICKY FLOATING ACTION BAR ─── */
+.mobile-floating-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-floating-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    position: fixed;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    left: 16px;
+    right: 16px;
+    z-index: 998;
+    background: rgba(17, 16, 15, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(184, 150, 53, 0.35);
+    padding: 8px 10px;
+    border-radius: 100px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28), 0 4px 12px rgba(184, 150, 53, 0.12);
+    transform: translateY(0);
+    transition: transform 0.35s var(--ease-out-expo), opacity 0.35s ease;
+  }
+
+  .mobile-floating-bar.hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mfb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 44px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .mfb-btn:active {
+    transform: scale(0.97);
+  }
+
+  .mfb-call {
+    flex: 1 1 42%;
+    background: rgba(250, 248, 245, 0.1);
+    color: #FAF8F5;
+    border: 1px solid rgba(250, 248, 245, 0.15);
+  }
+
+  .mfb-inquire {
+    flex: 1 1 58%;
+    background: linear-gradient(135deg, #11100F 0%, #1F1C18 100%);
+    color: #FAF8F5;
+    border: 1px solid rgba(184, 150, 53, 0.5);
+    box-shadow: 0 4px 14px rgba(184, 150, 53, 0.15);
+  }
+}

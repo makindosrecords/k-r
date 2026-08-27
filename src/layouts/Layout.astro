@@ -72,31 +72,30 @@ const schemaData = {
   <title>{title}</title>
   <meta name="title" content={title} />
   <meta name="description" content={description} />
-  <meta name="author" content="Kimberly & Rick" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-  <!-- Open Graph / Facebook / iMessage -->
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content={type} />
   <meta property="og:url" content={canonicalURL} />
-  <meta property="og:site_name" content="K&R Photography" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={socialImageURL} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="K&R Photography Editorial Portfolio" />
+  <meta property="og:site_name" content="K&R Photography" />
+  <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content={canonicalURL} />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={socialImageURL} />
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={socialImageURL} />
 
-  <!-- Favicon & Mobile Touch Icons -->
+  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#11100F" />
-  <meta name="color-scheme" content="light dark" />
 
   <!-- Google Fonts Preconnect & Optimized Font Loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -281,6 +280,25 @@ const schemaData = {
   </footer>
   )}
 
+  <!-- ─── MOBILE STICKY FLOATING ACTION BAR ─── -->
+  <aside id="mobile-floating-bar" class="mobile-floating-bar show-mobile" aria-label="Quick Actions">
+    <a href="tel:+14074979239" class="mfb-btn mfb-call" aria-label="Call K&R Photography">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--gold,#A3802C);flex-shrink:0;">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span>Call Studio</span>
+    </a>
+    <a href="/contact" class="mfb-btn mfb-inquire" aria-label="Check Availability and Inquire">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#B89635;flex-shrink:0;">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>Inquire &amp; Reserve</span>
+    </a>
+  </aside>
+
 </body>
 </html>
 
@@ -434,58 +452,83 @@ const schemaData = {
 </style>
 
 <script>
-  // ─── HEADER SCROLL ───
-  const header = document.getElementById('site-header');
-  window.addEventListener('scroll', () => {
-    if (header) {
-      header.classList.toggle('scrolled', window.scrollY > 60);
-    }
-  }, { passive: true });
+  function initPageScripts() {
+    // ─── HEADER SCROLL & FLOATING BAR ───
+    const header = document.getElementById('site-header');
+    const floatingBar = document.getElementById('mobile-floating-bar');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (header) {
+        header.classList.toggle('scrolled', scrollY > 60);
+      }
+    }, { passive: true });
 
-  // ─── MOBILE MENU ───
-  const toggle = document.getElementById('mobile-toggle');
-  const drawer = document.getElementById('mobile-drawer');
-  const iconMenu = document.getElementById('icon-menu');
-  const iconClose = document.getElementById('icon-close');
-  let drawerOpen = false;
+    // ─── MOBILE MENU ───
+    const toggle = document.getElementById('mobile-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+    let drawerOpen = false;
 
-  toggle?.addEventListener('click', () => {
-    drawerOpen = !drawerOpen;
-    if (drawer) drawer.style.display = drawerOpen ? 'flex' : 'none';
-    if (iconMenu) iconMenu.style.display = drawerOpen ? 'none' : 'block';
-    if (iconClose) iconClose.style.display = drawerOpen ? 'block' : 'none';
-    document.body.style.overflow = drawerOpen ? 'hidden' : '';
-  });
-
-  drawer?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      drawerOpen = false;
-      if (drawer) drawer.style.display = 'none';
-      if (iconMenu) iconMenu.style.display = 'block';
-      if (iconClose) iconClose.style.display = 'none';
-      document.body.style.overflow = '';
+    toggle?.addEventListener('click', () => {
+      drawerOpen = !drawerOpen;
+      if (drawer) drawer.style.display = drawerOpen ? 'flex' : 'none';
+      if (iconMenu) iconMenu.style.display = drawerOpen ? 'none' : 'block';
+      if (iconClose) iconClose.style.display = drawerOpen ? 'block' : 'none';
+      if (floatingBar) floatingBar.classList.toggle('hidden', drawerOpen);
+      document.body.style.overflow = drawerOpen ? 'hidden' : '';
     });
-  });
 
-  // ─── SCROLL REVEAL ───
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+    drawer?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        drawerOpen = false;
+        if (drawer) drawer.style.display = 'none';
+        if (iconMenu) iconMenu.style.display = 'block';
+        if (iconClose) iconClose.style.display = 'none';
+        if (floatingBar) floatingBar.classList.remove('hidden');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ─── SCROLL REVEAL ───
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .img-wipe, .word-reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ─── HERO BG LOAD ANIMATION ───
+    document.querySelectorAll('.hero-bg').forEach(el => {
+      const heroEl = el as HTMLElement;
+      // Extract background-image from inline style or computed style
+      const styleBg = heroEl.style.backgroundImage || window.getComputedStyle(heroEl).backgroundImage;
+      if (styleBg && styleBg !== 'none') {
+        const src = styleBg.replace(/url\(["']?(.*?)["']?\)/, '$1');
+        const img = new Image();
+        img.onload = () => heroEl.classList.add('loaded');
+        img.src = src;
+        if (img.complete) {
+          heroEl.classList.add('loaded');
+        }
+      } else {
+        // Fallback: Add loaded immediately if no background image extracted
+        heroEl.classList.add('loaded');
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  }
 
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .img-wipe, .word-reveal').forEach(el => {
-    observer.observe(el);
-  });
-
-  // ─── HERO BG LOAD ANIMATION ───
-  document.querySelectorAll('.hero-bg').forEach(el => {
-    const img = new Image();
-    const src = (el as HTMLElement).style.backgroundImage.replace(/url\(["']?(.*?)["']?\)/, '$1');
-    img.onload = () => el.classList.add('loaded');
-    img.src = src;
-  });
+  // Run on initial page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageScripts);
+  } else {
+    initPageScripts();
+  }
+  document.addEventListener('astro:page-load', initPageScripts);
 </script>
