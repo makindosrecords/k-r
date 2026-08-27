@@ -1054,7 +1054,11 @@ import Layout from '../layouts/Layout.astro';
         const result = await res.json();
         if (!res.ok) throw new Error(result.error || 'Failed to send inquiry.');
         const name = (payload.name as string || '').split(' ')[0];
-        statusDiv.innerHTML = `✨ Thank you${name ? ', ' + name : ''}! Your inquiry has been sent to Kimberly & Rick. We'll reach out within 24 hours.`;
+        statusDiv.innerHTML = `
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">✨ Thank you${name ? ', ' + name : ''}!</div>
+          <div>Your inquiry has been sent directly to Kimberly &amp; Rick. We'll reach out within 24 hours.</div>
+          <div style="margin-top:8px;font-size:12px;opacity:0.85;">Redirecting you to the home gallery in <span id="redirect-countdown">3</span>s...</div>
+        `;
         statusDiv.style.display = 'block';
         statusDiv.style.background = 'rgba(16,50,28,0.08)';
         statusDiv.style.color = '#2D6A4F';
@@ -1071,13 +1075,24 @@ import Layout from '../layouts/Layout.astro';
         }
 
         bookingForm.reset();
+
+        // 3-second countdown and redirect to homepage
+        let secondsLeft = 3;
+        const countdownEl = document.getElementById('redirect-countdown');
+        const interval = setInterval(() => {
+          secondsLeft--;
+          if (countdownEl) countdownEl.innerText = secondsLeft.toString();
+          if (secondsLeft <= 0) {
+            clearInterval(interval);
+            window.location.href = '/';
+          }
+        }, 1000);
       } catch (err: any) {
         statusDiv.innerText = '⚠️ ' + (err.message || 'An error occurred. Please try again.');
         statusDiv.style.display = 'block';
         statusDiv.style.background = 'rgba(50,20,10,0.08)';
         statusDiv.style.color = '#9B1C1C';
         statusDiv.style.borderColor = 'rgba(155,28,28,0.3)';
-      } finally {
         submitBtn.disabled = false;
         if (btnText) btnText.innerText = 'Send Inquiry to K&R';
       }
