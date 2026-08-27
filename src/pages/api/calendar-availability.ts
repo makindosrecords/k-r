@@ -85,36 +85,75 @@ export const GET: APIRoute = async () => {
     const calendarUrl = import.meta.env.GOOGLE_CALENDAR_ICAL_URL || process.env.GOOGLE_CALENDAR_ICAL_URL;
 
     if (!calendarUrl) {
-      // Fallback/Demo mode: Return empty or sample busy slots
-      return new Response(JSON.stringify({ busySlots: [], source: 'demo' }), {
+      // Fail open: Return empty busy slots with status flag
+      return new Response(JSON.stringify({ 
+        busySlots: [], 
+        source: 'demo', 
+        status: 'open',
+        message: 'No calendar feed configured. All slots available for inquiry.' 
+      }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const res = await fetch(calendarUrl);
-    if (!res.ok) {
-      console.warn(`[Calendar API] Failed to fetch iCal feed (Status ${res.status}). Falling back to open availability.`);
-      return new Response(JSON.stringify({ busySlots: [], source: 'fallback', status: res.status }), {
+    // Use 4-second timeout so a slow Google response never hangs the page
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    const res = await fetch(calendarUrl, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'K-and-R-Photography-Availability-Bot/1.0',
+      },
+    }).catch(err => {
+      console.warn('[Calendar API] Network fetch failed or timed out:', err.name || err.message);
+      return null;
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!res || !res.ok) {
+      console.warn(`[Calendar API] Google feed unreachable (${res ? res.status : 'timeout/network'}). Gracefully failing open.`);
+      return new Response(JSON.stringify({ 
+        busySlots: [], 
+        source: 'fallback', 
+        status: 'open',
+        warning: 'Live calendar sync currently resting. Form remains 100% operational.' 
+      }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store'
+        },
       });
     }
 
     const icalText = await res.text();
     const busySlots = parseICal(icalText);
 
-    return new Response(JSON.stringify({ busySlots, source: 'live' }), {
+    return new Response(JSON.stringify({ 
+      busySlots, 
+      source: 'live',
+      status: 'active',
+      count: busySlots.length 
+    }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 mins
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600', // Cache for 5 mins, stale for 10 mins
       },
     });
   } catch (err: any) {
     console.error('[Calendar API] Error parsing calendar feed:', err);
-    return new Response(JSON.stringify({ busySlots: [], error: err.message }), {
-      status: 200, // Return 200 with empty so UI never crashes
+    // Absolute fail-open: Never return a 500 error to the client
+    return new Response(JSON.stringify({ 
+      busySlots: [], 
+      source: 'fallback',
+      status: 'open',
+      error: err.message 
+    }), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
