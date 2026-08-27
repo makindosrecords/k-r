@@ -156,6 +156,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
             <img
               src={item.image}
               alt={item.title}
+              loading="lazy"
               decoding="async"
               class="art-img"
             />
@@ -274,15 +275,16 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    background: #F4F0EA;
     border: 1px solid rgba(184, 150, 53, 0.15);
+    contain: layout paint;
   }
 
   .art-img {
     width: 100%;
     height: auto;
     display: block;
-    transform: translateZ(0);
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .art-plate-card:hover .art-img {
