@@ -1665,6 +1665,11 @@ body {
     background-position: center 20% !important;
   }
 
+  .wedding-hero-bg {
+    background-position: center 38% !important;
+    background-size: 135% auto !important;
+  }
+
   .hero-vignette {
     background: linear-gradient(to top, rgba(250, 248, 245, 0.96) 0%, rgba(250, 248, 245, 0.7) 25%, rgba(250, 248, 245, 0) 65%) !important;
   }
