@@ -326,7 +326,8 @@ const testimonials = [
   </section>
 
   <!-- ─── ARTIST MANIFESTO / ABOUT ─── -->
-  <section class="about-section" id="about">
+  <div class="about-wrapper" style="background:var(--black-soft);width:100%;border-top:1px solid rgba(184,150,53,0.18);border-bottom:1px solid rgba(184,150,53,0.18);position:relative;z-index:2;">
+    <section class="about-section" id="about">
     <div class="about-image-col">
       <div class="img-wipe" style="height:100%;width:100%;">
         <img 
@@ -398,6 +399,7 @@ const testimonials = [
 
     </div>
   </section>
+  </div>
 
   <!-- ─── TESTIMONIALS CAROUSEL ─── -->
   <section style="background:var(--black);padding:72px 60px 80px;position:relative;overflow:hidden;" id="testimonials-section">
@@ -1248,7 +1250,12 @@ const testimonials = [
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    if (heroBg) heroBg.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+    const heroHeight = window.innerHeight;
+    if (heroBg) {
+      if (y <= heroHeight) {
+        heroBg.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+      }
+    }
     if (ctaBgImg) ctaBgImg.style.transform = `scale(1.05) translateY(${-y * 0.05}px)`;
   }, { passive: true });
 </script>
