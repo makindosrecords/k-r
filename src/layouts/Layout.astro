@@ -540,34 +540,32 @@ const schemaData = {
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .img-wipe, .word-reveal').forEach(el => {
       observer.observe(el);
     });
-
-    // ─── POSTHOG CALL & EMAIL CLICK TRACKING ───
-    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-      link.addEventListener('click', () => {
-        const phone = link.getAttribute('href')?.replace('tel:', '') || '(407) 497-9239';
-        if (typeof (window as any).posthog !== 'undefined') {
-          (window as any).posthog.capture('phone_call_clicked', {
-            phone_number: phone,
-            page_location: window.location.pathname,
-            link_text: link.textContent?.trim() || 'Call Button'
-          });
-        }
-      });
-    });
-
-    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
-      link.addEventListener('click', () => {
-        const email = link.getAttribute('href')?.replace('mailto:', '') || 'kimberly@kandrpix.com';
-        if (typeof (window as any).posthog !== 'undefined') {
-          (window as any).posthog.capture('email_link_clicked', {
-            email_address: email,
-            page_location: window.location.pathname,
-            link_text: link.textContent?.trim() || 'Email Link'
-          });
-        }
-      });
-    });
   }
+
+  // ─── GLOBAL EVENT DELEGATION FOR POSTHOG (INSTANT CAPTURE) ───
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    const telLink = target?.closest('a[href^="tel:"]') as HTMLAnchorElement | null;
+    const mailtoLink = target?.closest('a[href^="mailto:"]') as HTMLAnchorElement | null;
+
+    if (telLink && typeof (window as any).posthog !== 'undefined') {
+      const phone = telLink.getAttribute('href')?.replace('tel:', '') || '(407) 497-9239';
+      (window as any).posthog.capture('phone_call_clicked', {
+        phone_number: phone,
+        page_location: window.location.pathname,
+        link_text: telLink.innerText?.trim() || 'Call Button'
+      });
+    }
+
+    if (mailtoLink && typeof (window as any).posthog !== 'undefined') {
+      const email = mailtoLink.getAttribute('href')?.replace('mailto:', '') || 'kimberly@kandrpix.com';
+      (window as any).posthog.capture('email_link_clicked', {
+        email_address: email,
+        page_location: window.location.pathname,
+        link_text: mailtoLink.innerText?.trim() || 'Email Link'
+      });
+    }
+  }, { capture: true });
 
   // Run on initial page load
   if (document.readyState === 'loading') {
