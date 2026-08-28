@@ -613,6 +613,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
       const idx = visible.indexOf(item);
       showImage(idx >= 0 ? idx : 0);
       lb!.classList.add('lb-open');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
 
       // Track Lightbox Photo Engagement in PostHog
@@ -628,6 +629,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
 
     function closeLightbox() {
       lb!.classList.remove('lb-open');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
 
@@ -656,6 +658,7 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     let wheelCooldown = false;
     window.addEventListener('wheel', (e) => {
       if (!lb!.classList.contains('lb-open')) return;
+      e.preventDefault();
       if (wheelCooldown) return;
 
       if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
@@ -664,7 +667,13 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
         showImage(currentIdx + dir);
         setTimeout(() => { wheelCooldown = false; }, 200);
       }
-    }, { passive: true });
+    }, { passive: false });
+
+    lb.addEventListener('touchmove', (e) => {
+      if (lb!.classList.contains('lb-open')) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   }
 
   if (document.readyState === 'loading') {

@@ -1148,6 +1148,7 @@ const testimonials = [
     function openLb(idx: number) {
       showImage(idx);
       lb!.classList.add('lb-open');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
 
       // Track Home Gallery Photo Engagement in PostHog
@@ -1163,6 +1164,7 @@ const testimonials = [
 
     function closeLb() {
       lb!.classList.remove('lb-open');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
 
@@ -1203,6 +1205,28 @@ const testimonials = [
       if (e.key === 'ArrowRight') showImage(lbIdx + 1);
       if (e.key === 'Escape') closeLb();
     });
+
+    // Prevent mouse wheel from scrolling underlying page while lightbox is open
+    let wheelCooldown = false;
+    window.addEventListener('wheel', (e) => {
+      if (!lb!.classList.contains('lb-open')) return;
+      e.preventDefault();
+
+      if (wheelCooldown) return;
+      if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
+        wheelCooldown = true;
+        const dir = (e.deltaY > 0 || e.deltaX > 0) ? 1 : -1;
+        showImage(lbIdx + dir);
+        setTimeout(() => { wheelCooldown = false; }, 200);
+      }
+    }, { passive: false });
+
+    // Prevent touchmove scroll bleed
+    lb.addEventListener('touchmove', (e) => {
+      if (lb!.classList.contains('lb-open')) {
+        e.preventDefault();
+      }
+    }, { passive: false });
 
     let lbSwipeX = 0;
     lb.addEventListener('touchstart', (e) => { lbSwipeX = e.touches[0].clientX; }, { passive: true });

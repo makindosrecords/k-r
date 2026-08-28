@@ -1230,6 +1230,8 @@ body {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.15s ease, visibility 0.15s ease;
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 
 #kr-lightbox.lb-open {
