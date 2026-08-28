@@ -384,6 +384,15 @@ const galleryItems = [
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Track Video Engagement in PostHog
+    if (typeof (window as any).posthog !== 'undefined') {
+      (window as any).posthog.capture('video_modal_played', {
+        video_title: title,
+        video_id: id,
+        category: 'Real Estate'
+      });
+    }
   }
 
   function closeVideo() {
