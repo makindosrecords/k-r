@@ -598,6 +598,48 @@ import Layout from '../layouts/Layout.astro';
     font-family: 'Cinzel', serif !important;
     font-size: 110% !important;
     color: #FAF8F5 !important;
+    padding: 2px 0 0 0 !important;
+  }
+
+  :global(.flatpickr-current-month .flatpickr-monthDropdown-months) {
+    background: #1F1C18 !important;
+    color: #FAF8F5 !important;
+    font-family: 'Cinzel', serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    border: 1px solid rgba(184, 150, 53, 0.4) !important;
+    border-radius: 6px !important;
+    padding: 2px 6px !important;
+    cursor: pointer !important;
+  }
+
+  :global(.flatpickr-current-month .flatpickr-monthDropdown-months option) {
+    background: #11100F !important;
+    color: #FAF8F5 !important;
+    padding: 6px 10px !important;
+  }
+
+  :global(.flatpickr-current-month .flatpickr-monthDropdown-months:hover) {
+    background: #2A2620 !important;
+    border-color: #B89635 !important;
+  }
+
+  :global(.flatpickr-current-month input.cur-year) {
+    font-family: 'Cinzel', serif !important;
+    font-weight: 700 !important;
+    color: #C9A84C !important;
+  }
+
+  :global(.flatpickr-months .flatpickr-prev-month),
+  :global(.flatpickr-months .flatpickr-next-month) {
+    color: #C9A84C !important;
+    fill: #C9A84C !important;
+    padding: 6px !important;
+  }
+
+  :global(.flatpickr-months .flatpickr-prev-month:hover svg),
+  :global(.flatpickr-months .flatpickr-next-month:hover svg) {
+    fill: #FAF8F5 !important;
   }
 
   :global(.flatpickr-weekday) {
@@ -954,7 +996,7 @@ import Layout from '../layouts/Layout.astro';
       const data = await res.json();
       if (data && Array.isArray(data.busySlots)) {
         busySlots = data.busySlots;
-        if (data.source === 'live' && availBadge) {
+        if ((data.source === 'live' || data.source === 'cache') && availBadge) {
           availBadge.style.display = 'inline-block';
         }
         if (dateInput && dateInput.value) {
