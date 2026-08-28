@@ -1070,6 +1070,23 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
+  let formStarted = false;
+  const trackFormStarted = (triggerField: string) => {
+    if (!formStarted && typeof (window as any).posthog !== 'undefined') {
+      formStarted = true;
+      (window as any).posthog.capture('inquiry_form_started', {
+        entry_field: triggerField,
+        initial_service: (document.getElementById('serviceType') as HTMLSelectElement)?.value || 'General'
+      });
+    }
+  };
+
+  document.querySelectorAll('#booking-form input, #booking-form select, #booking-form textarea').forEach(input => {
+    input.addEventListener('focus', () => {
+      trackFormStarted((input as HTMLElement).getAttribute('name') || (input as HTMLElement).id || 'unknown');
+    }, { once: true });
+  });
+
   const renderedAtInput = document.getElementById('form_rendered_at') as HTMLInputElement | null;
   if (renderedAtInput) {
     renderedAtInput.value = Date.now().toString();

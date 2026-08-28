@@ -1149,6 +1149,16 @@ const testimonials = [
       showImage(idx);
       lb!.classList.add('lb-open');
       document.body.style.overflow = 'hidden';
+
+      // Track Home Gallery Photo Engagement in PostHog
+      if (typeof (window as any).posthog !== 'undefined' && items[idx]) {
+        (window as any).posthog.capture('photo_viewed_in_lightbox', {
+          photo_title: items[idx].title || '',
+          category: items[idx].category || 'Featured',
+          location: items[idx].location || '',
+          image_src: items[idx].src || ''
+        });
+      }
     }
 
     function closeLb() {

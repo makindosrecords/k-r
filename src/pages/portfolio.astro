@@ -610,6 +610,16 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
     showImage(idx >= 0 ? idx : 0);
     lb!.classList.add('lb-open');
     document.body.style.overflow = 'hidden';
+
+    // Track Lightbox Photo Engagement in PostHog
+    if (typeof (window as any).posthog !== 'undefined') {
+      (window as any).posthog.capture('photo_viewed_in_lightbox', {
+        photo_title: item.title || '',
+        category: item.cat || '',
+        location: item.loc || '',
+        image_src: item.image || ''
+      });
+    }
   }
 
   function closeLightbox() {
