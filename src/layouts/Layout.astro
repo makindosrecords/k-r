@@ -540,6 +540,30 @@ const schemaData = {
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .img-wipe, .word-reveal').forEach(el => {
       observer.observe(el);
     });
+
+    // ─── HERO ZOOM TRANSITION & PARALLAX ───
+    const heroBg = document.querySelector('.hero-bg') as HTMLElement | null;
+    const ctaBgImg = document.querySelector('.cta-bg-img') as HTMLElement | null;
+
+    if (heroBg) {
+      // Trigger loaded zoom transition
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          heroBg.classList.add('loaded');
+        }, 50);
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const heroHeight = window.innerHeight;
+      if (heroBg) {
+        if (y <= heroHeight) {
+          heroBg.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+        }
+      }
+      if (ctaBgImg) ctaBgImg.style.transform = `scale(1.05) translateY(${-y * 0.05}px)`;
+    }, { passive: true });
   }
 
   // ─── GLOBAL EVENT DELEGATION FOR POSTHOG (INSTANT CAPTURE) ───
