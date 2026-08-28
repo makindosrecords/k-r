@@ -570,13 +570,14 @@ const schemaData = {
     }
 
     // 2. Lightbox Photo Clicks (Portfolio & Home Gallery)
-    const artCard = target?.closest('.art-plate-card, .gallery-card') as HTMLElement | null;
+    const artCard = target?.closest('.art-plate-card, .gallery-card, [data-category], [data-image]') as HTMLElement | null;
     if (artCard) {
-      const title = artCard.getAttribute('data-title') || artCard.querySelector('img')?.getAttribute('alt') || 'Featured Work';
+      const title = artCard.getAttribute('data-title') || artCard.querySelector('img')?.getAttribute('alt') || 'Featured Photo';
       const category = artCard.getAttribute('data-cat') || artCard.getAttribute('data-category') || 'Portfolio';
       const location = artCard.getAttribute('data-loc') || '';
       const src = artCard.getAttribute('data-image') || artCard.querySelector('img')?.getAttribute('src') || '';
 
+      console.log('[PostHog] Capturing photo_viewed_in_lightbox:', title, category);
       (window as any).posthog.capture('photo_viewed_in_lightbox', {
         photo_title: title,
         category: category,
@@ -587,12 +588,13 @@ const schemaData = {
     }
 
     // 3. Film / Video Modal Clicks (Weddings & Real Estate)
-    const videoCard = target?.closest('.film-preview-card') as HTMLElement | null;
+    const videoCard = target?.closest('.film-preview-card, [data-video-id]') as HTMLElement | null;
     if (videoCard) {
       const videoTitle = videoCard.getAttribute('data-video-title') || 'Featured Film';
       const videoId = videoCard.getAttribute('data-video-id') || '';
       const category = window.location.pathname.includes('wedding') ? 'Weddings & Couples' : 'Real Estate';
 
+      console.log('[PostHog] Capturing video_modal_played:', videoTitle);
       (window as any).posthog.capture('video_modal_played', {
         video_title: videoTitle,
         video_id: videoId,
