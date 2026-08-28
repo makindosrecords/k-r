@@ -496,169 +496,178 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
 </style>
 
 <script>
-  const cards = document.querySelectorAll('.art-plate-card');
-  const galleryArr = Array.from(cards).map(c => ({
-    image: c.getAttribute('data-image') || '',
-    title: c.getAttribute('data-title') || '',
-    cat: c.getAttribute('data-cat') || '',
-    loc: c.getAttribute('data-loc') || '',
-    el: c as HTMLElement
-  }));
+  function initPortfolioPage() {
+    const cards = document.querySelectorAll('.art-plate-card');
+    const galleryArr = Array.from(cards).map(c => ({
+      image: c.getAttribute('data-image') || '',
+      title: c.getAttribute('data-title') || '',
+      cat: c.getAttribute('data-cat') || '',
+      loc: c.getAttribute('data-loc') || '',
+      el: c as HTMLElement
+    }));
 
-  // ─── FILTER TABS ───
-  const filterBtns = document.querySelectorAll('.col-tab-btn');
+    // ─── FILTER TABS ───
+    const filterBtns = document.querySelectorAll('.col-tab-btn');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-      const selectedCat = btn.getAttribute('data-category');
+        const selectedCat = btn.getAttribute('data-category');
 
-      cards.forEach(card => {
-        const cardCat = card.getAttribute('data-category');
-        const shouldShow = selectedCat === 'All Works' || cardCat === selectedCat;
+        cards.forEach(card => {
+          const cardCat = card.getAttribute('data-category');
+          const shouldShow = selectedCat === 'All Works' || cardCat === selectedCat;
 
-        if (shouldShow) {
-          (card as HTMLElement).style.display = 'flex';
-          (card as HTMLElement).style.opacity = '1';
-          (card as HTMLElement).style.transform = 'translateY(0)';
-        } else {
-          (card as HTMLElement).style.opacity = '0';
-          (card as HTMLElement).style.transform = 'translateY(8px)';
-          setTimeout(() => {
-            if ((card as HTMLElement).style.opacity === '0') {
-              (card as HTMLElement).style.display = 'none';
-            }
-          }, 250);
-        }
+          if (shouldShow) {
+            (card as HTMLElement).style.display = 'flex';
+            (card as HTMLElement).style.opacity = '1';
+            (card as HTMLElement).style.transform = 'translateY(0)';
+          } else {
+            (card as HTMLElement).style.opacity = '0';
+            (card as HTMLElement).style.transform = 'translateY(8px)';
+            setTimeout(() => {
+              if ((card as HTMLElement).style.opacity === '0') {
+                (card as HTMLElement).style.display = 'none';
+              }
+            }, 250);
+          }
+        });
       });
     });
-  });
 
-  // ─── INSTANT CINEMATIC LIGHTBOX ───
-  let lb = document.getElementById('kr-lightbox');
-  if (!lb) {
-    lb = document.createElement('div');
-    lb.id = 'kr-lightbox';
-    lb.innerHTML = `
-      <div class="lb-header">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <span style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;color:#A3802C;font-weight:500;">K&amp;R PHOTOGRAPHY</span>
-          <span style="width:1px;height:14px;background:rgba(163,128,44,0.3);"></span>
-          <span id="lb-counter" style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;color:#3D3934;"></span>
-        </div>
-        <button class="lb-close-btn lb-btn" id="lb-close" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <div class="lb-stage" id="lb-stage">
-        <button class="lb-nav-btn prev lb-btn" id="lb-prev" aria-label="Previous">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="lb-img-wrap" id="lb-img-wrap" style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-          <img id="lb-stage-img" class="lb-stage-img" src="" alt="" />
-        </div>
-        <button class="lb-nav-btn next lb-btn" id="lb-next" aria-label="Next">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-
-      <div class="lb-footer">
-        <div class="lb-info-row" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
-          <div>
-            <div id="lb-title" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#11100F;"></div>
-            <div id="lb-meta" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-top:4px;"></div>
+    // ─── INSTANT CINEMATIC LIGHTBOX ───
+    let lb = document.getElementById('kr-lightbox');
+    if (!lb) {
+      lb = document.createElement('div');
+      lb.id = 'kr-lightbox';
+      lb.innerHTML = `
+        <div class="lb-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.25em;color:#A3802C;font-weight:500;">K&amp;R PHOTOGRAPHY</span>
+            <span style="width:1px;height:14px;background:rgba(163,128,44,0.3);"></span>
+            <span id="lb-counter" style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;color:#3D3934;"></span>
           </div>
-          <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.16em;color:#3D3934;text-align:right;" class="hide-mobile">
-            ← → Navigate &nbsp;·&nbsp; Esc Close
+          <button class="lb-close-btn lb-btn" id="lb-close" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="lb-stage" id="lb-stage">
+          <button class="lb-nav-btn prev lb-btn" id="lb-prev" aria-label="Previous">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="lb-img-wrap" id="lb-img-wrap" style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+            <img id="lb-stage-img" class="lb-stage-img" src="" alt="" />
+          </div>
+          <button class="lb-nav-btn next lb-btn" id="lb-next" aria-label="Next">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="lb-footer">
+          <div class="lb-info-row" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+            <div>
+              <div id="lb-title" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:#11100F;"></div>
+              <div id="lb-meta" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#A3802C;margin-top:4px;"></div>
+            </div>
+            <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.16em;color:#3D3934;text-align:right;" class="hide-mobile">
+              ← → Navigate &nbsp;·&nbsp; Esc Close
+            </div>
           </div>
         </div>
-      </div>
-    `;
-    document.body.appendChild(lb);
-  }
-
-  const lbStageImg = lb.querySelector('#lb-stage-img') as HTMLImageElement;
-  const lbTitle = lb.querySelector('#lb-title') as HTMLElement;
-  const lbMeta = lb.querySelector('#lb-meta') as HTMLElement;
-  const lbCounter = lb.querySelector('#lb-counter') as HTMLElement;
-
-  let currentIdx = -1;
-
-  function getVisibleItems() {
-    return galleryArr.filter(item => item.el.style.display !== 'none');
-  }
-
-  function showImage(targetIdx: number) {
-    const visible = getVisibleItems();
-    if (!visible.length) return;
-    currentIdx = ((targetIdx % visible.length) + visible.length) % visible.length;
-    const item = visible[currentIdx];
-
-    lbStageImg.src = item.image;
-    lbStageImg.alt = item.title;
-    lbTitle.textContent = item.title;
-    lbMeta.textContent = `${item.cat} · ${item.loc}`;
-    lbCounter.textContent = `${currentIdx + 1} / ${visible.length}`;
-  }
-
-  function openLightbox(item: any) {
-    const visible = getVisibleItems();
-    const idx = visible.indexOf(item);
-    showImage(idx >= 0 ? idx : 0);
-    lb!.classList.add('lb-open');
-    document.body.style.overflow = 'hidden';
-
-    // Track Lightbox Photo Engagement in PostHog
-    if (typeof (window as any).posthog !== 'undefined') {
-      (window as any).posthog.capture('photo_viewed_in_lightbox', {
-        photo_title: item.title || '',
-        category: item.cat || '',
-        location: item.loc || '',
-        image_src: item.image || ''
-      });
+      `;
+      document.body.appendChild(lb);
     }
+
+    const lbStageImg = lb.querySelector('#lb-stage-img') as HTMLImageElement;
+    const lbTitle = lb.querySelector('#lb-title') as HTMLElement;
+    const lbMeta = lb.querySelector('#lb-meta') as HTMLElement;
+    const lbCounter = lb.querySelector('#lb-counter') as HTMLElement;
+
+    let currentIdx = -1;
+
+    function getVisibleItems() {
+      return galleryArr.filter(item => item.el.style.display !== 'none');
+    }
+
+    function showImage(targetIdx: number) {
+      const visible = getVisibleItems();
+      if (!visible.length) return;
+      currentIdx = ((targetIdx % visible.length) + visible.length) % visible.length;
+      const item = visible[currentIdx];
+
+      lbStageImg.src = item.image;
+      lbStageImg.alt = item.title;
+      lbTitle.textContent = item.title;
+      lbMeta.textContent = `${item.cat} · ${item.loc}`;
+      lbCounter.textContent = `${currentIdx + 1} / ${visible.length}`;
+    }
+
+    function openLightbox(item: any) {
+      const visible = getVisibleItems();
+      const idx = visible.indexOf(item);
+      showImage(idx >= 0 ? idx : 0);
+      lb!.classList.add('lb-open');
+      document.body.style.overflow = 'hidden';
+
+      // Track Lightbox Photo Engagement in PostHog
+      if (typeof (window as any).posthog !== 'undefined') {
+        (window as any).posthog.capture('photo_viewed_in_lightbox', {
+          photo_title: item.title || '',
+          category: item.cat || '',
+          location: item.loc || '',
+          image_src: item.image || ''
+        });
+      }
+    }
+
+    function closeLightbox() {
+      lb!.classList.remove('lb-open');
+      document.body.style.overflow = '';
+    }
+
+    galleryArr.forEach(item => {
+      item.el.addEventListener('click', () => openLightbox(item));
+    });
+
+    lb.querySelector('#lb-close')?.addEventListener('click', closeLightbox);
+    lb.querySelector('#lb-prev')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx - 1); });
+    lb.querySelector('#lb-next')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx + 1); });
+
+    lb.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.id === 'lb-stage' || target.id === 'lb-img-wrap' || target.id === 'kr-lightbox' || target.closest('#lb-close')) {
+        closeLightbox();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (!lb!.classList.contains('lb-open')) return;
+      if (e.key === 'ArrowLeft')  showImage(currentIdx - 1);
+      if (e.key === 'ArrowRight') showImage(currentIdx + 1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    let wheelCooldown = false;
+    window.addEventListener('wheel', (e) => {
+      if (!lb!.classList.contains('lb-open')) return;
+      if (wheelCooldown) return;
+
+      if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
+        wheelCooldown = true;
+        const dir = (e.deltaY > 0 || e.deltaX > 0) ? 1 : -1;
+        showImage(currentIdx + dir);
+        setTimeout(() => { wheelCooldown = false; }, 200);
+      }
+    }, { passive: true });
   }
 
-  function closeLightbox() {
-    lb!.classList.remove('lb-open');
-    document.body.style.overflow = '';
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolioPage);
+  } else {
+    initPortfolioPage();
   }
-
-  galleryArr.forEach(item => {
-    item.el.addEventListener('click', () => openLightbox(item));
-  });
-
-  lb.querySelector('#lb-close')?.addEventListener('click', closeLightbox);
-  lb.querySelector('#lb-prev')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx - 1); });
-  lb.querySelector('#lb-next')?.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIdx + 1); });
-
-  lb.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (target.id === 'lb-stage' || target.id === 'lb-img-wrap' || target.id === 'kr-lightbox' || target.closest('#lb-close')) {
-      closeLightbox();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (!lb!.classList.contains('lb-open')) return;
-    if (e.key === 'ArrowLeft')  showImage(currentIdx - 1);
-    if (e.key === 'ArrowRight') showImage(currentIdx + 1);
-    if (e.key === 'Escape') closeLightbox();
-  });
-
-  let wheelCooldown = false;
-  window.addEventListener('wheel', (e) => {
-    if (!lb!.classList.contains('lb-open')) return;
-    if (wheelCooldown) return;
-
-    if (Math.abs(e.deltaY) > 12 || Math.abs(e.deltaX) > 12) {
-      wheelCooldown = true;
-      const dir = (e.deltaY > 0 || e.deltaX > 0) ? 1 : -1;
-      showImage(currentIdx + dir);
-      setTimeout(() => { wheelCooldown = false; }, 200);
-    }
-  }, { passive: true });
+  document.addEventListener('astro:page-load', initPortfolioPage);
 </script>
