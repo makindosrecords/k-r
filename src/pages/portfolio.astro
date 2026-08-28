@@ -146,6 +146,9 @@ const categories = ['All Works', 'Weddings & Couples', 'Family & Lifestyle', 'Re
         {allPortfolioItems.map((item, idx) => (
           <article
             class="art-plate-card"
+            role="button"
+            tabindex="0"
+            aria-label={`View ${item.title} in fullscreen lightbox`}
             data-category={item.category}
             data-index={idx}
             data-image={item.image}
