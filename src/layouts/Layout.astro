@@ -541,23 +541,31 @@ const schemaData = {
       observer.observe(el);
     });
 
-    // ─── HERO BG LOAD ANIMATION ───
-    document.querySelectorAll('.hero-bg').forEach(el => {
-      const heroEl = el as HTMLElement;
-      // Extract background-image from inline style or computed style
-      const styleBg = heroEl.style.backgroundImage || window.getComputedStyle(heroEl).backgroundImage;
-      if (styleBg && styleBg !== 'none') {
-        const src = styleBg.replace(/url\(["']?(.*?)["']?\)/, '$1');
-        const img = new Image();
-        img.onload = () => heroEl.classList.add('loaded');
-        img.src = src;
-        if (img.complete) {
-          heroEl.classList.add('loaded');
+    // ─── POSTHOG CALL & EMAIL CLICK TRACKING ───
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const phone = link.getAttribute('href')?.replace('tel:', '') || '(407) 497-9239';
+        if (typeof (window as any).posthog !== 'undefined') {
+          (window as any).posthog.capture('phone_call_clicked', {
+            phone_number: phone,
+            page_location: window.location.pathname,
+            link_text: link.textContent?.trim() || 'Call Button'
+          });
         }
-      } else {
-        // Fallback: Add loaded immediately if no background image extracted
-        heroEl.classList.add('loaded');
-      }
+      });
+    });
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const email = link.getAttribute('href')?.replace('mailto:', '') || 'kimberly@kandrpix.com';
+        if (typeof (window as any).posthog !== 'undefined') {
+          (window as any).posthog.capture('email_link_clicked', {
+            email_address: email,
+            page_location: window.location.pathname,
+            link_text: link.textContent?.trim() || 'Email Link'
+          });
+        }
+      });
     });
   }
 
