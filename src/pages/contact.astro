@@ -163,31 +163,27 @@ import Layout from '../layouts/Layout.astro';
               </label>
               <div class="time-slot-grid">
                 <label class="time-slot-btn">
-                  <input type="radio" name="timeWindow" value="Morning (8:00 AM – 11:30 AM)" checked />
+                  <input type="radio" name="timeWindow" value="Morning" checked />
                   <span class="slot-content">
                     <span class="slot-title">Morning</span>
-                    <span class="slot-time">8:00 – 11:30 AM</span>
                   </span>
                 </label>
                 <label class="time-slot-btn">
-                  <input type="radio" name="timeWindow" value="Early Afternoon (12:00 PM – 3:30 PM)" />
+                  <input type="radio" name="timeWindow" value="Afternoon" />
                   <span class="slot-content">
                     <span class="slot-title">Afternoon</span>
-                    <span class="slot-time">12:00 – 3:30 PM</span>
                   </span>
                 </label>
                 <label class="time-slot-btn">
-                  <input type="radio" name="timeWindow" value="Golden Hour / Sunset (4:30 PM – 7:30 PM)" />
+                  <input type="radio" name="timeWindow" value="Golden Hour" />
                   <span class="slot-content">
                     <span class="slot-title">Golden Hour</span>
-                    <span class="slot-time">4:30 – 7:30 PM</span>
                   </span>
                 </label>
                 <label class="time-slot-btn">
-                  <input type="radio" name="timeWindow" value="Full Day Coverage (Weddings / Events)" />
+                  <input type="radio" name="timeWindow" value="All Day" />
                   <span class="slot-content">
-                    <span class="slot-title">Full Day</span>
-                    <span class="slot-time">Weddings &amp; Events</span>
+                    <span class="slot-title">All Day</span>
                   </span>
                 </label>
               </div>
@@ -680,9 +676,15 @@ import Layout from '../layouts/Layout.astro';
   /* Time Window Selector Grid */
   .time-slot-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin-top: 2px;
+  }
+
+  @media (max-width: 580px) {
+    .time-slot-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .time-slot-btn {
@@ -699,27 +701,26 @@ import Layout from '../layouts/Layout.astro';
 
   .slot-content {
     display: flex;
-    flex-direction: column;
-    padding: 8px 12px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 6px;
     background: #FAF8F5;
     border: 1px solid rgba(184, 150, 53, 0.25);
     border-radius: 8px;
     transition: all 0.2s ease;
+    min-height: 42px;
+    box-sizing: border-box;
   }
 
   .slot-title {
     font-family: 'Cinzel', serif;
-    font-size: 10px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: #11100F;
     text-transform: uppercase;
-  }
-
-  .slot-time {
-    font-size: 11.5px;
-    color: #7A726C;
-    margin-top: 1px;
+    white-space: nowrap;
   }
 
   .time-slot-btn:hover .slot-content {
@@ -729,7 +730,7 @@ import Layout from '../layouts/Layout.astro';
 
   .time-slot-btn input[type="radio"]:checked + .slot-content {
     border-color: #B89635;
-    background: rgba(184, 150, 53, 0.08);
+    background: rgba(184, 150, 53, 0.12);
     box-shadow: 0 0 0 2px rgba(184, 150, 53, 0.25);
   }
 
@@ -1039,7 +1040,7 @@ import Layout from '../layouts/Layout.astro';
           isOverlapping = true;
         } else if (val.includes('Golden Hour') && startHour >= 16) {
           isOverlapping = true;
-        } else if (val.includes('Full Day')) {
+        } else if (val.includes('All Day') || val.includes('Full Day')) {
           isOverlapping = true;
         }
       });
