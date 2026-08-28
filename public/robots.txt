@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://kandrpix.com/sitemap-index.xml
-Sitemap: https://kandrpix.com/sitemap-0.xml
+Sitemap: https://kandrpix.com/sitemap.xml
+
