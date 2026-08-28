@@ -545,10 +545,13 @@ const schemaData = {
   // ─── GLOBAL EVENT DELEGATION FOR POSTHOG (INSTANT CAPTURE) ───
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement | null;
+    if (typeof (window as any).posthog === 'undefined') return;
+
+    // 1. Direct Phone & Email clicks
     const telLink = target?.closest('a[href^="tel:"]') as HTMLAnchorElement | null;
     const mailtoLink = target?.closest('a[href^="mailto:"]') as HTMLAnchorElement | null;
 
-    if (telLink && typeof (window as any).posthog !== 'undefined') {
+    if (telLink) {
       const phone = telLink.getAttribute('href')?.replace('tel:', '') || '(407) 497-9239';
       (window as any).posthog.capture('phone_call_clicked', {
         phone_number: phone,
@@ -557,12 +560,44 @@ const schemaData = {
       });
     }
 
-    if (mailtoLink && typeof (window as any).posthog !== 'undefined') {
+    if (mailtoLink) {
       const email = mailtoLink.getAttribute('href')?.replace('mailto:', '') || 'kimberly@kandrpix.com';
       (window as any).posthog.capture('email_link_clicked', {
         email_address: email,
         page_location: window.location.pathname,
         link_text: mailtoLink.innerText?.trim() || 'Email Link'
+      });
+    }
+
+    // 2. Lightbox Photo Clicks (Portfolio & Home Gallery)
+    const artCard = target?.closest('.art-plate-card, .gallery-card') as HTMLElement | null;
+    if (artCard) {
+      const title = artCard.getAttribute('data-title') || artCard.querySelector('img')?.getAttribute('alt') || 'Featured Work';
+      const category = artCard.getAttribute('data-cat') || artCard.getAttribute('data-category') || 'Portfolio';
+      const location = artCard.getAttribute('data-loc') || '';
+      const src = artCard.getAttribute('data-image') || artCard.querySelector('img')?.getAttribute('src') || '';
+
+      (window as any).posthog.capture('photo_viewed_in_lightbox', {
+        photo_title: title,
+        category: category,
+        location: location,
+        image_src: src,
+        page_location: window.location.pathname
+      });
+    }
+
+    // 3. Film / Video Modal Clicks (Weddings & Real Estate)
+    const videoCard = target?.closest('.film-preview-card') as HTMLElement | null;
+    if (videoCard) {
+      const videoTitle = videoCard.getAttribute('data-video-title') || 'Featured Film';
+      const videoId = videoCard.getAttribute('data-video-id') || '';
+      const category = window.location.pathname.includes('wedding') ? 'Weddings & Couples' : 'Real Estate';
+
+      (window as any).posthog.capture('video_modal_played', {
+        video_title: videoTitle,
+        video_id: videoId,
+        category: category,
+        page_location: window.location.pathname
       });
     }
   }, { capture: true });
