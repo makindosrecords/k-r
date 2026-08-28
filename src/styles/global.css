@@ -338,6 +338,13 @@ body {
   align-items: flex-end;
   padding: 80px 60px;
   background: var(--black);
+  z-index: 1;
+}
+
+.hero ~ section,
+.hero ~ div:not(.modal-card):not(.nav-dropdown):not(.site-header):not(.eg-lb-dialog) {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-bg {
