@@ -157,6 +157,7 @@ export const POST: APIRoute = async ({ request }) => {
       resend.emails.send({
         from: `Kimberly & Rick | K&R Photography <${fromDomain}>`,
         to: [clientRecipient],
+        replyTo: studioEmail,
         subject: `Thank you for reaching out to K&R Photography, ${name}!`,
         html: `
           <!DOCTYPE html>
