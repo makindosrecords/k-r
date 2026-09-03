@@ -157,10 +157,7 @@ import Layout from '../layouts/Layout.astro';
 
             <!-- Interactive Time Window Selector -->
             <div class="f-wrap" id="time-window-container" style="margin-top: 4px; margin-bottom: 16px;">
-              <label class="f-label" style="display:flex; justify-content:space-between; align-items:center;">
-                <span>Preferred Shoot Time Window</span>
-                <span id="avail-badge" style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#2D6A4F; display:none;">● Live Availability Active</span>
-              </label>
+              <label class="f-label">Preferred Shoot Time Window</label>
               <div class="time-slot-grid">
                 <label class="time-slot-btn">
                   <input type="radio" name="timeWindow" value="Morning" checked />
@@ -966,9 +963,6 @@ import Layout from '../layouts/Layout.astro';
 
   // Set minimum date to today and initialize Flatpickr calendar
   const dateInput = document.getElementById('preferredDate') as HTMLInputElement | null;
-  const availBadge = document.getElementById('avail-badge') as HTMLSpanElement | null;
-  const slotButtons = document.querySelectorAll('.time-slot-btn') as NodeListOf<HTMLLabelElement>;
-  let busySlots: Array<{ start: string; end: string; isAllDay: boolean }> = [];
   let fpInstance: any = null;
 
   function initDatePicker() {
@@ -981,95 +975,12 @@ import Layout from '../layouts/Layout.astro';
         altFormat: 'F j, Y',
         animate: true,
         disableMobile: true, // Use custom luxury theme everywhere
-        onChange: function(selectedDates: Date[], dateStr: string) {
-          updateSlotAvailability(dateStr);
-        }
       });
     } else {
       setTimeout(initDatePicker, 100);
     }
   }
   initDatePicker();
-
-  async function initCalendarAvailability() {
-    try {
-      const res = await fetch('/api/calendar-availability');
-      const data = await res.json();
-      if (data && Array.isArray(data.busySlots)) {
-        busySlots = data.busySlots;
-        if ((data.source === 'live' || data.source === 'cache') && availBadge) {
-          availBadge.style.display = 'inline-block';
-        }
-        if (dateInput && dateInput.value) {
-          updateSlotAvailability(dateInput.value);
-        }
-      }
-    } catch (e) {
-      console.warn('Could not fetch live calendar availability:', e);
-    }
-  }
-  initCalendarAvailability();
-
-  function updateSlotAvailability(selectedDateStr: string) {
-    if (!selectedDateStr) return;
-    
-    // Check overlapping busy slots for the selected day
-    const dayEvents = busySlots.filter(slot => {
-      const slotStart = new Date(slot.start).toISOString().split('T')[0];
-      return slotStart === selectedDateStr;
-    });
-
-    slotButtons.forEach(btn => {
-      const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement;
-      if (!radio) return;
-      const val = radio.value;
-
-      let isOverlapping = false;
-
-      dayEvents.forEach(evt => {
-        if (evt.isAllDay) {
-          isOverlapping = true;
-          return;
-        }
-
-        const startHour = new Date(evt.start).getHours();
-
-        if (val.includes('Morning') && startHour < 12) {
-          isOverlapping = true;
-        } else if (val.includes('Afternoon') && startHour >= 12 && startHour < 16) {
-          isOverlapping = true;
-        } else if (val.includes('Golden Hour') && startHour >= 16) {
-          isOverlapping = true;
-        } else if (val.includes('All Day') || val.includes('Full Day')) {
-          isOverlapping = true;
-        }
-      });
-
-      if (isOverlapping) {
-        btn.classList.add('disabled');
-        radio.disabled = true;
-        if (radio.checked) {
-          radio.checked = false;
-        }
-      } else {
-        btn.classList.remove('disabled');
-        radio.disabled = false;
-      }
-    });
-
-    // Auto-select first available radio if current is disabled
-    const checkedRadio = document.querySelector('input[name="timeWindow"]:checked') as HTMLInputElement | null;
-    if (!checkedRadio) {
-      const firstAvailable = document.querySelector('.time-slot-btn:not(.disabled) input[type="radio"]') as HTMLInputElement | null;
-      if (firstAvailable) firstAvailable.checked = true;
-    }
-  }
-
-  if (dateInput) {
-    dateInput.addEventListener('change', () => {
-      updateSlotAvailability(dateInput.value);
-    });
-  }
 
   let formStarted = false;
   const trackFormStarted = (triggerField: string) => {
