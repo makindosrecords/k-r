@@ -106,9 +106,20 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const timeDeltaMs = Date.now() - formRenderedAt;
-    // Reject submissions faster than 2 seconds or timestamps in the future
-    if (timeDeltaMs < 2000 || timeDeltaMs < 0) {
+    // Real client submissions average ~1-2 minutes in PostHog.
+    // Block automated bots submitting in under 12 seconds (12,000ms) or clock-skewed future timestamps.
+    if (timeDeltaMs < 12000 || timeDeltaMs < 0) {
       console.warn(`[Security] Rapid submission detected (${timeDeltaMs}ms). Silently dropping bot payload.`);
+      return new Response(
+        JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Block automated scripts that interacted with the form for under 7 seconds
+    const interactionTimeMs = Number(body.interaction_time || 0);
+    if (body.interaction_time !== undefined && (interactionTimeMs < 7000 || isNaN(interactionTimeMs))) {
+      console.warn(`[Security] Rapid interaction duration detected (${interactionTimeMs}ms). Silently dropping bot payload.`);
       return new Response(
         JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }

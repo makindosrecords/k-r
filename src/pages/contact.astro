@@ -112,6 +112,7 @@ import Layout from '../layouts/Layout.astro';
               <label for="company_name">Company</label>
               <input type="text" id="company_name" name="company_name" tabindex="-1" autocomplete="off" />
               <input type="hidden" id="form_rendered_at" name="form_rendered_at" value="" />
+              <input type="hidden" id="interaction_time" name="interaction_time" value="" />
             </div>
 
             <div class="f-row-2">
@@ -985,7 +986,9 @@ import Layout from '../layouts/Layout.astro';
   initDatePicker();
 
   let formStarted = false;
+  let firstInteractionTime = 0;
   const trackFormStarted = (triggerField: string) => {
+    if (!firstInteractionTime) firstInteractionTime = Date.now();
     if (!formStarted && typeof (window as any).posthog !== 'undefined') {
       formStarted = true;
       (window as any).posthog.capture('inquiry_form_started', {
@@ -998,6 +1001,9 @@ import Layout from '../layouts/Layout.astro';
   document.querySelectorAll('#booking-form input, #booking-form select, #booking-form textarea').forEach(input => {
     input.addEventListener('focus', () => {
       trackFormStarted((input as HTMLElement).getAttribute('name') || (input as HTMLElement).id || 'unknown');
+    }, { once: true });
+    input.addEventListener('pointerdown', () => {
+      if (!firstInteractionTime) firstInteractionTime = Date.now();
     }, { once: true });
   });
 
@@ -1022,6 +1028,17 @@ import Layout from '../layouts/Layout.astro';
       if (!payload.form_rendered_at) {
         payload.form_rendered_at = renderedAtInput?.value || Date.now().toString();
       }
+
+      // Safe pacing: if an ultra-fast real client finishes in under 12 seconds,
+      // briefly hold the "Sending..." state so they are never rejected by bot-timing rules
+      const now = Date.now();
+      const renderedAt = Number(payload.form_rendered_at || now);
+      const elapsed = now - renderedAt;
+      if (elapsed < 12000) {
+        await new Promise(resolve => setTimeout(resolve, 12000 - elapsed));
+      }
+
+      payload.interaction_time = (firstInteractionTime > 0 ? Date.now() - firstInteractionTime : 12000).toString();
       try {
         const res = await fetch('/api/booking', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
