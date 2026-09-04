@@ -105,10 +105,12 @@ import Layout from '../layouts/Layout.astro';
           <div id="form-status" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:8px;font-size:13px;border:1px solid;"></div>
 
           <form id="booking-form">
-            <!-- Invisible Anti-Spam Honeypot & Timestamp Verification -->
+            <!-- Invisible Anti-Spam Honeypots & Timestamp Verification -->
             <div style="display:none !important; position:absolute; left:-9999px;" aria-hidden="true">
               <label for="website_url">Leave this field blank</label>
               <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+              <label for="company_name">Company</label>
+              <input type="text" id="company_name" name="company_name" tabindex="-1" autocomplete="off" />
               <input type="hidden" id="form_rendered_at" name="form_rendered_at" value="" />
             </div>
 
@@ -1017,6 +1019,9 @@ import Layout from '../layouts/Layout.astro';
       if (btnText) btnText.innerText = 'Sending\u2026';
       const formData = new FormData(bookingForm);
       const payload = Object.fromEntries(formData.entries());
+      if (!payload.form_rendered_at) {
+        payload.form_rendered_at = renderedAtInput?.value || Date.now().toString();
+      }
       try {
         const res = await fetch('/api/booking', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },

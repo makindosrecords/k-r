@@ -3,6 +3,70 @@ import { Resend } from 'resend';
 
 export const prerender = false;
 
+/**
+ * Detects machine-generated gibberish strings often used by automated spambots.
+ * Examples seen in recent attacks:
+ * - "wDfJhakvYOKotvVWItFECHlc"
+ * - "GFPCtfjQjqWXgCntGd"
+ * - "AEGdbpSivzXEmppmcQbU"
+ * - "WkbBBVMQBafGXlbCvB"
+ */
+function isMachineGibberish(str: string): boolean {
+  if (!str) return false;
+  const s = str.trim();
+
+  // 1. Long continuous strings without spaces (length >= 14)
+  if (s.length >= 14 && !s.includes(' ')) {
+    // Count alternating case switches (e.g., lower->upper or upper->lower)
+    let caseSwitches = 0;
+    for (let i = 1; i < s.length; i++) {
+      const prevUpper = s[i - 1] >= 'A' && s[i - 1] <= 'Z';
+      const currUpper = s[i] >= 'A' && s[i] <= 'Z';
+      const prevLower = s[i - 1] >= 'a' && s[i - 1] <= 'z';
+      const currLower = s[i] >= 'a' && s[i] <= 'z';
+      if ((prevUpper && currLower) || (prevLower && currUpper)) {
+        caseSwitches++;
+      }
+    }
+    // 4 or more case switches in an unbroken string indicates random machine casing
+    if (caseSwitches >= 4) return true;
+
+    // 6 or more consecutive consonants (e.g. GFPCtfj)
+    if (/[bcdfghjklmnpqrstvwxyz]{6,}/i.test(s)) return true;
+  }
+
+  // 2. High density of alternating single-letter casing in unbroken words (e.g. aBcDeFgH)
+  if (s.length >= 10 && !s.includes(' ') && /([a-z][A-Z][a-z][A-Z]|[A-Z][a-z][A-Z][a-z])/.test(s)) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Detects bot and throwaway email abuse patterns.
+ * e.g., Gmail dot-alias abuse like ca.t.ohuz.o.d.a.y.i.78@gmail.com (8 dots in username).
+ */
+function isBotEmail(email: string): boolean {
+  if (!email || !email.includes('@')) return false;
+  const parts = email.trim().toLowerCase().split('@');
+  if (parts.length !== 2) return false;
+  const [localPart] = parts;
+
+  // Excessive dots in username (spambots use this to bypass duplicate submission checks)
+  const dotCount = (localPart.match(/\./g) || []).length;
+  if (dotCount >= 4) {
+    return true;
+  }
+
+  // Long runs of consonants in email handle
+  if (/[bcdfghjklmnpqrstvwxyz]{7,}/i.test(localPart)) {
+    return true;
+  }
+
+  return false;
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const contentType = request.headers.get('content-type') || '';
@@ -21,28 +85,34 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // ─── LAYER 1: INVISIBLE HONEYPOT SPAM PROTECTION ───
-    const honeypot = body.website_url || body.b_name || body.honeypot;
+    const honeypot = body.website_url || body.company_name || body.b_name || body.honeypot;
     if (honeypot) {
       console.warn('[Security] Bot detected via honeypot field. Silently dropping request.');
-      // Return a simulated success so automated bots don't adapt
       return new Response(
         JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // ─── LAYER 2: TIME-DELTA SUBMISSION CHECK ───
+    // ─── LAYER 2: TIME-DELTA & DIRECT API INJECTION CHECK ───
     const formRenderedAt = Number(body.form_rendered_at || 0);
-    if (formRenderedAt > 0) {
-      const timeDeltaMs = Date.now() - formRenderedAt;
-      // If submitted in under 1.5 seconds, it is an automated script
-      if (timeDeltaMs < 1500) {
-        console.warn(`[Security] Rapid submission detected (${timeDeltaMs}ms). Silently dropping bot payload.`);
-        return new Response(
-          JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
-      }
+    // If form_rendered_at is missing or non-numeric, it is an automated script calling the API directly
+    if (!formRenderedAt || isNaN(formRenderedAt)) {
+      console.warn('[Security] Missing form_rendered_at timestamp (direct API injection). Silently dropping bot payload.');
+      return new Response(
+        JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const timeDeltaMs = Date.now() - formRenderedAt;
+    // Reject submissions faster than 2 seconds or timestamps in the future
+    if (timeDeltaMs < 2000 || timeDeltaMs < 0) {
+      console.warn(`[Security] Rapid submission detected (${timeDeltaMs}ms). Silently dropping bot payload.`);
+      return new Response(
+        JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
     // Normalize and alias all potential form field variations
@@ -55,6 +125,20 @@ export const POST: APIRoute = async ({ request }) => {
     const timeWindow = (body.timeWindow || body.time || body.preferredTime || '').trim();
     const notes = (body.details || body.message || body.projectDetails || body.vision || '').trim();
     const formattedTime = timeWindow || 'Flexible / Any Time';
+
+    // ─── LAYER 3: HEURISTIC & GIBBERISH BOT DETECTION ───
+    if (
+      isMachineGibberish(name) ||
+      isMachineGibberish(targetArea) ||
+      isBotEmail(email) ||
+      (notes && isMachineGibberish(notes))
+    ) {
+      console.warn(`[Security] Bot pattern detected via heuristics (name: "${name}", email: "${email}", location: "${targetArea}"). Silently dropping inquiry.`);
+      return new Response(
+        JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Basic Validation
     if (!name || !email || !serviceType || !targetArea) {
