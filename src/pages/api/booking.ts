@@ -44,6 +44,48 @@ function isMachineGibberish(str: string): boolean {
 }
 
 /**
+ * Detects unsolicited B2B marketing, SEO pitches, virtual assistant solicitations,
+ * or contact-form blaster spam (e.g. duplicate name in venue, marketing pitch keywords).
+ */
+function isCommercialSolicitation(name: string, targetArea: string, notes: string): boolean {
+  const normName = name.trim().toLowerCase();
+  const normArea = targetArea.trim().toLowerCase();
+  const normNotes = (notes || '').toLowerCase();
+
+  // 1. Bot artifact: target venue/location is an identical copy of the client name
+  // e.g. Name: "Christina Maltus", Venue: "Christina Maltus"
+  if (normName.length > 3 && normName === normArea) {
+    return true;
+  }
+
+  // 2. Common B2B cold-outreach & solicitation keywords completely irrelevant to photography bookings
+  const solicitationPatterns = [
+    /\bvirtual assistant/i,
+    /\btrained va\b/i,
+    /\blead generation\b/i,
+    /\bseo services\b/i,
+    /\bsearch engine optimization\b/i,
+    /\bbacklink(s)?\b/i,
+    /\bguest post(ing)?\b/i,
+    /\bgoogle ranking\b/i,
+    /\bfirst page of google\b/i,
+    /\bmarketing agency\b/i,
+    /\bweb (design|development) services\b/i,
+    /\bscale your business\b/i,
+    /\bopen to discussion\?/i,
+    /\bworkload of a \d+-person team\b/i,
+  ];
+
+  for (const pattern of solicitationPatterns) {
+    if (pattern.test(normNotes)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
  * Detects bot and throwaway email abuse patterns.
  * e.g., Gmail dot-alias abuse like ca.t.ohuz.o.d.a.y.i.78@gmail.com (8 dots in username).
  */
@@ -142,9 +184,10 @@ export const POST: APIRoute = async ({ request }) => {
       isMachineGibberish(name) ||
       isMachineGibberish(targetArea) ||
       isBotEmail(email) ||
-      (notes && isMachineGibberish(notes))
+      (notes && isMachineGibberish(notes)) ||
+      isCommercialSolicitation(name, targetArea, notes)
     ) {
-      console.warn(`[Security] Bot pattern detected via heuristics (name: "${name}", email: "${email}", location: "${targetArea}"). Silently dropping inquiry.`);
+      console.warn(`[Security] Bot pattern or solicitation detected via heuristics (name: "${name}", email: "${email}", location: "${targetArea}"). Silently dropping inquiry.`);
       return new Response(
         JSON.stringify({ success: true, message: 'Inquiry received successfully!' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
