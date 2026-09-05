@@ -22,42 +22,128 @@ const socialImageURL = new URL(image, Astro.site || 'https://kandrpix.com');
 
 const schemaData = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "PhotographyBusiness",
+  "@id": "https://kandrpix.com/#business",
   "name": "K&R Photography",
   "legalName": "K&R Photography LLC",
-  "founders": [
-    { "@type": "Person", "name": "Kimberly" },
-    { "@type": "Person", "name": "Rick" }
+  "alternateName": [
+    "K and R Photography",
+    "kandrpix",
+    "K&R Pix",
+    "Kimberly & Rick Photography"
   ],
+  "description": "Central Florida's premier husband-and-wife photography team with 20+ years of experience and 384 5-star reviews. Specializing in weddings, family portraits, and real estate photography across Orlando, Winter Park, and Central Florida.",
   "image": "https://kandrpix.com/weddings/KIM_8014-2_result.webp",
+  "logo": "https://kandrpix.com/images/logo.png",
   "url": "https://kandrpix.com",
-  "telephone": "+14074979239",
+  "telephone": "+1-407-497-9239",
   "email": "kimberly@kandrpix.com",
   "priceRange": "$$$",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Cash, Credit Card, Check",
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Kimberly Puglisi",
+      "jobTitle": "Co-Founder & Lead Photographer"
+    },
+    {
+      "@type": "Person",
+      "name": "Rick Puglisi",
+      "jobTitle": "Co-Founder & Photographer"
+    }
+  ],
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "779 South Edgemon Avenue",
+    "addressLocality": "Winter Springs",
     "addressRegion": "FL",
+    "postalCode": "32708",
     "addressCountry": "US"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 28.6794063,
+    "longitude": -81.3086296
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "08:00",
+      "closes": "22:00"
+    }
+  ],
   "areaServed": [
     { "@type": "City", "name": "Orlando" },
     { "@type": "City", "name": "Winter Park" },
-    { "@type": "City", "name": "Cocoa Beach" },
+    { "@type": "City", "name": "Winter Springs" },
     { "@type": "City", "name": "Daytona Beach" },
+    { "@type": "City", "name": "Cocoa Beach" },
     { "@type": "City", "name": "Windermere" },
     { "@type": "City", "name": "Kissimmee" },
-    { "@type": "State", "name": "Central Florida" }
+    { "@type": "AdministrativeArea", "name": "Orange County" },
+    { "@type": "AdministrativeArea", "name": "Seminole County" },
+    { "@type": "AdministrativeArea", "name": "Volusia County" },
+    { "@type": "AdministrativeArea", "name": "Brevard County" },
+    { "@type": "State", "name": "Florida" }
   ],
+  "knowsAbout": [
+    "Wedding Photography",
+    "Engagement Photography",
+    "Elopement Photography",
+    "Family Portraits",
+    "Real Estate Photography",
+    "Drone Aerial Photography"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Photography Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Wedding & Couples Photography",
+          "url": "https://kandrpix.com/weddings-and-couples"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Family & Portrait Photography",
+          "url": "https://kandrpix.com/family-and-portraits"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Real Estate & Commercial Photography",
+          "url": "https://kandrpix.com/real-estate"
+        }
+      }
+    ]
+  },
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "5.0",
+    "ratingValue": "4.9",
     "bestRating": "5.0",
-    "ratingCount": "380",
-    "reviewCount": "380"
+    "ratingCount": "384",
+    "reviewCount": "384"
   },
   "sameAs": [
-    "https://instagram.com/kandrpix",
-    "https://www.google.com/search?q=K%26R+Photography+Orlando"
+    "https://maps.google.com/maps?cid=6113433119776722823",
+    "https://instagram.com/kandrpix"
   ]
 };
 ---
